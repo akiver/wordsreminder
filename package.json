@@ -1,0 +1,117 @@
+{
+  "name": "wordsreminder",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "android:release": "yarn android --variant=release",
+    "e2e:build:ios": "RN_SRC_EXT=e2e.ts yarn ios && detox build -c ios.sim.debug",
+    "e2e:build:ios:release": "RN_SRC_EXT=e2e.ts yarn ios:release && detox build -c ios.sim.release",
+    "e2e:test:ios": " PLATFORM=ios detox test -c ios.sim.debug",
+    "e2e:test:ios:release": " PLATFORM=ios detox test -c ios.sim.release",
+    "e2e:build:android": "RN_SRC_EXT=e2e.ts yarn android && detox build -c android.emu.debug",
+    "e2e:build:android:release": "RN_SRC_EXT=e2e.ts yarn android:release && detox build -c android.emu.release",
+    "e2e:test:android": " PLATFORM=android detox test -c android.emu.debug",
+    "e2e:test:android:release": "PLATFORM=android detox test -c android.emu.release",
+    "ios": "react-native run-ios",
+    "ios:release": "yarn ios --configuration Release",
+    "lint": "tslint '{src,e2e,migrations}/**/*.{ts,tsx}'",
+    "migrate": "ts-node -P migrations/tsconfig.json migrations/index.ts",
+    "prettier": "prettier --write \"{src,e2e,migrations}/**/*.{ts,tsx}\"",
+    "pod": "pod install --project-directory=ios",
+    "pod-update": "pod update --project-directory=ios",
+    "postinstall": "patch-package",
+    "rnlink": "react-native link",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "t": "yarn test",
+    "test": "jest",
+    "tsc": "tsc",
+    "tw": "jest --watch"
+  },
+  "lint-staged": {
+    "{src,e2e,migrations}/**/*.ts*": [
+      "prettier --write",
+      "tslint",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@react-native-community/async-storage": "^1.2.2",
+    "memoize-one": "^5.0.2",
+    "react": "16.8.6",
+    "react-native": "0.59.2",
+    "react-native-config": "^0.11.7",
+    "react-native-firebase": "^5.2.3",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-svg": "^9.3.6",
+    "react-native-touch-id": "^4.4.1",
+    "react-navigation": "^3.5.1",
+    "rn-secure-storage": "^1.1.0"
+  },
+  "devDependencies": {
+    "@google-cloud/firestore": "^1.2.0",
+    "@types/detox": "9.0.5",
+    "@types/jest": "^24.0.11",
+    "@types/memoize-one": "^4.1.1",
+    "@types/node": "^11.12.0",
+    "@types/react": "^16.8.10",
+    "@types/react-native": "^0.57.42",
+    "@types/react-test-renderer": "^16.8.1",
+    "@types/webpack-env": "^1.13.9",
+    "babel-jest": "^24.5.0",
+    "detox": "^12.1.1",
+    "dotenv": "^7.0.0",
+    "firebase-admin": "^7.1.1",
+    "husky": "^1.3.1",
+    "jest": "24.5.0",
+    "lint-staged": "^8.1.5",
+    "patch-package": "^6.1.0",
+    "postinstall-postinstall": "^2.0.0",
+    "prettier": "^1.16.4",
+    "react-native-testing-library": "^1.6.1",
+    "react-native-typescript-transformer": "^1.2.12",
+    "react-test-renderer": "16.8.6",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.3.4000"
+  },
+  "detox": {
+    "test-runner": "jest",
+    "runner-config": "./e2e/jest.config.js",
+    "specs": "",
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/WordsReminder.app",
+        "build": "xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/WordsReminder.app",
+        "build": "export RCT_NO_LAUNCH_PACKAGER=true && export RN_SRC_EXT=e2e.ts && xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "android.emu.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
+        "type": "android.emulator",
+        "name": "Pixel_2_API_28"
+      },
+      "android.emu.release": {
+        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+        "build": "pushd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && popd",
+        "type": "android.emulator",
+        "name": "Pixel_2_API_28"
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

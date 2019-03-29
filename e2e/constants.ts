@@ -1,0 +1,12 @@
+const E2E_EMAIL = process.env.E2E_EMAIL as string
+const E2E_PASSWORD = process.env.E2E_PASSWORD as string
+const E2E_COLLECTION_DICTIONARIES = process.env
+  .E2E_COLLECTION_DICTIONARIES as string
+const E2E_COLLECTION_WORDS = process.env.E2E_COLLECTION_WORDS as string
+
+export {
+  E2E_EMAIL,
+  E2E_PASSWORD,
+  E2E_COLLECTION_DICTIONARIES,
+  E2E_COLLECTION_WORDS,
+}

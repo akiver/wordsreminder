@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddButton should match snapshot 1`] = `
+<TouchableHighlight
+  activeOpacity={0.85}
+  delayPressOut={100}
+  onPress={[Function]}
+  style={
+    Object {
+      "bottom": 20,
+      "position": "absolute",
+      "right": 20,
+    }
+  }
+  underlayColor="transparent"
+>
+  <PlusIcon />
+</TouchableHighlight>
+`;

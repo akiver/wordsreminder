@@ -1,0 +1,8 @@
+export const PARAM_SCREEN_TITLE = 'title'
+export const PARAM_STATUS = 'status'
+export const PARAM_HAS_FILTER_ENABLED = 'hasFilterEnabled'
+export const PARAM_DICTIONARY = 'dictionary'
+export const PARAM_DICTIONARY_ID = 'dictionaryId'
+export const PARAM_WORD = 'word'
+export const PARAM_IS_SAVE_DISABLED = 'isSaveDisabled'
+export const PARAM_ON_SAVE_PRESS = 'onSavePress'

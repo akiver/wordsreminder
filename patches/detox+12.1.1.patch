@@ -1,0 +1,24 @@
+diff --git a/node_modules/detox/android/detox/build.gradle b/node_modules/detox/android/detox/build.gradle
+index 091809f..2575a59 100644
+--- a/node_modules/detox/android/detox/build.gradle
++++ b/node_modules/detox/android/detox/build.gradle
+@@ -58,8 +58,8 @@ android {
+ dependencies {
+     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$_kotlinVersion"
+ 
+-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+-    implementation 'com.squareup.okio:okio:1.13.0'
++    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
++    implementation 'com.squareup.okio:okio:1.15.0'
+ 
+     // Versions are in-sync with the 'androidx-test-1.1.0' release/tag of the android-test github repo,
+     // used by the Detox generator. See https://github.com/android/android-test/releases/tag/androidx-test-1.1.0
+@@ -83,3 +83,7 @@ dependencies {
+     // noinspection GradleDynamicVersion
+     testImplementation "com.facebook.react:react-native:+"
+ }
++
++configurations.all {
++    resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
++}
+\ No newline at end of file
