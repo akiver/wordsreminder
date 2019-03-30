@@ -2,6 +2,9 @@
   "name": "wordsreminder",
   "version": "1.0.0",
   "private": true,
+  "author": "AkiVer",
+  "repository": "https://github.com/akiver/wordsreminder",
+  "license": "MIT",
   "scripts": {
     "android": "react-native run-android",
     "android:release": "yarn android --variant=release",

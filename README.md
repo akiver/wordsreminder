@@ -7,6 +7,8 @@ Simple mobile application to save words in dictionaries, built with [react-nativ
 
 [![WordsReminder](https://i.imgur.com/V7Jcc4s.jpg)](https://youtu.be/eg-8QK2pXhU)
 
+Click on the picture to watch a brief video ↑
+
 ## Setup
 
 **I made this application for personal use and is not intended to be on Apple / Google stores, you will have to create your own Firebase project.**
