@@ -42,7 +42,7 @@
     "@react-native-community/async-storage": "^1.2.2",
     "memoize-one": "^5.0.2",
     "react": "16.8.6",
-    "react-native": "0.59.2",
+    "react-native": "0.59.3",
     "react-native-config": "^0.11.7",
     "react-native-firebase": "^5.2.3",
     "react-native-gesture-handler": "^1.1.0",
