@@ -999,7 +999,7 @@
     source-map "^0.6.1"
     write-file-atomic "2.4.1"
 
-"@jest/types@^24.5.0", "@jest/types@^24.6.0":
+"@jest/types@^24.6.0":
   version "24.6.0"
   resolved "https://registry.yarnpkg.com/@jest/types/-/types-24.6.0.tgz#cf018e56f3ef45e81119fd613fc20a9819f4eddd"
   integrity sha512-hnCMhUokUm6A4HPE9j3pNG9N+bSFfhqje3EbIrW6YjUW2SXuyZxy1QsJdaICo1oN1o2vVSx6qlVqQYkmWVsjiA==
@@ -6551,17 +6551,7 @@ pretty-format@24.0.0-alpha.6:
     ansi-regex "^4.0.0"
     ansi-styles "^3.2.0"
 
-pretty-format@^24.0.0:
-  version "24.5.0"
-  resolved "https://akiver.com:4837/pretty-format/-/pretty-format-24.5.0.tgz#cc69a0281a62cd7242633fc135d6930cd889822d"
-  integrity sha512-/3RuSghukCf8Riu5Ncve0iI+BzVkbRU5EeUoArKARZobREycuH5O4waxvaNIloEXdb0qwgmEAed5vTpX1HNROQ==
-  dependencies:
-    "@jest/types" "^24.5.0"
-    ansi-regex "^4.0.0"
-    ansi-styles "^3.2.0"
-    react-is "^16.8.4"
-
-pretty-format@^24.6.0:
+pretty-format@^24.0.0, pretty-format@^24.6.0:
   version "24.6.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-24.6.0.tgz#66124fe5ea5c4d473337a204ece220e8fdc9806c"
   integrity sha512-xEeJZFqXgvzSEMxoZ3j4aTaax/pl1upVsfMstcIC048Id84Ve5aqX0WkAta/wFIBLDRz6Tbuj6HcoBXRNk7rtA==
@@ -6835,10 +6825,10 @@ react-native-tab-view@^1.2.0:
   dependencies:
     prop-types "^15.6.1"
 
-react-native-testing-library@^1.6.1:
-  version "1.6.1"
-  resolved "https://akiver.com:4837/react-native-testing-library/-/react-native-testing-library-1.6.1.tgz#655c6ddbca6447339a7cd8729fb574ba3cf00d69"
-  integrity sha512-plGZ3zCP5zT4nxL+4x7sdmv/OFOIGRyWceIAe6CxO2ZC9BXauhAUKP/AUNI/5fviW2EkVnNqni61RVNoqsSYEQ==
+react-native-testing-library@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-testing-library/-/react-native-testing-library-1.6.2.tgz#c578dc149dcc0321fb84e810f9fe11911ddac9e0"
+  integrity sha512-zYnkXwbAIDdbhV6ljyd5tK+Q6DacvOYjE4zNAXBV+aQ9U7zGZp6pGBmrIWs7MwVd3t6CDniC4O8dzBIbhZdBdw==
   dependencies:
     pretty-format "^24.0.0"
 
