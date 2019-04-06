@@ -168,10 +168,10 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // Firebase dependencies
-    implementation "com.google.android.gms:play-services-base:16.0.1"
-    implementation "com.google.firebase:firebase-core:16.0.4"
-    implementation "com.google.firebase:firebase-auth:16.0.5"
-    implementation "com.google.firebase:firebase-firestore:17.1.2"
+    implementation "com.google.android.gms:play-services-base:16.1.0"
+    implementation "com.google.firebase:firebase-core:16.0.8"
+    implementation "com.google.firebase:firebase-auth:16.2.1"
+    implementation "com.google.firebase:firebase-firestore:18.2.0"
 
     // Detox
     androidTestImplementation(project(path: ":detox"))
