@@ -100,7 +100,7 @@ class FiltrableList extends React.PureComponent<Props, State> {
     if (e2.updatedAt == null || e1.updatedAt == null) {
       return 0
     }
-    return e2.updatedAt.getTime() - e1.updatedAt.getTime()
+    return e2.updatedAt.toMillis() - e1.updatedAt.toMillis()
   }
 
   onCollectionUpdate = (querySnapshot: QuerySnapshot) => {

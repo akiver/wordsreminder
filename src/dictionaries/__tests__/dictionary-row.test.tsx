@@ -79,7 +79,13 @@ describe('DictionaryRow', () => {
       it('should render the update date', () => {
         const date = new Date()
         const { getByTestId, queryByText, getByType } = renderComponent({
-          updatedAt: date,
+          updatedAt: {
+            nanoseconds: 0,
+            seconds: 0,
+            isEqual: () => true,
+            toMillis: () => 0,
+            toDate: () => date,
+          },
         })
         expect(getByTestId(DICTIONARIES_ROW_UPDATED_AT)).not.toBeNull()
         expect(getByType(ClockIcon)).not.toBeNull()

@@ -140,7 +140,7 @@ class DictionaryRow extends React.Component<Props> {
                   <ClockIcon />
                   <Spacer marginLeft={5}>
                     <Text fontSize={16} color="primary050">
-                      {dictionary.updatedAt.toLocaleDateString()}
+                      {dictionary.updatedAt.toDate().toLocaleDateString()}
                     </Text>
                   </Spacer>
                 </View>
