@@ -1070,10 +1070,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@react-native-community/async-storage@^1.3.1":
-  version "1.3.1"
-  resolved "https://akiver.com:4837/@react-native-community%2fasync-storage/-/async-storage-1.3.1.tgz#66b02438289ea1f525eca65ea2535b7d6ece5eb7"
-  integrity sha512-RTQ/Jmk3j8SsRQCIu89o0TjN8/IIGCiManePhOahSKYGKn0dJw+5lSUSNDca1jboAbytsEowxZXsMSxs1hv6FA==
+"@react-native-community/async-storage@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.3.2.tgz#19249b7701cf9a2e46149e65571a1ae55f0f53d8"
+  integrity sha512-bM+Zt5Z5pt8ZWD0cduPo7kg5sSWYFwHWZc+5LPdgzTYB+pJgjzb9P/rVQsdDrZzq0cYv3z+IbI52YT6GlYF+uQ==
 
 "@react-native-community/cli@^1.2.1":
   version "1.4.1"
