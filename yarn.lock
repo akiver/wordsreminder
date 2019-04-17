@@ -7085,10 +7085,10 @@ rimraf@~2.4.0:
   dependencies:
     glob "^6.0.1"
 
-rn-secure-storage@^1.1.0:
-  version "1.1.0"
-  resolved "https://akiver.com:4837/rn-secure-storage/-/rn-secure-storage-1.1.0.tgz#7e9a379e1e0a79ab10523f409d8125ffdd94ea34"
-  integrity sha512-M47ONa28UZuzWUH//vLPf4fPHOGKms+5/0e6KndgDMzsSUSdVkuL6+Ztdbf2CiitytwKx+58Jn3gRhCBTGtX6Q==
+rn-secure-storage@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rn-secure-storage/-/rn-secure-storage-1.1.1.tgz#42bd4ddb1aca6f897e7d96b0882eaf8a71cd5c5c"
+  integrity sha512-8+pG1sBtTIcQWbMb4b9rpC3GvI/4wfRVPdRQMhCjhgHQyKoeAmmQHjJL36OysSN/msJDFfRU69EcoZot9Ubr2w==
 
 rsvp@^3.3.3:
   version "3.6.2"
