@@ -2584,13 +2584,14 @@ detect-newline@^2.1.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
   integrity sha1-9B8cEL5LAOh7XxPaaAdZ8sW/0+I=
 
-detox@^12.2.0:
-  version "12.2.0"
-  resolved "https://akiver.com:4837/detox/-/detox-12.2.0.tgz#73f3a1dd39b740fe37078b50cce19ced9fbf9a8e"
-  integrity sha512-6M5jWGxXbop+sOzZD/IhL4TgNKFPS4OJbe5mvNQyDWQL901jUsCHj+6lE/9vTcS/tNnGC/HLXHlDiTuTP38/Tg==
+detox@^12.6.1:
+  version "12.6.1"
+  resolved "https://registry.yarnpkg.com/detox/-/detox-12.6.1.tgz#c1b58d64959f0fff66c5e1ed00363e9121ed5061"
+  integrity sha512-8NCBFujw/BIfLANfoi0YMME5HvfI4+1FiE5Yd4l0QHxPK75OPhA+4m7o7PB2nWSesQQ+jYduEAZuFq3e+lskkQ==
   dependencies:
     bunyan "^1.8.12"
     bunyan-debug-stream "^1.1.0"
+    chalk "^2.4.2"
     child-process-promise "^2.2.0"
     fs-extra "^4.0.2"
     get-port "^2.1.0"
