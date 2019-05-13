@@ -58,7 +58,7 @@
     "@types/memoize-one": "^4.1.1",
     "@types/node": "^11.13.4",
     "@types/react": "^16.8.13",
-    "@types/react-native": "^0.57.43",
+    "@types/react-native": "^0.57.55",
     "@types/react-test-renderer": "^16.8.1",
     "@types/webpack-env": "^1.13.9",
     "babel-jest": "^24.7.1",
