@@ -174,7 +174,7 @@ dependencies {
     implementation "com.google.firebase:firebase-firestore:18.2.0"
 
     // Detox
-    androidTestImplementation(project(path: ":detox"))
+    androidTestImplementation('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
 }
 
