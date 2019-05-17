@@ -48,7 +48,7 @@
     "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^9.4.0",
     "react-native-touch-id": "^4.4.1",
-    "react-navigation": "^3.9.2",
+    "react-navigation": "^3.10.1",
     "rn-secure-storage": "^1.1.1"
   },
   "devDependencies": {
