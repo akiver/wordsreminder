@@ -64,7 +64,7 @@
     "babel-jest": "^24.8.0",
     "detox": "^12.8.0",
     "dotenv": "^8.0.0",
-    "firebase-admin": "^7.3.0",
+    "firebase-admin": "^8.0.0",
     "husky": "^2.3.0",
     "jest": "24.8.0",
     "lint-staged": "^8.1.7",
