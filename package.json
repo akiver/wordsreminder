@@ -62,7 +62,7 @@
     "@types/react-test-renderer": "^16.8.1",
     "@types/webpack-env": "^1.13.9",
     "babel-jest": "^24.8.0",
-    "detox": "^12.8.0",
+    "detox": "^12.10.0",
     "dotenv": "^8.0.0",
     "firebase-admin": "^7.3.0",
     "husky": "^2.3.0",
