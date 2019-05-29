@@ -1193,10 +1193,10 @@
   resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.1.tgz#9794c69c8385d0192acc471a540d1f8e0d16218a"
   integrity sha512-FhlMa34NHp9K5MY1Uz8yb+ZvuX0pnvn3jScRSNAb75KHGB8d3rEU6hqMs3Z2vjuytcMfRg6c5CHMc3wtYyD2/A==
 
-"@types/detox@9.0.5":
-  version "9.0.5"
-  resolved "https://akiver.com:4837/@types%2fdetox/-/detox-9.0.5.tgz#7f47dde33b1b7bd8cb1d63c8f830288545ba3d3d"
-  integrity sha512-4nbHjo4GRK3oUneeVL6Qbrd4FRNiDp+pwHZLFjGFKcxmV61jMkSatONYdDN9GGe9dKddVR4NIkPd9HMf/gt1vA==
+"@types/detox@12.8.0":
+  version "12.8.0"
+  resolved "https://registry.yarnpkg.com/@types/detox/-/detox-12.8.0.tgz#9466f2d91a47652d22d34e245bf68a3cf29607e8"
+  integrity sha512-elqCrb5/YmhJzANaIB+cJGgZDRAJnuHMxX7Z26JxskTn+bYU/crU0HGw3l3aW9/bhVX9cDRpnZh73Gk/toLUuw==
 
 "@types/duplexify@^3.5.0":
   version "3.6.0"
