@@ -1097,10 +1097,10 @@
   resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.2.tgz#f65d3d6389e01eeb458bd54dc8f52b95a9463bc8"
   integrity sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
 
-"@types/detox@9.0.5":
-  version "9.0.5"
-  resolved "https://registry.yarnpkg.com/@types/detox/-/detox-9.0.5.tgz#7f47dde33b1b7bd8cb1d63c8f830288545ba3d3d"
-  integrity sha512-4nbHjo4GRK3oUneeVL6Qbrd4FRNiDp+pwHZLFjGFKcxmV61jMkSatONYdDN9GGe9dKddVR4NIkPd9HMf/gt1vA==
+"@types/detox@12.8.1":
+  version "12.8.1"
+  resolved "https://registry.yarnpkg.com/@types/detox/-/detox-12.8.1.tgz#93c7783694227f9b7854996ad82e0fa49f9bd966"
+  integrity sha512-GOMa9Kuh5QduPSU1NOw5FRlWGNhXO0kjyWzy01y8PYS1fVNFxFnTd18UpnCjXocoi+U3XBVMkID/xYljk0LFPg==
 
 "@types/form-data@*":
   version "2.2.1"
@@ -2431,7 +2431,7 @@ detect-newline@^2.1.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
   integrity sha1-9B8cEL5LAOh7XxPaaAdZ8sW/0+I=
 
-detox@^12.8.0:
+detox@^12.10.3:
   version "12.10.3"
   resolved "https://registry.yarnpkg.com/detox/-/detox-12.10.3.tgz#5d31d2011629bfe89662fcc1395bbb130cc5bf73"
   integrity sha512-7oNdQnmxJACQvYBmnOO49gSQUZ+oAYbn2eybGHgvl9ZVjWpM2HWqJvhr7VuTKZ7Oitig1NN0uE3UnOrANKN0LQ==
@@ -6316,7 +6316,7 @@ react-native-config@^0.11.7:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.7.tgz#a2b323f2ecd76a4df88cbb6bc86eaa2ef9febee7"
   integrity sha512-dn5s+zhwLyE25vRT/vaEtLk/j8ZL1UZKvejORNDWakSwpOnLmFurFeaZV83IqkPlfWHXHFdsYe2IRYG1WN4WkQ==
 
-react-native-firebase@^5.3.1:
+react-native-firebase@^5.4.2:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.4.2.tgz#6a66fea38724a7e76d9486b87e02129fda266290"
   integrity sha512-xeluQo/dDYGKPvPLL0CH51T+rPVkKmEoR/aYDTDgJXXgiDwqSGAq9v414uF4p6SALLCDcNeb4IA6HA8TcFKcrQ==
@@ -6386,10 +6386,10 @@ react-native-typescript-transformer@^1.2.12:
     semver "^5.4.1"
     source-map "^0.5.6"
 
-react-native@0.59.8:
-  version "0.59.8"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.8.tgz#ade4141c777c60f5ec4889d9811d0f80a9d56547"
-  integrity sha512-x1T+/pEXrjgdH9uDzd5doJy5aFlBqW04j7ljDKIGALchhnvdFbtXXrUZ/1PfWHMrIdZxtaDt4tkSttp662GSQA==
+react-native@0.59.9:
+  version "0.59.9"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.9.tgz#c94ee4fa35121720c05235a2dd6cdd2784bf5177"
+  integrity sha512-/+8EgIZwFpYHyyJ7Zav7B6LHNrytwUQ+EKGT/QV7HSrgpf2Y5NZNeUYUHKiVKLYpBip1G32/LcAECQj37YRwGQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^1.2.1"

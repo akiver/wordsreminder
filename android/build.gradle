@@ -9,14 +9,14 @@ buildscript {
         targetSdkVersion = 28
         supportLibVersion = "28.0.0"
     }
-    ext.kotlinVersion = '1.3.0'
+    ext.kotlinVersion = '1.3.31'
     ext.detoxKotlinVersion = ext.kotlinVersion
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.google.gms:google-services:4.2.0'
 
         // NOTE: Do not place your application dependencies here; they belong
