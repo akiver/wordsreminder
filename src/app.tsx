@@ -1,6 +1,6 @@
 import React from 'react'
 import Config from 'react-native-config'
-import { StatusBar, View } from 'react-native'
+import { StatusBar, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import SplashScreen from 'react-native-splash-screen'
 import { themes, ThemeContext, Themes } from '@contexts/theme-context'
@@ -10,12 +10,40 @@ import {
   THEME_LIGHT_VALUE,
 } from '@constants/async-storage'
 import { AppStack } from '@stacks/app-stack'
+import { NavigationState } from 'react-navigation'
 
 type State = typeof initialState
 
 const initialState = Object.freeze({
   theme: themes.dark,
 })
+
+const persistenceKey = 'persistenceKey'
+const persistNavigationState = async (navState: NavigationState) => {
+  try {
+    await AsyncStorage.setItem(persistenceKey, JSON.stringify(navState))
+  } catch (error) {
+    Alert.alert(error)
+  }
+}
+
+const loadNavigationState = async () => {
+  const jsonString = await AsyncStorage.getItem(persistenceKey)
+  if (jsonString !== null) {
+    return JSON.parse(jsonString)
+  }
+
+  return null
+}
+
+function getPersistenceFunctions() {
+  return __DEV__ && Config.PERSIST_NAVIGATION === 'true'
+    ? {
+        persistNavigationState,
+        loadNavigationState,
+      }
+    : undefined
+}
 
 class App extends React.Component<null, State> {
   readonly state = initialState
@@ -61,14 +89,7 @@ class App extends React.Component<null, State> {
             backgroundColor={theme.primary100}
             barStyle={theme === themes.dark ? 'light-content' : 'dark-content'}
           />
-          <AppStack
-            screenProps={{ theme }}
-            persistenceKey={
-              __DEV__ && Config.PERSIST_NAVIGATION === 'true'
-                ? 'NavigationStateDEV'
-                : null
-            }
-          />
+          <AppStack screenProps={{ theme }} {...getPersistenceFunctions()} />
         </View>
       </ThemeContext.Provider>
     )
