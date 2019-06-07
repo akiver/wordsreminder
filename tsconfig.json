@@ -16,19 +16,24 @@
       "@contexts/*": ["src/contexts/*"],
       "@e2e/*": ["e2e/*"]
     },
-    "target": "es2015",
-    "lib": ["es2017"],
+    "target": "esnext",
+    "lib": ["es6"],
     "jsx": "react",
     "strict": true,
     "moduleResolution": "node",
-    "skipLibCheck": true,
-    "module": "es2015",
     "noEmit": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }

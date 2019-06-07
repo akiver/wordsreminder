@@ -1,6 +1,6 @@
-const { defaults: tsjPreset } = require('ts-jest/presets')
-const { pathsToModuleNameMapper } = require('ts-jest/utils')
-const { compilerOptions } = require('./tsconfig')
+const { defaults: tsjPreset } = require('ts-jest/presets') // eslint-disable-line
+const { pathsToModuleNameMapper } = require('ts-jest/utils') // eslint-disable-line
+const { compilerOptions } = require('./tsconfig') // eslint-disable-line
 
 module.exports = {
   ...tsjPreset,
@@ -18,7 +18,9 @@ module.exports = {
   transformIgnorePatterns: [
     '<rootDir>/node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation|react-native-gesture-handler/.*))',
   ],
-  setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
+  setupFilesAfterEnv: [
+    './node_modules/react-native-gesture-handler/jestSetup.js',
+  ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
