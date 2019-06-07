@@ -65,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "babel-jest": "^24.8.0",
-    "detox": "^12.10.3",
+    "detox": "^12.11.0",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
