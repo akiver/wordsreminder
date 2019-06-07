@@ -2447,10 +2447,10 @@ detect-newline@^2.1.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
   integrity sha1-9B8cEL5LAOh7XxPaaAdZ8sW/0+I=
 
-detox@^12.10.3:
-  version "12.10.3"
-  resolved "https://registry.yarnpkg.com/detox/-/detox-12.10.3.tgz#5d31d2011629bfe89662fcc1395bbb130cc5bf73"
-  integrity sha512-7oNdQnmxJACQvYBmnOO49gSQUZ+oAYbn2eybGHgvl9ZVjWpM2HWqJvhr7VuTKZ7Oitig1NN0uE3UnOrANKN0LQ==
+detox@^12.11.0:
+  version "12.11.0"
+  resolved "https://registry.yarnpkg.com/detox/-/detox-12.11.0.tgz#6b68541083cc5295e2b5d53355466be7c1645354"
+  integrity sha512-88q/RXpQFt0lbpBVfxfpZtZN3s1nn5n8PCww8I0UX88xVndmvxGOBPNnIYx6KRk1syRoHUKHBH0cyDJqF7EA6w==
   dependencies:
     "@babel/core" "^7.4.5"
     bunyan "^1.8.12"
@@ -2468,7 +2468,7 @@ detox@^12.10.3:
     tail "^2.0.0"
     telnet-client "0.15.3"
     tempfile "^2.0.0"
-    ws "^2.3.1"
+    ws "^3.3.1"
     yargs "^13.0.0"
     yargs-parser "^13.0.0"
 
@@ -6402,10 +6402,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.18.0:
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.0.tgz#d1701ca9b2941864b52f3262b35946d2c9cd88f0"
-  integrity sha512-YsdAD29M0+WY2xXZk3i0PA16olY9qZss+AuODxglXcJ+2ZBwFv+6k5tE8GS8/HKAthaajlS/WqhdgcjumOrPlg==
+prettier@^1.18.1:
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.1.tgz#2c79bdc97cbd457fc56e2f37c91cf076d69a8e07"
+  integrity sha512-cO2Lm9UuFJHhNgHSChbFddQEzNPP+sA6fX1tGmC0VNqTc2X+7EH0gpGWdEX0HfCe5+NVyOyyyWUpLKsb8LU5vg==
 
 pretty-format@24.0.0-alpha.6:
   version "24.0.0-alpha.6"
@@ -7165,11 +7165,6 @@ safe-buffer@5.1.2, safe-buffer@^5.0.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, s
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
-
-safe-buffer@~5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
-  integrity sha1-0mPKVGls2KMGtcplUekt5XkY++c=
 
 safe-json-stringify@~1:
   version "1.2.0"
@@ -8365,14 +8360,6 @@ ws@^1.1.0, ws@^1.1.5:
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
-
-ws@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-2.3.1.tgz#6b94b3e447cb6a363f785eaf94af6359e8e81c80"
-  integrity sha1-a5Sz5EfLajY/eF6vlK9jWejoHIA=
-  dependencies:
-    safe-buffer "~5.0.1"
-    ultron "~1.1.0"
 
 ws@^3.3.1:
   version "3.3.3"

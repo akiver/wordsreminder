@@ -68,7 +68,7 @@
     "@typescript-eslint/parser": "^1.9.0",
     "babel-jest": "^24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
-    "detox": "^12.10.3",
+    "detox": "^12.11.0",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
@@ -80,7 +80,7 @@
     "jest": "24.8.0",
     "lint-staged": "^8.2.0",
     "metro-react-native-babel-preset": "^0.54.1",
-    "prettier": "^1.18.0",
+    "prettier": "^1.18.1",
     "react-test-renderer": "16.8.6",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.1"
