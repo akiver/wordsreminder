@@ -1,14 +1,11 @@
 import React from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
-import { render } from 'react-native-testing-library'
-import { Header } from 'react-navigation'
+import { render } from '@testing-library/react-native'
 import {
   STATUS_IDLE,
   STATUS_ERROR,
   STATUS,
   STATUS_LOADING,
 } from '@constants/statuses'
-import { ActivityIndicator } from '@components/activity-indicator'
 import { AuthLayout } from '../auth-layout'
 
 describe('AuthLayout', () => {
@@ -16,8 +13,8 @@ describe('AuthLayout', () => {
   const Inputs = <>Inputs</>
   const SubmitButton = <>Submit</>
 
-  const renderComponent = (props?: { status: STATUS; error?: string }) => {
-    return render(
+  const createComponent = (props?: { status: STATUS; error?: string }) => {
+    return (
       <AuthLayout
         link={Link}
         inputs={Inputs}
@@ -28,73 +25,42 @@ describe('AuthLayout', () => {
     )
   }
 
-  it('should display inputs', async () => {
-    const { queryByType } = renderComponent()
+  const { rerender, queryByText, getByHintText } = render(createComponent())
 
-    expect(queryByType(() => Inputs)).toBeDefined()
+  it('should display inputs', () => {
+    expect(queryByText('Inputs')).toBeDefined()
   })
 
-  it('should display a link', async () => {
-    const { queryByType } = renderComponent()
-
-    expect(queryByType(() => Link)).toBeDefined()
+  it('should display a link', () => {
+    expect(queryByText('Link')).toBeDefined()
   })
 
-  it('should display a submit button', async () => {
-    const { queryByType } = renderComponent()
-
-    expect(queryByType(() => SubmitButton)).toBeDefined()
+  it('should display a submit button', () => {
+    expect(queryByText('Submit')).toBeDefined()
   })
 
-  describe('with an error', () => {
+  describe('when an error occured', () => {
     it('should display the error', () => {
-      const { queryByText } = renderComponent({
-        status: STATUS_ERROR,
-        error: 'An error',
-      })
+      rerender(
+        createComponent({
+          status: STATUS_ERROR,
+          error: 'An error',
+        })
+      )
 
       expect(queryByText('An error')).toBeDefined()
     })
   })
 
-  describe('while loading', () => {
-    it('should display an activity indicator', () => {
-      const { queryByType } = renderComponent({
-        status: STATUS_LOADING,
-      })
+  describe('when loading', () => {
+    it('should display a loading indicator', () => {
+      rerender(
+        createComponent({
+          status: STATUS_LOADING,
+        })
+      )
 
-      expect(queryByType(ActivityIndicator)).toBeDefined()
-    })
-  })
-
-  describe('KeyboardAvoidingView', () => {
-    it('should have the right vertical offset', () => {
-      Object.defineProperty(Header, 'HEIGHT', {
-        get: jest.fn(() => 10),
-      })
-      const { getByType } = renderComponent()
-      const offset = getByType(KeyboardAvoidingView).props
-        .keyboardVerticalOffset
-
-      expect(offset).toBe(20)
-    })
-
-    describe('iOS', () => {
-      it('should have a behavior prop', () => {
-        Platform.OS = 'ios'
-        const { getByType } = renderComponent()
-
-        expect(getByType(KeyboardAvoidingView).props.behavior).toBe('padding')
-      })
-    })
-
-    describe('Android', () => {
-      it('should not have a behavior prop', () => {
-        Platform.OS = 'android'
-        const { getByType } = renderComponent()
-
-        expect(getByType(KeyboardAvoidingView).props.behavior).toBeUndefined()
-      })
+      expect(getByHintText('Loading')).toBeDefined()
     })
   })
 })

@@ -1059,6 +1059,14 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@testing-library/react-native@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-4.0.2.tgz#6b6888788a7bd3377e75b296607e018dc4190ba8"
+  integrity sha512-lWpwFB1Jgdf5wgEQY3GvJDrvKkPgKjHCm8xublSu9rB7i4MWZc4m81AlfrA2eng+4oO6asM8GW8BUaMvjt5Q1w==
+  dependencies:
+    pretty-format "^24.5.0"
+    wait-for-expect "^1.1.1"
+
 "@types/babel__core@^7.1.0":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.2.tgz#608c74f55928033fce18b99b213c16be4b3d114f"
@@ -6113,7 +6121,7 @@ pretty-format@24.0.0-alpha.6:
     ansi-regex "^4.0.0"
     ansi-styles "^3.2.0"
 
-pretty-format@^24.0.0, pretty-format@^24.8.0:
+pretty-format@^24.5.0, pretty-format@^24.8.0:
   version "24.8.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-24.8.0.tgz#8dae7044f58db7cb8be245383b565a963e3c27f2"
   integrity sha512-P952T7dkrDEplsR+TuY7q3VXDae5Sr7zmQb12JU/NDQa/3CH7/QW0yvqLcGN6jL+zQFKaoJcPc+yJxMTGmosqw==
@@ -6361,13 +6369,6 @@ react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
   integrity sha512-Bke8KkDcDhvB/z0AS7MnQKMD2p6Kwfc1rSKlMOvg9CC5CnClQ2QEnhPSbwegKDYhUkBI92iH/BYy7hNSm5kbUQ==
   dependencies:
     prop-types "^15.6.1"
-
-react-native-testing-library@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-testing-library/-/react-native-testing-library-1.8.0.tgz#2c79ff20551be11b4e645745397cdaceff6d2e69"
-  integrity sha512-8N0gPJeeyGEZj4z8/feshUjC9rpTHUkwiTXSZJX3AXxs7cBybOZyxhloCvd+X3UrGd3LYEUWp/RxzlUonbBmWg==
-  dependencies:
-    pretty-format "^24.0.0"
 
 react-native-touch-id@^4.4.1:
   version "4.4.1"
@@ -7892,6 +7893,11 @@ w3c-hr-time@^1.0.1:
   integrity sha1-gqwr/2PZUOqeMYmlimViX+3xkEU=
   dependencies:
     browser-process-hrtime "^0.1.2"
+
+wait-for-expect@^1.1.1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-1.2.0.tgz#fdab6a26e87d2039101db88bff3d8158e5c3e13f"
+  integrity sha512-EJhKpA+5UHixduMBEGhTFuLuVgQBKWxkFbefOdj2bbk2/OpA5Opsc4aUTGmF+qJ+v3kTGxDRNYwKaT4j6g5n8Q==
 
 walkdir@^0.4.0:
   version "0.4.0"

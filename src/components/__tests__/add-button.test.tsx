@@ -1,22 +1,19 @@
 import React from 'react'
-import { TouchableHighlight } from 'react-native'
-import { render, fireEvent, shallow } from 'react-native-testing-library'
+import { render, fireEvent } from '@testing-library/react-native'
 import { AddButton } from '../add-button'
 
 describe('AddButton', () => {
-  it('should render', () => {
-    const onPress = jest.fn()
-    const { getByType } = render(<AddButton onPress={onPress} />)
+  const onPress = jest.fn()
+  const { getByRole, findByTestId } = render(<AddButton onPress={onPress} />)
 
-    const button = getByType(TouchableHighlight)
-    fireEvent.press(button)
-
-    expect(onPress).toHaveBeenCalledTimes(1)
+  it('should render a plus icon', () => {
+    findByTestId('plus-icon')
   })
 
-  it('should match snapshot', () => {
-    const onPress = () => undefined
-    const { output } = shallow(<AddButton onPress={onPress} />)
-    expect(output).toMatchSnapshot()
+  it('should be clickable', () => {
+    const link = getByRole('link')
+    fireEvent.press(link)
+
+    expect(onPress).toHaveBeenCalledTimes(1)
   })
 })

@@ -16,7 +16,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
         "borderWidth": 0,
       },
       Object {
-        "opacity": 1,
+        "opacity": 0.3,
       },
       null,
       Object {
@@ -50,7 +50,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
         0,
       ]
     }
-    opacity={1}
+    opacity={0.3}
     originX={0}
     originY={0}
     propList={Array []}

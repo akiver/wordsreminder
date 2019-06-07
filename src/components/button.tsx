@@ -24,6 +24,7 @@ const Button = ({ onPress, text, style, ...props }: Props) => (
           ...(props.disabled && styles.disabled),
         }}
         {...props}
+        accessibilityRole="button"
       >
         <Text color="primary100" fontSize={16} fontWeight="bold">
           {text}

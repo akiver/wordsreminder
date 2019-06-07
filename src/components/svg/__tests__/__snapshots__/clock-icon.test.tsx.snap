@@ -24,6 +24,7 @@ exports[`ClockIcon should match snapshot 1`] = `
       },
     ]
   }
+  testID="clock-icon"
   vbHeight={97.16}
   vbWidth={97.16}
   width={16}

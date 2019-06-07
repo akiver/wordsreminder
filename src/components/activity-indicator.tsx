@@ -18,6 +18,7 @@ const ActivityIndicator = ({ size = 'small' }: Props) => (
         color={theme.primary025}
         size={size}
         style={styles.activityIndicator}
+        accessibilityHint="Loading"
       />
     )}
   </ThemeContext.Consumer>

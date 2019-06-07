@@ -24,6 +24,7 @@ exports[`PlusIcon should match snapshot 1`] = `
       },
     ]
   }
+  testID="plus-icon"
   vbHeight={510}
   vbWidth={510}
   width={56}

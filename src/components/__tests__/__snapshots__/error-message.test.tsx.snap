@@ -2,8 +2,13 @@
 
 exports[`ErrorMessage should match snapshot 1`] = `
 <Text
-  color="danger"
-  fontSize={20}
+  style={
+    Object {
+      "color": "#dd2c00",
+      "fontSize": 20,
+      "fontWeight": undefined,
+    }
+  }
   testID="error-message"
 >
   A message

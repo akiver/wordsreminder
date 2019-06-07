@@ -15,10 +15,10 @@ exports[`DictionaryIcon should match snapshot 1`] = `
         "backgroundColor": "transparent",
         "borderWidth": 0,
       },
+      undefined,
       Object {
-        "opacity": 1,
+        "opacity": 0.3,
       },
-      null,
       Object {
         "flex": 0,
         "height": 28,

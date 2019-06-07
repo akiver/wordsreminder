@@ -14,7 +14,7 @@ const DictionaryIcon = ({ opacity = 1, testID }: Props) => (
         height={28}
         width={28}
         viewBox="0 0 24 24"
-        style={{ opacity }}
+        opacity={opacity}
         testID={testID}
       >
         <Path d="M0 0h24v24H0z" fill="none" />

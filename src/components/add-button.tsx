@@ -13,6 +13,7 @@ const AddButton = ({ onPress, testID }: Props) => (
     style={styles.addButton}
     onPress={onPress}
     underlayColor="transparent"
+    accessibilityRole="link"
     testID={testID}
   >
     <PlusIcon />

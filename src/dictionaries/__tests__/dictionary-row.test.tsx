@@ -1,8 +1,6 @@
 import React from 'react'
-import { render, fireEvent } from 'react-native-testing-library'
-import { TouchableHighlight } from 'react-native'
+import { render, fireEvent } from '@testing-library/react-native'
 import { WORDS_SCREEN } from '@constants/screens'
-import { ClockIcon } from '@components/svg/clock-icon'
 import {
   DICTIONARIES_ROW,
   DICTIONARIES_ROW_WORDS_COUNT,
@@ -43,9 +41,8 @@ describe('DictionaryRow', () => {
 
   describe('interactions', () => {
     it('should navigate to the words screen on press', () => {
-      const { getByType } = renderComponent()
-
-      fireEvent.press(getByType(TouchableHighlight))
+      const { getByTestId } = renderComponent()
+      fireEvent.press(getByTestId(DICTIONARIES_ROW('id')))
 
       expect(push).toHaveBeenCalledWith(WORDS_SCREEN, {
         dictionary: dictionaryMock,
@@ -78,7 +75,7 @@ describe('DictionaryRow', () => {
     describe('with updated date', () => {
       it('should render the update date', () => {
         const date = new Date()
-        const { getByTestId, queryByText, getByType } = renderComponent({
+        const { getByTestId, queryByText } = renderComponent({
           updatedAt: {
             nanoseconds: 0,
             seconds: 0,
@@ -88,7 +85,7 @@ describe('DictionaryRow', () => {
           },
         })
         expect(getByTestId(DICTIONARIES_ROW_UPDATED_AT)).not.toBeNull()
-        expect(getByType(ClockIcon)).not.toBeNull()
+        expect(getByTestId('clock-icon')).not.toBeNull()
         expect(queryByText(date.toLocaleDateString())).not.toBeNull()
       })
     })

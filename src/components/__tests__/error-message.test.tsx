@@ -1,17 +1,20 @@
 import React from 'react'
-import { render, shallow } from 'react-native-testing-library'
+import { render } from '@testing-library/react-native'
+import renderer from 'react-test-renderer'
 import { ErrorMessage } from '../error-message'
 
 describe('ErrorMessage', () => {
   const message = 'A message'
-  it('should render', async () => {
-    const { queryByText } = render(<ErrorMessage message={message} />)
 
-    expect(queryByText(message)).not.toBeNull()
+  const createComponent = () => <ErrorMessage message={message} />
+  it('should display a message', async () => {
+    const { findByText } = render(createComponent())
+
+    findByText(message)
   })
 
   it('should match snapshot', () => {
-    const { output } = shallow(<ErrorMessage message={message} />)
-    expect(output).toMatchSnapshot()
+    const tree = renderer.create(createComponent()).toJSON()
+    expect(tree).toMatchSnapshot()
   })
 })
