@@ -53,7 +53,6 @@ interface ThemeContext {
 
 const ThemeContext = createContext<ThemeContext>({
   theme: themes[THEME_DARK_VALUE],
-  // tslint:disable-next-line
   toggleTheme: () => {},
 })
 

@@ -13,12 +13,7 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const Indicator = ({
-  isFilled,
-  style,
-  borderInterpolation,
-  ...props
-}: Props) => (
+const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Animated.View

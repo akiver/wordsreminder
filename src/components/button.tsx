@@ -13,7 +13,7 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const Button = ({ onPress, text, style, ...props }: Props) => (
+const Button = ({ onPress, text, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <TouchableOpacity

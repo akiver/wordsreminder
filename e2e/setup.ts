@@ -1,4 +1,3 @@
-// tslint:disable-next-line
 require('dotenv').config()
 
 import {
@@ -12,7 +11,6 @@ import adapter from 'detox/runners/jest/adapter'
 // @ts-ignore def is not yet provided
 import specReporter from 'detox/runners/jest/specReporter'
 
-// tslint:disable-next-line
 const config = require('../package.json').detox
 
 jest.setTimeout(120000)

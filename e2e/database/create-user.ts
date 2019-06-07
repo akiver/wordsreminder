@@ -6,7 +6,6 @@ const createUser = async (email: string, password: string) => {
       email,
       password,
     })
-    // tslint:disable-next-line
   } catch (err) {}
 }
 

@@ -19,7 +19,6 @@ const NumberButton = ({
   onPress,
   value,
   animatedBorderColor,
-  style,
   ...props
 }: Props) => (
   <ThemeContext.Consumer>

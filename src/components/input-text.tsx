@@ -8,7 +8,7 @@ type Props = TextInputProps & {
   label: string
 }
 
-const InputText = React.forwardRef<TextInput, Props>((props, ref) => (
+const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) => (
   <>
     <Spacer marginBottom={5}>
       <Text fontSize={18} color="primary025" fontWeight="bold">
@@ -30,6 +30,8 @@ const InputText = React.forwardRef<TextInput, Props>((props, ref) => (
     </ThemeContext.Consumer>
   </>
 ))
+
+InputText.displayName = 'InputText'
 
 type Style = {
   inputText: TextStyle

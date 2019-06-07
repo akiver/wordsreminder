@@ -3,6 +3,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   NavigationScreenConfigProps,
+  TabBarIconProps,
 } from 'react-navigation'
 import { DictionariesScreen } from '@screens/dictionaries/dictionaries-screen'
 import { CreateDictionaryScreen } from '@screens/dictionaries/create-dictionary-screen'
@@ -85,7 +86,7 @@ const MainStack = createBottomTabNavigator(
           },
           showLabel: false,
         },
-        tabBarIcon: ({ focused }) => {
+        tabBarIcon: function TabBarIcon({ focused }: TabBarIconProps) {
           const { routeName } = navigation.state
           const opacity = focused ? 1 : 0.5
           if (routeName === DICTIONARIES_SCREEN) {

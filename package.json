@@ -18,7 +18,7 @@
     "e2e:test:android:release": "PLATFORM=android detox test -c android.emu.release",
     "ios": "react-native run-ios",
     "ios:release": "yarn ios --configuration Release",
-    "lint": "tslint '{src,e2e,migrations}/**/*.{ts,tsx}'",
+    "lint": "eslint '{src,e2e,migrations}/**/*.{ts,tsx}'",
     "migrate": "ts-node -P migrations/tsconfig.json migrations/index.ts",
     "prettier": "prettier --write \"{src,e2e,migrations}/**/*.{ts,tsx}\"",
     "pod": "pod install --project-directory=ios",
@@ -33,7 +33,7 @@
   "lint-staged": {
     "{src,e2e,migrations}/**/*.ts*": [
       "prettier --write",
-      "tslint",
+      "eslint",
       "git add"
     ]
   },
@@ -62,9 +62,16 @@
     "@types/react-native": "^0.57.60",
     "@types/react-test-renderer": "^16.8.1",
     "@types/webpack-env": "^1.13.9",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "babel-jest": "^24.8.0",
     "detox": "^12.10.3",
     "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "firebase-admin": "^8.0.0",
     "husky": "^2.4.0",
     "jest": "24.8.0",
@@ -73,9 +80,6 @@
     "react-native-typescript-transformer": "^1.2.12",
     "react-test-renderer": "16.8.6",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.17.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
     "typescript": "^3.5.1"
   },
   "detox": {

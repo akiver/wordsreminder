@@ -1,7 +1,6 @@
 import path from 'path'
 import { readdirSync } from 'fs'
 
-// tslint:disable-next-line
 require('dotenv').config()
 
 readdirSync(path.join('', 'migrations'))
@@ -9,6 +8,7 @@ readdirSync(path.join('', 'migrations'))
   .forEach(async file => {
     try {
       console.log(`migrating ${file}...`)
+      // eslint-disable-next-line
       const migration = require(`./${file}`)
       await migration.run()
     } catch (err) {
