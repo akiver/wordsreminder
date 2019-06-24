@@ -65,7 +65,7 @@
     "@types/react-test-renderer": "^16.8.1",
     "@types/webpack-env": "^1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "@typescript-eslint/parser": "^1.9.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "babel-jest": "^24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "detox": "^12.11.0",
