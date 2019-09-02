@@ -94,7 +94,7 @@ class CreateDictionaryScreen extends React.Component<Props, State> {
           this.props.navigation.setParams({
             [PARAM_STATUS]: STATUS_LOADING,
           })
-          await createDictionary(this.state.name!)
+          await createDictionary(this.state.name)
           this.props.navigation.goBack()
         } catch (error) {
           this.setState(

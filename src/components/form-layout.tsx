@@ -14,9 +14,9 @@ type Props = {
 const FormLayout = ({ status, error, children }: Props) => (
   <MainView>
     <ScrollView style={styles.scrollView}>
-      {status === STATUS_ERROR && (
+      {status === STATUS_ERROR && error !== undefined && (
         <Spacer marginBottom={10} marginTop={10}>
-          <ErrorMessage message={error!} />
+          <ErrorMessage message={error} />
         </Spacer>
       )}
       {children}

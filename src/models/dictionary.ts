@@ -8,7 +8,10 @@ export interface Dictionary extends Entity {
 
 export const documentSnapshotToDictionary = (snap: DocumentSnapshot) => {
   const dictionary = snap.data() as Dictionary
-  dictionary.id = snap.id!
+  if (snap.id === null) {
+    throw new Error('dictionary snapshot document id not found')
+  }
+  dictionary.id = snap.id
 
   return dictionary
 }

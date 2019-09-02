@@ -7,7 +7,7 @@ import { PASSCODE_KEY } from '@constants/async-storage'
 import { signOut } from '@services/sign-out'
 import { EnterPasscode } from '@components/enter-passcode'
 import { AUTH_LOADING_SCREEN } from '@constants/screens'
-import { Theme } from '@contexts/theme-context'
+import { Theme, themes } from '@contexts/theme-context'
 import { NavigationScreenProps } from 'react-navigation'
 
 const initialState = Object.freeze({
@@ -141,7 +141,10 @@ class LockerScreen extends React.Component<NavigationScreenProps, State> {
       )
     }
 
-    const theme = this.props.screenProps!.theme as Theme
+    const theme =
+      this.props.screenProps !== undefined
+        ? (this.props.screenProps.theme as Theme)
+        : themes.dark
     return <View style={{ flex: 1, backgroundColor: theme.primary100 }} />
   }
 }

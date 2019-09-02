@@ -21,8 +21,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/prefer-interface': 0,
     '@typescript-eslint/no-non-null-assertion': 'warn',
     '@typescript-eslint/explicit-member-accessibility': 0,
+    '@typescript-eslint/no-inferrable-types': 0,
   },
 }

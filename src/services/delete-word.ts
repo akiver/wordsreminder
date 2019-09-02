@@ -12,12 +12,14 @@ export const deleteWord = async (word: Word) => {
       .get()
 
     for (const dictionary of snapshot.docs) {
-      await firestore()
-        .collection(DICTIONARIES)
-        .doc(dictionary.id!)
-        .update({
-          words: firestore.FieldValue.arrayRemove(word.id),
-        })
+      if (dictionary.id !== null) {
+        await firestore()
+          .collection(DICTIONARIES)
+          .doc(dictionary.id)
+          .update({
+            words: firestore.FieldValue.arrayRemove(word.id),
+          })
+      }
     }
 
     await firestore()

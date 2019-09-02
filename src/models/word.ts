@@ -10,7 +10,10 @@ export interface Word extends Entity {
 
 export const documentSnapshotToWord = (snap: DocumentSnapshot) => {
   const word = snap.data() as Word
-  word.id = snap.id!
+  if (snap.id === null) {
+    throw new Error('word snapshot document id not found')
+  }
+  word.id = snap.id
 
   return word
 }

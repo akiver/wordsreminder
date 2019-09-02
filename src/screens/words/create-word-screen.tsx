@@ -141,11 +141,17 @@ class CreateWordScreen extends React.Component<Props, State> {
   }
 
   handleWordSubmitEditing = () => {
-    this.significationRef.current!.focus()
+    const signification = this.significationRef.current
+    if (signification !== null) {
+      signification.focus()
+    }
   }
 
   handleSignificationSubmitEditing = () => {
-    this.descriptionRef.current!.focus()
+    const description = this.descriptionRef.current
+    if (description !== null) {
+      description.focus()
+    }
   }
 
   render() {
