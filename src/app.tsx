@@ -2,7 +2,7 @@ import React from 'react'
 import Config from 'react-native-config'
 import { StatusBar, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import SplashScreen from 'react-native-splash-screen'
+import RNBootSplash from 'react-native-bootsplash'
 import { themes, ThemeContext, Themes } from '@contexts/theme-context'
 import {
   THEME_KEY,
@@ -60,7 +60,7 @@ class App extends React.Component<null, State> {
     } catch (error) {
       // Unable to load theme, just skip it, dark theme will be used.
     } finally {
-      SplashScreen.hide()
+      RNBootSplash.hide()
     }
   }
 

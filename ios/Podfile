@@ -1,19 +1,28 @@
 platform :ios, '9.0'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'WordsReminder' do
+  pod 'React', :path => '../node_modules/react-native/'
+  pod 'React-Core', :path => '../node_modules/react-native/React'
+  pod 'React-DevSupport', :path => '../node_modules/react-native/React'
+  pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
+  pod 'React-RCTAnimation', :path => '../node_modules/react-native/Libraries/NativeAnimation'
+  pod 'React-RCTBlob', :path => '../node_modules/react-native/Libraries/Blob'
+  pod 'React-RCTImage', :path => '../node_modules/react-native/Libraries/Image'
+  pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
+  pod 'React-RCTNetwork', :path => '../node_modules/react-native/Libraries/Network'
+  pod 'React-RCTSettings', :path => '../node_modules/react-native/Libraries/Settings'
+  pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
+  pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
+  pod 'React-RCTWebSocket', :path => '../node_modules/react-native/Libraries/WebSocket'
 
-  pod 'React', path: '../node_modules/react-native', subspecs: [
-    'Core',
-    'cxxreact',
-    'CxxBridge',
-    'DevSupport',
-    'RCTText',
-    'RCTNetwork',
-    'RCTAnimation',
-    'RCTWebSocket',
-  ]
+  pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
+  pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
+  pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
+  pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec', :modular_headers => true
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
@@ -21,5 +30,32 @@ target 'WordsReminder' do
   pod 'Firebase/Auth', '~> 6.2.0'
   pod 'Firebase/Firestore', '~> 6.2.0'
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+  pod 'TouchID', :path => '../node_modules/react-native-touch-id'
 
+  # https://github.com/luggit/react-native-config/issues/365
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == 'react-native-config'
+        phase = target.project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
+        phase.shell_script = "cd ../../"\
+        " && RNC_ROOT=./node_modules/react-native-config/"\
+        " && export SYMROOT=$RNC_ROOT/ios/ReactNativeConfig"\
+        " && ruby $RNC_ROOT/ios/ReactNativeConfig/BuildDotenvConfig.ruby"
+        
+        target.build_phases << phase
+        target.build_phases.move(phase,0)
+      end
+    end
+  end
+
+  target 'WordsReminderTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  # https://github.com/facebook/react-native/issues/25349#issuecomment-523138303
+  use_native_modules!
 end

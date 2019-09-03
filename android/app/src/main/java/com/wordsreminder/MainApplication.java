@@ -1,25 +1,19 @@
 package com.wordsreminder;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.swmansion.reanimated.ReanimatedPackage;
-import com.taluttasgiran.rnsecurestorage.RNSecureStoragePackage;
-import com.rnfingerprint.FingerprintAuthPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import com.horcrux.svg.SvgPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import java.util.Arrays;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -32,20 +26,11 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReanimatedPackage(),
-            new RNSecureStoragePackage(),
-            new FingerprintAuthPackage(),
-            new AsyncStoragePackage(),
-            new SplashScreenReactPackage(),
-            new ReactNativeConfigPackage(),
-            new SvgPackage(),
-            new RNGestureHandlerPackage(),
-            new RNFirebasePackage(),
-            new RNFirebaseAuthPackage(),
-            new RNFirebaseFirestorePackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      packages.add(new RNFirebaseAuthPackage());
+      packages.add(new RNFirebaseFirestorePackage());
+      return packages;
     }
 
     @Override
