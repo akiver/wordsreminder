@@ -6,7 +6,7 @@ import {
   Platform,
   ViewStyle,
 } from 'react-native'
-import { Header } from 'react-navigation'
+import { Header } from 'react-navigation-stack'
 import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { ErrorMessage } from '@components/error-message'
 import { Spacer } from '@components/spacer'

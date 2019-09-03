@@ -1,8 +1,6 @@
-import {
-  NavigationScreenConfigProps,
-  NavigationStackScreenOptions,
-} from 'react-navigation'
+import { NavigationScreenConfigProps } from 'react-navigation'
 import { Theme } from '@contexts/theme-context'
+import { NavigationStackScreenOptions } from 'react-navigation-stack/lib/typescript/types'
 
 const defaultNavigationOptions = ({
   screenProps,

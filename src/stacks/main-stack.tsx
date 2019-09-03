@@ -1,10 +1,10 @@
 import React from 'react'
+import { NavigationScreenConfigProps } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import {
   createBottomTabNavigator,
-  createStackNavigator,
-  NavigationScreenConfigProps,
   TabBarIconProps,
-} from 'react-navigation'
+} from 'react-navigation-tabs'
 import { DictionariesScreen } from '@screens/dictionaries/dictionaries-screen'
 import { CreateDictionaryScreen } from '@screens/dictionaries/create-dictionary-screen'
 import { EditDictionaryScreen } from '@screens/dictionaries/edit-dictionary-screen'
