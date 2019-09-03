@@ -38,7 +38,7 @@
     ]
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.4.2",
+    "@react-native-community/async-storage": "^1.6.1",
     "memoize-one": "^5.0.4",
     "react": "16.8.6",
     "react-native": "0.59.9",
