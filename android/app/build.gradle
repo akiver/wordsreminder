@@ -199,6 +199,15 @@ android {
     }
 }
 
+// https://github.com/wix/Detox/issues/1534#issuecomment-512270679
+configurations.all {
+    resolutionStrategy {
+        // TODO: Line below required for Detox since version 12.5
+        //   It should removed as soon as the project compiles without it
+        force 'androidx.annotation:annotation:1.0.0'
+    }
+}
+
 dependencies {
     implementation project(':rn-secure-storage')
     implementation project(':react-native-touch-id')

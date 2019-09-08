@@ -12,10 +12,11 @@
     "e2e:build:ios:release": "RN_SRC_EXT=e2e.ts yarn ios:release && detox build -c ios.sim.release",
     "e2e:test:ios": " PLATFORM=ios detox test -c ios.sim.debug",
     "e2e:test:ios:release": " PLATFORM=ios detox test -c ios.sim.release",
-    "e2e:build:android": "cross-env RN_SRC_EXT=e2e.ts yarn android && detox build -c android.emu.debug",
-    "e2e:build:android:release": "cross-env RN_SRC_EXT=e2e.ts yarn android:release && detox build -c android.emu.release",
+    "e2e:build:android": "detox build -c android.emu.debug",
+    "e2e:build:android:release": "detox build -c android.emu.release",
     "e2e:test:android": " cross-env PLATFORM=android detox test -c android.emu.debug",
     "e2e:test:android:release": "cross-env PLATFORM=android detox test -c android.emu.release",
+    "e2e:start": "cross-env RN_SRC_EXT=e2e.ts yarn start",
     "ios": "react-native run-ios",
     "ios:release": "yarn ios --configuration Release",
     "lint": "eslint \"{src,e2e,migrations}/**/*.{ts,tsx}\"",
@@ -59,7 +60,7 @@
     "@babel/runtime": "^7.5.5",
     "@google-cloud/firestore": "^2.2.9",
     "@testing-library/react-native": "^4.0.8",
-    "@types/detox": "12.8.1",
+    "@types/detox": "12.8.4",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
     "@types/react": "^16.9.2",
@@ -71,6 +72,7 @@
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "cross-env": "^5.2.1",
+    "detox": "^14.2.0",
     "dotenv": "^8.1.0",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
@@ -107,13 +109,13 @@
       },
       "android.emu.debug": {
         "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
-        "build": "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
+        "build": "npx jetify && cd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd -",
         "type": "android.emulator",
         "name": "Pixel_2_API_28"
       },
       "android.emu.release": {
         "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-        "build": "pushd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && popd",
+        "build": "npx jetify && cd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release cd -",
         "type": "android.emulator",
         "name": "Pixel_2_API_28"
       }
