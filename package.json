@@ -50,7 +50,7 @@
     "react-native-reanimated": "^1.2.0",
     "react-native-svg": "^9.8.5",
     "react-native-touch-id": "^4.4.1",
-    "react-navigation": "^4.0.0",
+    "react-navigation": "^4.0.2",
     "react-navigation-stack": "^1.5.3",
     "react-navigation-tabs": "^2.4.0",
     "rn-secure-storage": "^2.0.1"
