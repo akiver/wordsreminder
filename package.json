@@ -58,7 +58,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
-    "@google-cloud/firestore": "^2.2.9",
+    "@google-cloud/firestore": "^2.3.0",
     "@testing-library/react-native": "^4.0.9",
     "@types/detox": "12.8.4",
     "@types/jest": "^24.0.18",
