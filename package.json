@@ -53,7 +53,7 @@
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.3",
     "react-navigation-tabs": "^2.4.0",
-    "rn-secure-storage": "^2.0.1"
+    "rn-secure-storage": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
