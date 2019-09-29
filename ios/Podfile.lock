@@ -325,7 +325,7 @@ PODS:
     - React-cxxreact (= 0.61.1)
     - React-jsi (= 0.61.1)
     - ReactCommon/jscallinvoker (= 0.61.1)
-  - RNBootSplash (1.0.1):
+  - RNBootSplash (1.0.3):
     - React
   - RNCAsyncStorage (1.6.2):
     - React
@@ -344,7 +344,7 @@ PODS:
     - React
   - RNSecureStorage (1.0.82):
     - React
-  - RNSVG (9.8.5):
+  - RNSVG (9.9.9):
     - React
   - TouchID (4.4.1):
     - React
@@ -529,7 +529,7 @@ SPEC CHECKSUMS:
   React-RCTText: 3f24042210886ee8c02613758013010be04b291e
   React-RCTVibration: d55e1365be416980217914fe009e9d55dec02e03
   ReactCommon: eb96b70a2a5bed775e919151fd77699fed52944c
-  RNBootSplash: 418217639aad53cfedc022f8bdda837196832b53
+  RNBootSplash: c1d01936886f114d93e41825bf36fde54717c26f
   RNCAsyncStorage: e99188b8a89ea0edddc82d8831cd5142f4550fdc
   RNFirebase: ca408d6bee0ca9383bd0cfe84f40b01370b8ad4d
   RNGestureHandler: 311e3b1cef021a7c9ef31e97e7dc31970cc6288d

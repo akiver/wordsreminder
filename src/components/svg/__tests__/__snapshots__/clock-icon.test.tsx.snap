@@ -5,6 +5,7 @@ exports[`ClockIcon should match snapshot 1`] = `
   align="xMidYMid"
   bbHeight={16}
   bbWidth={16}
+  focusable={false}
   height={16}
   meetOrSlice={0}
   minX={0}
@@ -16,7 +17,9 @@ exports[`ClockIcon should match snapshot 1`] = `
         "borderWidth": 0,
       },
       undefined,
-      null,
+      Object {
+        "opacity": 1,
+      },
       Object {
         "flex": 0,
         "height": 16,

@@ -5,6 +5,7 @@ exports[`CorrectIcon should match snapshot 1`] = `
   align="xMidYMid"
   bbHeight={25}
   bbWidth={25}
+  focusable={false}
   height={25}
   meetOrSlice={0}
   minX={0}
@@ -16,7 +17,9 @@ exports[`CorrectIcon should match snapshot 1`] = `
         "borderWidth": 0,
       },
       undefined,
-      null,
+      Object {
+        "opacity": 1,
+      },
       Object {
         "flex": 0,
         "height": 25,
