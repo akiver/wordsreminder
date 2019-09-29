@@ -42,7 +42,7 @@
     "@react-native-community/async-storage": "^1.6.2",
     "memoize-one": "^5.1.1",
     "react": "16.9.0",
-    "react-native": "0.60.5",
+    "react-native": "0.61.1",
     "react-native-bootsplash": "^1.0.1",
     "react-native-config": "^0.11.7",
     "react-native-firebase": "^5.5.6",
@@ -56,8 +56,8 @@
     "rn-secure-storage": "^2.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/runtime": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
     "@google-cloud/firestore": "^2.2.9",
     "@testing-library/react-native": "^4.0.9",
     "@types/detox": "12.8.4",
@@ -85,7 +85,7 @@
     "lint-staged": "^9.2.5",
     "metro-react-native-babel-preset": "^0.56.0",
     "prettier": "^1.18.2",
-    "react-test-renderer": "16.9.0",
+    "react-test-renderer": "16.10.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.2"
