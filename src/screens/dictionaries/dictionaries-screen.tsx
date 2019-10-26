@@ -1,9 +1,4 @@
 import React from 'react'
-import {
-  NavigationScreenProps,
-  NavigationScreenProp,
-  NavigationScreenOptions,
-} from 'react-navigation'
 import { Query } from 'react-native-firebase/firestore'
 import { firestore } from 'react-native-firebase'
 import { DICTIONARIES } from '@constants/database'
@@ -14,17 +9,22 @@ import { FiltrableList } from '@components/list/filtrable-list'
 import { DICTIONARIES_SCREEN, DICTIONARIES_ROW } from '@e2e/ids'
 import { FilterOpenButton } from '@components/filter-open-button'
 import { PARAM_HAS_FILTER_ENABLED } from '@constants/navigation-parameters'
+import {
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+  NavigationStackProp,
+} from 'react-navigation-stack'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 
 class DictionariesScreen extends React.Component<Props> {
   static navigationOptions = ({
     navigation,
   }: {
-    navigation: NavigationScreenProp<{}>
-  }): NavigationScreenOptions => {
+    navigation: NavigationStackProp
+  }): NavigationStackOptions => {
     const { params } = navigation.state
-    const options: NavigationScreenOptions = {
+    const options = {
       title: 'Dictionaries',
     }
 

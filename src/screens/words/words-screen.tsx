@@ -15,24 +15,21 @@ import {
   PARAM_DICTIONARY_ID,
 } from '@constants/navigation-parameters'
 import {
-  NavigationScreenProps,
-  NavigationScreenProp,
-  NavigationScreenOptions,
-} from 'react-navigation'
-import { Dictionary } from '@models/dictionary'
+  NavigationStackScreenProps,
+  NavigationStackProp,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 
-type Props = NavigationScreenProps & {
-  dictionary: Dictionary
-}
+type Props = NavigationStackScreenProps
 
 class WordsScreen extends React.Component<Props> {
   static navigationOptions = ({
     navigation,
   }: {
-    navigation: NavigationScreenProp<{}>
-  }): NavigationScreenOptions => {
+    navigation: NavigationStackProp
+  }): NavigationStackOptions => {
     const { params } = navigation.state
-    const options: NavigationScreenOptions = {
+    const options: NavigationStackOptions = {
       title: navigation.getParam(PARAM_SCREEN_TITLE),
     }
 

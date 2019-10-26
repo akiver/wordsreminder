@@ -1,6 +1,8 @@
 import React from 'react'
-import { NavigationScreenConfigProps } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import {
+  createStackNavigator,
+  NavigationStackProp,
+} from 'react-navigation-stack'
 import {
   createBottomTabNavigator,
   TabBarIconProps,
@@ -11,7 +13,6 @@ import { EditDictionaryScreen } from '@screens/dictionaries/edit-dictionary-scre
 import { WordsScreen } from '@screens/words/words-screen'
 import { CreateWordScreen } from '@screens/words/create-word-screen'
 import { EditWordScreen } from '@screens/words/edit-word-screen'
-import { defaultNavigationOptions } from '@utils/default-navigation-options'
 import {
   DICTIONARIES_SCREEN,
   DICTIONARIES_CREATE_SCREEN,
@@ -35,6 +36,9 @@ import {
   TABNAV_SETTINGS_UNFOCUSED,
 } from '@e2e/ids'
 import { Theme } from '@contexts/theme-context'
+import { getDefaultNavigationOptionsFromTheme } from '@utils/get-default-navigation-options-from-theme'
+
+type ScreenProps = { theme: Theme }
 
 const MainStack = createBottomTabNavigator(
   {
@@ -48,7 +52,10 @@ const MainStack = createBottomTabNavigator(
         [WORDS_EDIT_SCREEN]: EditWordScreen,
       },
       {
-        defaultNavigationOptions,
+        defaultNavigationOptions: ({ screenProps }) => {
+          const theme = (screenProps as ScreenProps).theme
+          return getDefaultNavigationOptionsFromTheme(theme)
+        },
       }
     ),
     [SETTINGS_SCREEN]: createStackNavigator(
@@ -58,7 +65,7 @@ const MainStack = createBottomTabNavigator(
         [SETTINGS_TURN_ON_PASSCODE_SCREEN]: TurnOnPasscodeScreen,
       },
       {
-        navigationOptions: ({ navigation }: NavigationScreenConfigProps) => {
+        navigationOptions: ({ navigation }) => {
           const isPasscodeScreen = navigation.state.routes.some(
             route =>
               route.routeName === SETTINGS_TURN_ON_PASSCODE_SCREEN ||
@@ -68,7 +75,10 @@ const MainStack = createBottomTabNavigator(
             tabBarVisible: !isPasscodeScreen,
           }
         },
-        defaultNavigationOptions,
+        defaultNavigationOptions: ({ screenProps }) => {
+          const theme = (screenProps as ScreenProps).theme
+          return getDefaultNavigationOptionsFromTheme(theme)
+        },
         mode: 'modal',
       }
     ),
@@ -77,8 +87,11 @@ const MainStack = createBottomTabNavigator(
     defaultNavigationOptions: ({
       navigation,
       screenProps,
-    }: NavigationScreenConfigProps) => {
-      const theme = screenProps.theme as Theme
+    }: {
+      navigation: NavigationStackProp // TODO change it when react-navigation-tabs will export a typed NavigationTabProp
+      screenProps: ScreenProps
+    }) => {
+      const theme = screenProps.theme
       return {
         tabBarOptions: {
           style: {

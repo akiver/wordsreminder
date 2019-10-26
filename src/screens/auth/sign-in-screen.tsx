@@ -1,9 +1,9 @@
 import React from 'react'
 import { TextInput } from 'react-native'
 import {
-  NavigationScreenProps,
-  NavigationScreenOptions,
-} from 'react-navigation'
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
 import { signIn } from '@services/sign-in'
@@ -26,7 +26,7 @@ import {
   SIGNIN_LINK_SIGNUP,
 } from '@e2e/ids'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -37,7 +37,7 @@ const initialState = Object.freeze({
 })
 
 class SignInScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationScreenOptions = {
+  static navigationOptions: NavigationStackOptions = {
     title: 'Sign in',
   }
 

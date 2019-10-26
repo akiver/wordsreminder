@@ -1,17 +1,16 @@
 import React from 'react'
+import { NavigationActions, StackActions } from 'react-navigation'
 import {
-  NavigationActions,
-  StackActions,
-  NavigationScreenProps,
-  NavigationScreenOptions,
-} from 'react-navigation'
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import RNSecureStorage, { ACCESSIBLE } from 'rn-secure-storage'
 import { Vibration } from 'react-native'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { SETTINGS_SCREEN } from '@constants/screens'
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -23,7 +22,7 @@ const initialState = Object.freeze({
 })
 
 class TurnOnPasscodeScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationScreenOptions = {
+  static navigationOptions: NavigationStackOptions = {
     title: 'Turn on passcode',
   }
 

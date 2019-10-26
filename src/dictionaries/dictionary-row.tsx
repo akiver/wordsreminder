@@ -1,10 +1,7 @@
 import React from 'react'
 import { Alert, StyleSheet, View, ViewStyle } from 'react-native'
-import {
-  NavigationScreenProps,
-  NavigationScreenProp,
-  AnimatedValue,
-} from 'react-navigation'
+import { AnimatedValue } from 'react-navigation'
+import { NavigationStackProp } from 'react-navigation-stack'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { WORDS_SCREEN, DICTIONARIES_EDIT_SCREEN } from '@constants/screens'
 import { ClockIcon } from '@components/svg/clock-icon'
@@ -28,9 +25,9 @@ import {
 } from '@constants/navigation-parameters'
 import { Dictionary } from '@models/dictionary'
 
-type Props = NavigationScreenProps & {
+type Props = {
+  navigation: NavigationStackProp
   dictionary: Dictionary
-  navigation: NavigationScreenProp<{}>
   testID: string
 }
 

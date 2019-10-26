@@ -1,10 +1,10 @@
 import React from 'react'
 import { TextInput, View } from 'react-native'
 import {
-  NavigationScreenProps,
-  NavigationScreenProp,
-  NavigationScreenOptions,
-} from 'react-navigation'
+  NavigationStackScreenProps,
+  NavigationStackProp,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { SaveButton } from '@components/save-button'
 import {
@@ -31,7 +31,7 @@ import {
 } from '@constants/navigation-parameters'
 import { Word } from '@models/word'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = ReturnType<typeof getInitialState>
 
 const getInitialState = (props: Props) => {
@@ -46,8 +46,8 @@ class EditWordScreen extends React.Component<Props, State> {
   static navigationOptions = ({
     navigation,
   }: {
-    navigation: NavigationScreenProp<{}>
-  }): NavigationScreenOptions => {
+    navigation: NavigationStackProp
+  }): NavigationStackOptions => {
     const onSavePress: () => void | undefined = navigation.getParam(
       PARAM_ON_SAVE_PRESS
     )

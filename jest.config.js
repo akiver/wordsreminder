@@ -5,10 +5,7 @@ const { compilerOptions } = require('./tsconfig') // eslint-disable-line
 module.exports = {
   ...tsjPreset,
   preset: '@testing-library/react-native',
-  transform: {
-    ...tsjPreset.transform,
-    '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-  },
+  transform: tsjPreset.transform,
   testPathIgnorePatterns: [
     '\\.snap$',
     '<rootDir>/node_modules/',

@@ -8,7 +8,7 @@ import { signOut } from '@services/sign-out'
 import { EnterPasscode } from '@components/enter-passcode'
 import { AUTH_LOADING_SCREEN } from '@constants/screens'
 import { Theme, themes } from '@contexts/theme-context'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationSwitchScreenProps } from 'react-navigation'
 
 const initialState = Object.freeze({
   isLocked: false,
@@ -16,8 +16,9 @@ const initialState = Object.freeze({
 })
 
 type State = typeof initialState
+type Props = NavigationSwitchScreenProps<{}, { theme: Theme }>
 
-class LockerScreen extends React.Component<NavigationScreenProps, State> {
+class LockerScreen extends React.Component<Props, State> {
   readonly state = initialState
 
   async componentDidMount() {

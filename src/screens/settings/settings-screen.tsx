@@ -1,10 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, ViewStyle, TextStyle } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import {
-  NavigationScreenProps,
-  NavigationScreenOptions,
-} from 'react-navigation'
 import { auth } from 'react-native-firebase'
 import {
   STATUS_IDLE,
@@ -31,6 +27,10 @@ import {
   SETTINGS_SCREEN,
 } from '@e2e/ids'
 import { SettingsPasscodeOptions } from '@settings/passcode-options'
+import {
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 
 type State = typeof initialState
 
@@ -39,10 +39,10 @@ const initialState = Object.freeze({
   error: undefined as string | undefined,
 })
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 
 class SettingsScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationScreenOptions = {
+  static navigationOptions: NavigationStackOptions = {
     title: 'Settings',
   }
 

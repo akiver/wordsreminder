@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { TextInput } from 'react-native'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
@@ -22,7 +22,7 @@ import {
   SIGNUP_SUBMIT_BUTTON,
 } from '@e2e/ids'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = typeof initialState
 
 const initialState = Object.freeze({

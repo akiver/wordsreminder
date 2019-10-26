@@ -1,6 +1,5 @@
 import React from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
-import { NavigationScreenProp, NavigationScreenOptions } from 'react-navigation'
 import {
   Query,
   DocumentSnapshot,
@@ -8,6 +7,10 @@ import {
   DocumentChange,
   SnapshotError,
 } from 'react-native-firebase/firestore'
+import {
+  NavigationStackProp,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import memoize from 'memoize-one'
 import { AddButton } from '@components/add-button'
 import {
@@ -39,7 +42,7 @@ type Props = {
   emptyListMessage: string
   filterEntities: (filter: string, entity: any) => boolean
   testID: string
-  navigation: NavigationScreenProp<{}>
+  navigation: NavigationStackProp
 }
 
 type State = typeof initialState
@@ -56,8 +59,8 @@ class FiltrableList extends React.PureComponent<Props, State> {
   static navigationOptions = ({
     navigation,
   }: {
-    navigation: NavigationScreenProp<{}>
-  }): NavigationScreenOptions => {
+    navigation: NavigationStackProp
+  }): NavigationStackOptions => {
     return {
       title: navigation.getParam(PARAM_SCREEN_TITLE),
     }

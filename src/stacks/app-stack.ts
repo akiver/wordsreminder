@@ -9,6 +9,12 @@ import { LockerScreen } from '@screens/locker-screen'
 import { MainStack } from './main-stack'
 import { AuthStack } from './auth-stack'
 import { AuthLoadingScreen } from '@screens/auth/auth-loading-screen'
+import { getDefaultNavigationOptionsFromTheme } from '@utils/get-default-navigation-options-from-theme'
+import { Theme } from '@contexts/theme-context'
+
+type ScreenProps = {
+  theme: Theme
+}
 
 const AppStack = createAppContainer(
   createSwitchNavigator(
@@ -20,6 +26,10 @@ const AppStack = createAppContainer(
     },
     {
       initialRouteName: APP_LOCKER_SCREEN,
+      defaultNavigationOptions: ({ screenProps }) => {
+        const theme = (screenProps as ScreenProps).theme
+        return getDefaultNavigationOptionsFromTheme(theme)
+      },
     }
   )
 )

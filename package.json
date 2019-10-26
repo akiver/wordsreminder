@@ -42,53 +42,53 @@
     "@react-native-community/async-storage": "^1.6.2",
     "memoize-one": "^5.1.1",
     "react": "16.9.0",
-    "react-native": "0.61.1",
+    "react-native": "0.61.2",
     "react-native-bootsplash": "^1.0.3",
     "react-native-config": "^0.11.7",
     "react-native-firebase": "^5.5.6",
     "react-native-gesture-handler": "1.4.1",
     "react-native-reanimated": "^1.3.0",
-    "react-native-svg": "^9.9.9",
+    "react-native-svg": "^9.13.3",
     "react-native-touch-id": "^4.4.1",
-    "react-navigation": "^4.0.0",
-    "react-navigation-stack": "^1.5.3",
-    "react-navigation-tabs": "^2.4.0",
-    "rn-secure-storage": "^2.0.2"
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3",
+    "react-navigation-tabs": "^2.5.6",
+    "rn-secure-storage": "^2.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
-    "@google-cloud/firestore": "^2.3.0",
-    "@testing-library/react-native": "^4.0.12",
-    "@types/detox": "12.8.4",
-    "@types/jest": "^24.0.18",
+    "@babel/core": "^7.6.4",
+    "@babel/runtime": "^7.6.3",
+    "@google-cloud/firestore": "^2.5.0",
+    "@testing-library/react-native": "^4.1.0",
+    "@types/detox": "14.5.0",
+    "@types/jest": "^24.0.20",
     "@types/node": "^12.11.7",
     "@types/react": "^16.9.11",
-    "@types/react-native": "^0.60.17",
-    "@types/react-test-renderer": "^16.9.0",
-    "@types/webpack-env": "^1.14.0",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
+    "@types/react-native": "^0.60.21",
+    "@types/react-test-renderer": "^16.9.1",
+    "@types/webpack-env": "^1.14.1",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "cross-env": "^6.0.3",
-    "detox": "^14.3.4",
-    "dotenv": "^8.1.0",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.3.0",
+    "detox": "^14.5.1",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.1.1",
-    "firebase-admin": "^8.6.0",
-    "husky": "^3.0.7",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "firebase-admin": "^8.6.1",
+    "husky": "^3.0.9",
     "jest": "24.9.0",
     "lint-staged": "^9.4.2",
-    "metro-react-native-babel-preset": "^0.56.0",
+    "metro-react-native-babel-preset": "^0.56.3",
     "prettier": "^1.18.2",
-    "react-test-renderer": "16.10.1",
+    "react-test-renderer": "16.11.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   },
   "detox": {
     "test-runner": "jest",
@@ -99,25 +99,33 @@
         "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/WordsReminder.app",
         "build": "xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "device": {
+          "name": "iPhone X"
+        }
       },
       "ios.sim.release": {
         "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/WordsReminder.app",
         "build": "export RCT_NO_LAUNCH_PACKAGER=true && export RN_SRC_EXT=e2e.ts && xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "device": {
+          "name": "iPhone X"
+        }
       },
       "android.emu.debug": {
         "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
         "build": "npx jetify && cd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd -",
         "type": "android.emulator",
-        "name": "Pixel_2_API_28"
+        "device": {
+          "avdName": "Pixel_2_API_28"
+        }
       },
       "android.emu.release": {
         "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
         "build": "npx jetify && cd android && export RN_SRC_EXT=e2e.ts && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release cd -",
         "type": "android.emulator",
-        "name": "Pixel_2_API_28"
+        "device": {
+          "avdName": "Pixel_2_API_28"
+        }
       }
     }
   },

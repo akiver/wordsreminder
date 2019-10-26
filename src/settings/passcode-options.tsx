@@ -7,9 +7,11 @@ import {
   SETTINGS_TURN_OFF_PASSCODE_SCREEN,
 } from '@constants/screens'
 import { Spacer } from '@components/spacer'
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationStackProp } from 'react-navigation-stack'
 
-type Props = NavigationScreenProps
+type Props = {
+  navigation: NavigationStackProp
+}
 type State = typeof initialState
 
 const initialState = Object.freeze({

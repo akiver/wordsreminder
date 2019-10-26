@@ -1,4 +1,9 @@
 import React from 'react'
+import {
+  NavigationStackScreenProps,
+  NavigationStackProp,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { createDictionary } from '@services/create-dictionary'
 import {
@@ -20,13 +25,8 @@ import {
   PARAM_IS_SAVE_DISABLED,
   PARAM_ON_SAVE_PRESS,
 } from '@constants/navigation-parameters'
-import {
-  NavigationScreenProps,
-  NavigationScreenProp,
-  NavigationScreenOptions,
-} from 'react-navigation'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -39,8 +39,8 @@ class CreateDictionaryScreen extends React.Component<Props, State> {
   static navigationOptions = ({
     navigation,
   }: {
-    navigation: NavigationScreenProp<{}>
-  }): NavigationScreenOptions => {
+    navigation: NavigationStackProp
+  }): NavigationStackOptions => {
     const onSavePress: () => void | undefined = navigation.getParam(
       PARAM_ON_SAVE_PRESS
     )

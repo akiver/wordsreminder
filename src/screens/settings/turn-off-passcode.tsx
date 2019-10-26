@@ -1,19 +1,18 @@
 import React from 'react'
 import { Alert, Vibration } from 'react-native'
-import {
-  NavigationActions,
-  StackActions,
-  NavigationScreenProps,
-  NavigationScreenOptions,
-} from 'react-navigation'
 import RNSecureStorage from 'rn-secure-storage'
+import { StackActions, NavigationActions } from 'react-navigation'
+import {
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+} from 'react-navigation-stack'
 import { STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { signOut } from '@services/sign-out'
 import { AUTH_LOADING_SCREEN, SETTINGS_SCREEN } from '@constants/screens'
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard'
 
-type Props = NavigationScreenProps
+type Props = NavigationStackScreenProps
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -25,7 +24,7 @@ const initialState = Object.freeze({
 })
 
 class TurnOffPasscodeScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationScreenOptions = {
+  static navigationOptions: NavigationStackOptions = {
     title: 'Turn off passcode',
   }
 

@@ -1,18 +1,19 @@
 import React from 'react'
 import { Vibration, Alert } from 'react-native'
 import RNSecureStorage from 'rn-secure-storage'
+import { NavigationSwitchProp } from 'react-navigation'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard'
 import { AUTH_LOADING_SCREEN } from '@constants/screens'
 import { signOut } from '@services/sign-out'
-import { NavigationScreenProps } from 'react-navigation'
 
 const initialState = Object.freeze({
   attemptCount: 0,
   shouldAnimateError: false,
 })
 
-type Props = NavigationScreenProps & {
+type Props = {
+  navigation: NavigationSwitchProp
   currentPasscode: string
   onPasscodeCorrect: () => void
 }

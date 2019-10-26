@@ -1,6 +1,8 @@
 import React from 'react'
 import { Alert } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { NavigationStackProp } from 'react-navigation-stack'
+import { AnimatedValue } from 'react-navigation'
 import { WORDS_EDIT_SCREEN } from '@constants/screens'
 import { Text } from '@components/text'
 import { Spacer } from '@components/spacer'
@@ -19,11 +21,10 @@ import {
 } from '@e2e/ids'
 import { PARAM_WORD } from '@constants/navigation-parameters'
 import { Word } from '@models/word'
-import { NavigationScreenProp, AnimatedValue } from 'react-navigation'
 
 type Props = {
   word: Word
-  navigation: NavigationScreenProp<{}>
+  navigation: NavigationStackProp
   testID: string
   children?: never
 }

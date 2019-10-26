@@ -1,12 +1,16 @@
 import React from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
 import { auth } from 'react-native-firebase'
+import { NavigationSwitchProp } from 'react-navigation'
 import { APP_STACK, AUTH_STACK } from '@constants/screens'
 import { Text } from '@components/text'
 import { MainView } from '@components/main-view'
-import { NavigationScreenProps } from 'react-navigation'
 
-class AuthLoadingScreen extends React.Component<NavigationScreenProps> {
+type Props = {
+  navigation: NavigationSwitchProp
+}
+
+class AuthLoadingScreen extends React.Component<Props> {
   componentDidMount() {
     auth().onAuthStateChanged(this.handleAuthStateChanged)
   }
