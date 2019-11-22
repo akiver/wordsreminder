@@ -6998,10 +6998,10 @@ react-native-firebase@^5.5.6:
     opencollective-postinstall "^2.0.0"
     prop-types "^15.7.2"
 
-react-native-gesture-handler@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.4.1.tgz#c38d9e57637b95e221722a79f2bafac62e3aeb21"
-  integrity sha512-Ffcs+SbEbkGaal0CClYL+v7A9y4OA5G5lW01qrzjxaqASp5C8BfnWSKuqYKE00s6bLwE5L4xnlHkG0yIxAtbrQ==
+react-native-gesture-handler@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.5.1.tgz#681cef98954d48cd82f99f75de3ab203c8754354"
+  integrity sha512-n4+tXAplf7B3qoHgvOxmKfx8cr/hzCSxyEEGxO/3aYyvSYbyt1o6Q7hmTC2JuezllB44b4v/FcCTd6Rgu3MMfg==
   dependencies:
     hammerjs "^2.0.8"
     hoist-non-react-statics "^2.3.1"
