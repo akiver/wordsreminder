@@ -5,11 +5,7 @@ import { signInUser } from '@e2e/navigation/sign-in-user'
 import { E2E_COLLECTION_DICTIONARIES } from '@e2e/constants'
 import { createDictionary } from '@e2e/database/create-dictionary'
 import { navigateToEditDictionaryScreen } from '@e2e/navigation/navigate-to-edit-dictionary-screen'
-import {
-  DICTIONARY_EDIT_INPUT_NAME,
-  SAVE_BUTTON,
-  DICTIONARIES_ROW_NAME,
-} from '@e2e/ids'
+import { DICTIONARY_EDIT_INPUT_NAME, SAVE_BUTTON, DICTIONARIES_ROW_NAME } from '@e2e/ids'
 
 describe('Edit dictionary screen', () => {
   const dictionaryName = 'Dictionary1'
@@ -29,9 +25,7 @@ describe('Edit dictionary screen', () => {
   })
 
   it('should display the form', async () => {
-    await expect(
-      element(by.text(dictionaryName).and(by.id(DICTIONARY_EDIT_INPUT_NAME)))
-    ).toBeVisible()
+    await expect(element(by.text(dictionaryName).and(by.id(DICTIONARY_EDIT_INPUT_NAME)))).toBeVisible()
     await expect(element(by.id(SAVE_BUTTON))).toBeVisible()
   })
 
@@ -49,8 +43,6 @@ describe('Edit dictionary screen', () => {
     await waitFor(element(by.id(dictionaryRowId).and(by.text('test'))))
       .toBeVisible()
       .withTimeout(4000)
-    await expect(
-      element(by.id(dictionaryRowId).and(by.text('test')))
-    ).toBeVisible()
+    await expect(element(by.id(dictionaryRowId).and(by.text('test')))).toBeVisible()
   })
 })

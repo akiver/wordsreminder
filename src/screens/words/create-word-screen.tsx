@@ -1,18 +1,9 @@
 import React from 'react'
 import { TextInput, View } from 'react-native'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-  NavigationStackProp,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions, NavigationStackProp } from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { SaveButton } from '@components/save-button'
-import {
-  STATUS_IDLE,
-  STATUS_LOADING,
-  STATUS_ERROR,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { createWord } from '@services/create-word'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { FormLayout } from '@components/form-layout'
@@ -42,25 +33,13 @@ const initialState = Object.freeze({
 })
 
 class CreateWordScreen extends React.Component<Props, State> {
-  static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: NavigationStackProp
-  }): NavigationStackOptions => {
-    const onSavePress: () => void | undefined = navigation.getParam(
-      PARAM_ON_SAVE_PRESS
-    )
+  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
+    const onSavePress: () => void | undefined = navigation.getParam(PARAM_ON_SAVE_PRESS)
     const isSaveDisabled: boolean = navigation.getParam(PARAM_IS_SAVE_DISABLED)
     const status: STATUS = navigation.getParam(PARAM_STATUS)
     return {
       title: 'Add a word',
-      headerRight: onSavePress && (
-        <SaveButton
-          disabled={isSaveDisabled}
-          onPress={onSavePress}
-          status={status}
-        />
-      ),
+      headerRight: onSavePress && <SaveButton disabled={isSaveDisabled} onPress={onSavePress} status={status} />,
     }
   }
 
@@ -105,10 +84,7 @@ class CreateWordScreen extends React.Component<Props, State> {
   updateIsSaveDisabledParameter = () => {
     const { value, signification, status } = this.state
     this.props.navigation.setParams({
-      [PARAM_IS_SAVE_DISABLED]:
-        status === STATUS_LOADING ||
-        isStringEmpty(value) ||
-        isStringEmpty(signification),
+      [PARAM_IS_SAVE_DISABLED]: status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification),
     })
   }
 

@@ -27,12 +27,7 @@ describe('Edit word screen', () => {
     await deleteCollection(db, E2E_COLLECTION_DICTIONARIES)
     const dictionary = await createDictionary('A dictionary')
     dictionaryId = dictionary.id
-    const word = await createWord(
-      dictionary.id,
-      wordValue,
-      wordSignification,
-      wordDescription
-    )
+    const word = await createWord(dictionary.id, wordValue, wordSignification, wordDescription)
     wordId = word.id
     await device.launchApp({ delete: true, newInstance: true })
     await signInUser()
@@ -44,17 +39,9 @@ describe('Edit word screen', () => {
   })
 
   it('should display the form', async () => {
-    await expect(
-      element(by.text(wordValue).and(by.id(WORD_EDIT_INPUT_VALUE)))
-    ).toBeVisible()
-    await expect(
-      element(
-        by.text(wordSignification).and(by.id(WORD_EDIT_INPUT_SIGNIFICATION))
-      )
-    ).toBeVisible()
-    await expect(
-      element(by.text(wordDescription).and(by.id(WORD_EDIT_INPUT_DESCRIPTION)))
-    ).toBeVisible()
+    await expect(element(by.text(wordValue).and(by.id(WORD_EDIT_INPUT_VALUE)))).toBeVisible()
+    await expect(element(by.text(wordSignification).and(by.id(WORD_EDIT_INPUT_SIGNIFICATION)))).toBeVisible()
+    await expect(element(by.text(wordDescription).and(by.id(WORD_EDIT_INPUT_DESCRIPTION)))).toBeVisible()
     await expect(element(by.id(SAVE_BUTTON))).toBeVisible()
   })
 
@@ -78,33 +65,25 @@ describe('Edit word screen', () => {
     await element(by.id(WORD_EDIT_INPUT_DESCRIPTION)).tap()
     // replaceText() doesn't play well with multine TextInput
     await element(by.id(WORD_EDIT_INPUT_DESCRIPTION)).clearText()
-    await element(by.id(WORD_EDIT_INPUT_DESCRIPTION)).typeText(
-      'new description'
-    )
+    await element(by.id(WORD_EDIT_INPUT_DESCRIPTION)).typeText('new description')
     await element(by.id(SAVE_BUTTON)).tap()
     await waitFor(element(by.id(WORDS_ROW_DESCRIPTION)))
       .toBeVisible()
       .withTimeout(2000)
 
-    await expect(
-      element(by.id(WORDS_ROW_DESCRIPTION).and(by.text('new description')))
-    ).toBeVisible()
+    await expect(element(by.id(WORDS_ROW_DESCRIPTION).and(by.text('new description')))).toBeVisible()
   })
 
   it('should update the word signification', async () => {
     await element(by.id(WORD_EDIT_INPUT_SIGNIFICATION)).tap()
     await element(by.id(WORD_EDIT_INPUT_SIGNIFICATION)).clearText()
-    await element(by.id(WORD_EDIT_INPUT_SIGNIFICATION)).typeText(
-      'new signification'
-    )
+    await element(by.id(WORD_EDIT_INPUT_SIGNIFICATION)).typeText('new signification')
     await element(by.id(SAVE_BUTTON)).tap()
     await waitFor(element(by.id(WORDS_ROW_SIGNIFICATION)))
       .toBeVisible()
       .withTimeout(2000)
 
-    await expect(
-      element(by.id(WORDS_ROW_SIGNIFICATION).and(by.text('new signification')))
-    ).toBeVisible()
+    await expect(element(by.id(WORDS_ROW_SIGNIFICATION).and(by.text('new signification')))).toBeVisible()
   })
 
   it('should update the word value', async () => {
@@ -117,8 +96,6 @@ describe('Edit word screen', () => {
       .toBeVisible()
       .withTimeout(2000)
 
-    await expect(
-      element(by.id(wordRowId).and(by.text('new value')))
-    ).toBeVisible()
+    await expect(element(by.id(wordRowId).and(by.text('new value')))).toBeVisible()
   })
 })

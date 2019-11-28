@@ -49,10 +49,7 @@ class LockerScreen extends React.Component<Props, State> {
     try {
       const type = await TouchID.isSupported()
       try {
-        const message =
-          type === 'FaceID'
-            ? 'Unlock with your face'
-            : 'Unlock with your fingerprint'
+        const message = type === 'FaceID' ? 'Unlock with your face' : 'Unlock with your fingerprint'
         await TouchID.authenticate(message)
       } catch (error) {
         // User pressed "Cancel" or "Use password".
@@ -76,10 +73,7 @@ class LockerScreen extends React.Component<Props, State> {
         if (error.name === 'LAErrorTouchIDNotEnrolled') {
           if (auth().currentUser !== null) {
             this.setState({ isLocked: true })
-            Alert.alert(
-              'Error',
-              `${type} not enrolled, please enable it from settings.`
-            )
+            Alert.alert('Error', `${type} not enrolled, please enable it from settings.`)
             return
           }
 
@@ -91,10 +85,7 @@ class LockerScreen extends React.Component<Props, State> {
         if (error.name === 'LAErrorTouchIDNotAvailable') {
           if (auth().currentUser !== null) {
             this.setState({ isLocked: true })
-            Alert.alert(
-              'Error',
-              `WordsReminder is not allowed to use ${type}, please enable it from settings`
-            )
+            Alert.alert('Error', `WordsReminder is not allowed to use ${type}, please enable it from settings`)
             return
           }
 
@@ -142,10 +133,7 @@ class LockerScreen extends React.Component<Props, State> {
       )
     }
 
-    const theme =
-      this.props.screenProps !== undefined
-        ? (this.props.screenProps.theme as Theme)
-        : themes.dark
+    const theme = this.props.screenProps !== undefined ? (this.props.screenProps.theme as Theme) : themes.dark
     return <View style={{ flex: 1, backgroundColor: theme.primary100 }} />
   }
 }

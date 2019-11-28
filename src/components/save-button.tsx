@@ -17,9 +17,7 @@ const SaveButton = ({ status, onPress, disabled = false }: Props) => {
     return (
       <Spacer marginRight={10}>
         <ThemeContext.Consumer>
-          {({ theme }) => (
-            <ActivityIndicator size="large" color={theme.primary025} />
-          )}
+          {({ theme }) => <ActivityIndicator size="large" color={theme.primary025} />}
         </ThemeContext.Consumer>
       </Spacer>
     )

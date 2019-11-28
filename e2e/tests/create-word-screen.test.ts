@@ -2,10 +2,7 @@ import { expect, element, device, by, waitFor } from 'detox'
 import { db } from '@e2e/database/db'
 import { deleteCollection } from '@e2e/database/delete-collection'
 import { signInUser } from '@e2e/navigation/sign-in-user'
-import {
-  E2E_COLLECTION_DICTIONARIES,
-  E2E_COLLECTION_WORDS,
-} from '@e2e/constants'
+import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants'
 import { createDictionary } from '@e2e/database/create-dictionary'
 import { createTestUser } from '@e2e/database/create-test-user'
 import { navigateToCreateWordScreen } from '@e2e/navigation/navigate-to-create-word-screen'
@@ -63,24 +60,18 @@ describe('Create word screen', () => {
     })
 
     it('should not submit the form if signification is empty', async () => {
-      await waitFor(
-        element(by.id(WORD_CREATE_INPUT_SIGNIFICATION))
-      ).toBeVisible()
+      await waitFor(element(by.id(WORD_CREATE_INPUT_SIGNIFICATION))).toBeVisible()
       await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).replaceText('')
       await element(by.id(SAVE_BUTTON)).tap()
 
-      await expect(
-        element(by.id(WORD_CREATE_INPUT_SIGNIFICATION))
-      ).toBeVisible()
+      await expect(element(by.id(WORD_CREATE_INPUT_SIGNIFICATION))).toBeVisible()
     })
 
     it('should display an error if the word already exists in the dictionary', async () => {
       await element(by.id(WORD_CREATE_INPUT_VALUE)).tap()
       await element(by.id(WORD_CREATE_INPUT_VALUE)).typeText('Word')
       await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).tap()
-      await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).typeText(
-        'Signification'
-      )
+      await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).typeText('Signification')
       await element(by.id(SAVE_BUTTON)).tap()
 
       const error = 'This word already exists in this dictionary.'
@@ -97,9 +88,7 @@ describe('Create word screen', () => {
     await element(by.id(WORD_CREATE_INPUT_VALUE)).tap()
     await element(by.id(WORD_CREATE_INPUT_VALUE)).typeText('Value')
     await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).tap()
-    await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).typeText(
-      'Signification'
-    )
+    await element(by.id(WORD_CREATE_INPUT_SIGNIFICATION)).typeText('Signification')
     await element(by.id(WORD_CREATE_INPUT_DESCRIPTION)).tap()
     await element(by.id(WORD_CREATE_INPUT_DESCRIPTION)).typeText('Description')
     await element(by.id(SAVE_BUTTON)).tap()

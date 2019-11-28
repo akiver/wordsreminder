@@ -1,12 +1,7 @@
 import { expect, element, device, by, waitFor } from 'detox'
 import { signInUser } from '@e2e/navigation/sign-in-user'
 import { createTestUser } from '@e2e/database/create-test-user'
-import {
-  TABNAV_SETTINGS_UNFOCUSED,
-  SETTINGS_SCREEN,
-  SETTINGS_SIGNOUT_BUTTON,
-  SIGNIN_SCREEN,
-} from '@e2e/ids'
+import { TABNAV_SETTINGS_UNFOCUSED, SETTINGS_SCREEN, SETTINGS_SIGNOUT_BUTTON, SIGNIN_SCREEN } from '@e2e/ids'
 
 describe('SignOut', () => {
   beforeAll(async () => {

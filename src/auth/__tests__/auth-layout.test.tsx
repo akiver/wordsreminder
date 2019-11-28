@@ -1,11 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
-import {
-  STATUS_IDLE,
-  STATUS_ERROR,
-  STATUS,
-  STATUS_LOADING,
-} from '@constants/statuses'
+import { STATUS_IDLE, STATUS_ERROR, STATUS, STATUS_LOADING } from '@constants/statuses'
 import { AuthLayout } from '../auth-layout'
 
 describe('AuthLayout', () => {
@@ -14,15 +9,7 @@ describe('AuthLayout', () => {
   const SubmitButton = <>Submit</>
 
   const createComponent = (props?: { status: STATUS; error?: string }) => {
-    return (
-      <AuthLayout
-        link={Link}
-        inputs={Inputs}
-        submitButton={SubmitButton}
-        status={STATUS_IDLE}
-        {...props}
-      />
-    )
+    return <AuthLayout link={Link} inputs={Inputs} submitButton={SubmitButton} status={STATUS_IDLE} {...props} />
   }
 
   const { rerender, queryByText, getByHintText } = render(createComponent())

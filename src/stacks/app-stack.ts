@@ -1,10 +1,5 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import {
-  APP_LOCKER_SCREEN,
-  APP_STACK,
-  AUTH_STACK,
-  AUTH_LOADING_SCREEN,
-} from '@constants/screens'
+import { APP_LOCKER_SCREEN, APP_STACK, AUTH_STACK, AUTH_LOADING_SCREEN } from '@constants/screens'
 import { LockerScreen } from '@screens/locker-screen'
 import { MainStack } from './main-stack'
 import { AuthStack } from './auth-stack'

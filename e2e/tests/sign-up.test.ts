@@ -70,9 +70,7 @@ describe('SignUp', () => {
       await submitFormWithCredentials(fakeEmail, 'weak')
       await waitForErrorMessage()
 
-      await expect(element(by.id(ERROR_MESSAGE))).toHaveText(
-        'Password is too weak.'
-      )
+      await expect(element(by.id(ERROR_MESSAGE))).toHaveText('Password is too weak.')
     })
 
     it('should display an error for email already in use', async () => {
@@ -80,9 +78,7 @@ describe('SignUp', () => {
       await submitFormWithCredentials(fakeEmail, fakePassword)
       await waitForErrorMessage()
 
-      await expect(element(by.id(ERROR_MESSAGE))).toHaveText(
-        'Email already in use.'
-      )
+      await expect(element(by.id(ERROR_MESSAGE))).toHaveText('Email already in use.')
     })
   })
 })

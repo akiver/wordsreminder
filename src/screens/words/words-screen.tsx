@@ -14,20 +14,12 @@ import {
   PARAM_HAS_FILTER_ENABLED,
   PARAM_DICTIONARY_ID,
 } from '@constants/navigation-parameters'
-import {
-  NavigationStackScreenProps,
-  NavigationStackProp,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 
 type Props = NavigationStackScreenProps
 
 class WordsScreen extends React.Component<Props> {
-  static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: NavigationStackProp
-  }): NavigationStackOptions => {
+  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
     const { params } = navigation.state
     const options: NavigationStackOptions = {
       title: navigation.getParam(PARAM_SCREEN_TITLE),
@@ -42,8 +34,7 @@ class WordsScreen extends React.Component<Props> {
       }
     }
 
-    const onOpenFilterPress = () =>
-      navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
+    const onOpenFilterPress = () => navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
     return {
       ...options,
       headerRight: <FilterOpenButton onPress={onOpenFilterPress} />,
@@ -52,11 +43,7 @@ class WordsScreen extends React.Component<Props> {
 
   query: Query = firestore()
     .collection(WORDS)
-    .where(
-      'dictionary',
-      '==',
-      this.props.navigation.getParam(PARAM_DICTIONARY).id
-    )
+    .where('dictionary', '==', this.props.navigation.getParam(PARAM_DICTIONARY).id)
   // Throw an error :/
   // https://github.com/invertase/react-native-firebase/issues/1437
   // .orderBy('updatedAt', 'desc')
@@ -76,13 +63,7 @@ class WordsScreen extends React.Component<Props> {
   }
 
   renderWord = ({ item }: { item: Word }) => {
-    return (
-      <WordRow
-        word={item}
-        navigation={this.props.navigation}
-        testID={WORDS_ROW(item.id)}
-      />
-    )
+    return <WordRow word={item} navigation={this.props.navigation} testID={WORDS_ROW(item.id)} />
   }
 
   render() {

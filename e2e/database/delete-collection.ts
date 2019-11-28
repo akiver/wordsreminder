@@ -1,12 +1,6 @@
 import { Firestore, Query } from '@google-cloud/firestore'
 
-function deleteQueryBatch(
-  db: Firestore,
-  query: Query,
-  batchSize: number,
-  resolve: () => void,
-  reject: () => void
-) {
+function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolve: () => void, reject: () => void) {
   query
     .get()
     .then(snapshot => {
@@ -36,11 +30,7 @@ function deleteQueryBatch(
     .catch(reject)
 }
 
-export const deleteCollection = (
-  db: Firestore,
-  collectionPath: string,
-  batchSize: number = 100
-) => {
+export const deleteCollection = (db: Firestore, collectionPath: string, batchSize: number = 100) => {
   const collectionRef = db.collection(collectionPath)
   const query = collectionRef.orderBy('__name__').limit(batchSize)
 

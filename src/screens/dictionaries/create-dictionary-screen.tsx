@@ -1,30 +1,14 @@
 import React from 'react'
-import {
-  NavigationStackScreenProps,
-  NavigationStackProp,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { createDictionary } from '@services/create-dictionary'
-import {
-  STATUS_IDLE,
-  STATUS_LOADING,
-  STATUS_ERROR,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { SaveButton } from '@components/save-button'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { FormLayout } from '@components/form-layout'
 import { View } from 'react-native'
-import {
-  DICTIONARY_CREATE_INPUT_NAME,
-  DICTIONARY_CREATE_SCREEN,
-} from '@e2e/ids'
-import {
-  PARAM_STATUS,
-  PARAM_IS_SAVE_DISABLED,
-  PARAM_ON_SAVE_PRESS,
-} from '@constants/navigation-parameters'
+import { DICTIONARY_CREATE_INPUT_NAME, DICTIONARY_CREATE_SCREEN } from '@e2e/ids'
+import { PARAM_STATUS, PARAM_IS_SAVE_DISABLED, PARAM_ON_SAVE_PRESS } from '@constants/navigation-parameters'
 
 type Props = NavigationStackScreenProps
 type State = typeof initialState
@@ -36,28 +20,14 @@ const initialState = Object.freeze({
 })
 
 class CreateDictionaryScreen extends React.Component<Props, State> {
-  static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: NavigationStackProp
-  }): NavigationStackOptions => {
-    const onSavePress: () => void | undefined = navigation.getParam(
-      PARAM_ON_SAVE_PRESS
-    )
-    const isSaveButtonDisabled: boolean = navigation.getParam(
-      PARAM_IS_SAVE_DISABLED
-    )
+  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
+    const onSavePress: () => void | undefined = navigation.getParam(PARAM_ON_SAVE_PRESS)
+    const isSaveButtonDisabled: boolean = navigation.getParam(PARAM_IS_SAVE_DISABLED)
     const status: STATUS = navigation.getParam(PARAM_STATUS)
 
     return {
       title: 'Add a dictionary',
-      headerRight: onSavePress && (
-        <SaveButton
-          onPress={onSavePress}
-          disabled={isSaveButtonDisabled}
-          status={status}
-        />
-      ),
+      headerRight: onSavePress && <SaveButton onPress={onSavePress} disabled={isSaveButtonDisabled} status={status} />,
     }
   }
 

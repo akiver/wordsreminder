@@ -1,18 +1,10 @@
 import React from 'react'
 import { TextInput } from 'react-native'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
 import { signIn } from '@services/sign-in'
-import {
-  STATUS_LOADING,
-  STATUS_IDLE,
-  STATUS_ERROR,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_LOADING, STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { AUTH_SIGN_UP_SCREEN } from '@constants/screens'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { Spacer } from '@components/spacer'
@@ -127,11 +119,7 @@ class SignInScreen extends React.Component<Props, State> {
           </>
         }
         link={
-          <Text
-            fontSize={16}
-            onPress={this.handleSignUpPress}
-            testID={SIGNIN_LINK_SIGNUP}
-          >
+          <Text fontSize={16} onPress={this.handleSignUpPress} testID={SIGNIN_LINK_SIGNUP}>
             Sign up
           </Text>
         }

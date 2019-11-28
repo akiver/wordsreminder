@@ -10,13 +10,7 @@ type Props = {
 const DictionaryIcon = ({ opacity = 1, testID }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
-      <Svg
-        height={28}
-        width={28}
-        viewBox="0 0 24 24"
-        opacity={opacity}
-        testID={testID}
-      >
+      <Svg height={28} width={28} viewBox="0 0 24 24" opacity={opacity} testID={testID}>
         <Path d="M0 0h24v24H0z" fill="none" />
         <Path
           fill={theme.primary025}

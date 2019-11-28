@@ -1,11 +1,5 @@
 import React, { ReactChild } from 'react'
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  View,
-  Platform,
-  ViewStyle,
-} from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, Platform, ViewStyle } from 'react-native'
 import { Header } from 'react-navigation-stack'
 import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { ErrorMessage } from '@components/error-message'
@@ -23,14 +17,7 @@ type Props = {
   children?: never
 }
 
-const AuthLayout = ({
-  status,
-  error,
-  submitButton,
-  inputs,
-  link,
-  testID,
-}: Props) => (
+const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => {
       return (

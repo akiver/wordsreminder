@@ -98,21 +98,14 @@ const MainStack = createBottomTabNavigator(
                 testID={
                   // react-navigation create 2 layers and hide / show the right one depending of the focus state.
                   // We have to use 2 testIDs to find the right one during e2e tests.
-                  focused
-                    ? TABNAV_DICTIONARIES_FOCUSED
-                    : TABNAV_DICTIONARIES_UNFOCUSED
+                  focused ? TABNAV_DICTIONARIES_FOCUSED : TABNAV_DICTIONARIES_UNFOCUSED
                 }
               />
             )
           }
 
           return (
-            <SettingsIcon
-              opacity={opacity}
-              testID={
-                focused ? TABNAV_SETTINGS_FOCUSED : TABNAV_SETTINGS_UNFOCUSED
-              }
-            />
+            <SettingsIcon opacity={opacity} testID={focused ? TABNAV_SETTINGS_FOCUSED : TABNAV_SETTINGS_UNFOCUSED} />
           )
         },
       }

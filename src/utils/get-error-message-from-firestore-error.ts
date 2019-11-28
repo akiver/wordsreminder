@@ -4,8 +4,7 @@ export const getErrorMessageFromFirestoreError = (error: SnapshotError) => {
   let errorMessage = error.message
   switch (error.code) {
     case 'firestore/permission-denied':
-      errorMessage =
-        'Permission denied, check your database rules from the firebase console.'
+      errorMessage = 'Permission denied, check your database rules from the firebase console.'
       break
     case 'firestore/cancelled':
       errorMessage = 'Operation cancelled.'
@@ -50,8 +49,7 @@ export const getErrorMessageFromFirestoreError = (error: SnapshotError) => {
       errorMessage = 'Unrecoverable data loss or corruption.'
       break
     case 'firestore/unauthenticated':
-      errorMessage =
-        'The request does not have valid authentication credentials for the operation.'
+      errorMessage = 'The request does not have valid authentication credentials for the operation.'
       break
     case 'auth/invalid-email':
       errorMessage = 'Invalid email.'

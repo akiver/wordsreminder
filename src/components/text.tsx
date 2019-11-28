@@ -9,15 +9,7 @@ type Props = TextProps & {
   children: string
 }
 
-const Text = ({
-  onPress,
-  color = 'primary025',
-  fontSize = 16,
-  fontWeight,
-  children,
-  style,
-  ...props
-}: Props) => (
+const Text = ({ onPress, color = 'primary025', fontSize = 16, fontWeight, children, style, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => {
       return (

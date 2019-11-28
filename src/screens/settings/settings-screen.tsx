@@ -2,12 +2,7 @@ import React from 'react'
 import { StyleSheet, View, ViewStyle, TextStyle } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { auth } from 'react-native-firebase'
-import {
-  STATUS_IDLE,
-  STATUS_ERROR,
-  STATUS_LOADING,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_IDLE, STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { MainView } from '@components/main-view'
 import { Button } from '@components/button'
 import { ErrorMessage } from '@components/error-message'
@@ -15,22 +10,11 @@ import { signOut } from '@services/sign-out'
 import { Spacer } from '@components/spacer'
 import { Text } from '@components/text'
 import { ThemeContext, themes, Theme } from '@contexts/theme-context'
-import {
-  THEME_KEY,
-  THEME_LIGHT_VALUE,
-  THEME_DARK_VALUE,
-} from '@constants/async-storage'
+import { THEME_KEY, THEME_LIGHT_VALUE, THEME_DARK_VALUE } from '@constants/async-storage'
 import { ActivityIndicator } from '@components/activity-indicator'
-import {
-  SETTINGS_THEME_BUTTON,
-  SETTINGS_SIGNOUT_BUTTON,
-  SETTINGS_SCREEN,
-} from '@e2e/ids'
+import { SETTINGS_THEME_BUTTON, SETTINGS_SIGNOUT_BUTTON, SETTINGS_SCREEN } from '@e2e/ids'
 import { SettingsPasscodeOptions } from '@settings/passcode-options'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 
 type State = typeof initialState
 
@@ -57,9 +41,7 @@ class SettingsScreen extends React.Component<Props, State> {
         try {
           await AsyncStorage.setItem(
             THEME_KEY,
-            theme === themes[THEME_DARK_VALUE]
-              ? THEME_LIGHT_VALUE
-              : THEME_DARK_VALUE
+            theme === themes[THEME_DARK_VALUE] ? THEME_LIGHT_VALUE : THEME_DARK_VALUE
           )
 
           toggleTheme()
@@ -143,11 +125,7 @@ class SettingsScreen extends React.Component<Props, State> {
                 </Text>
               </Spacer>
             )}
-            <Button
-              onPress={this.handleSignOutPress}
-              text="Sign out"
-              testID={SETTINGS_SIGNOUT_BUTTON}
-            />
+            <Button onPress={this.handleSignOutPress} text="Sign out" testID={SETTINGS_SIGNOUT_BUTTON} />
           </Spacer>
           {this.renderError()}
         </View>

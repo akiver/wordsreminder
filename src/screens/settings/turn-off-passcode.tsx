@@ -2,10 +2,7 @@ import React from 'react'
 import { Alert, Vibration } from 'react-native'
 import RNSecureStorage from 'rn-secure-storage'
 import { StackActions, NavigationActions } from 'react-navigation'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 import { STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { signOut } from '@services/sign-out'
@@ -57,8 +54,7 @@ class TurnOffPasscodeScreen extends React.Component<Props, State> {
       } catch (error) {
         this.setState({
           status: STATUS_ERROR,
-          error:
-            'An error occured while turning off the passcode, please try again.',
+          error: 'An error occured while turning off the passcode, please try again.',
           attemptCount: 0,
         })
       }

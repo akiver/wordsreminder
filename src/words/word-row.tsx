@@ -100,21 +100,14 @@ class WordRow extends React.Component<Props> {
   render() {
     const { word, testID } = this.props
     return (
-      <Swipeable
-        renderRightActions={this.renderRightActions}
-        ref={this.swipeableRef}
-      >
+      <Swipeable renderRightActions={this.renderRightActions} ref={this.swipeableRef}>
         <ListRow testID={testID}>
           <>
             <Text fontSize={20} testID={WORDS_ROW_VALUE(word.id)}>
               {word.value}
             </Text>
             <Spacer marginTop={5}>
-              <Text
-                fontSize={18}
-                color="primary050"
-                testID={WORDS_ROW_SIGNIFICATION}
-              >
+              <Text fontSize={18} color="primary050" testID={WORDS_ROW_SIGNIFICATION}>
                 {word.signification}
               </Text>
             </Spacer>

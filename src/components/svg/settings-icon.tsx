@@ -10,13 +10,7 @@ type Props = {
 const SettingsIcon = ({ opacity = 1, testID }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
-      <Svg
-        height={28}
-        width={28}
-        viewBox="0 0 20 20"
-        style={{ opacity }}
-        testID={testID}
-      >
+      <Svg height={28} width={28} viewBox="0 0 20 20" style={{ opacity }} testID={testID}>
         <Path fill="none" d="M0 0h20v20H0V0z" />
         <Path
           fill={theme.primary025}

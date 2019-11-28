@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  Animated,
-  TouchableOpacityProps,
-  ViewStyle,
-} from 'react-native'
+import { StyleSheet, Animated, TouchableOpacityProps, ViewStyle } from 'react-native'
 import React from 'react'
 import { ThemeContext } from '@contexts/theme-context'
 

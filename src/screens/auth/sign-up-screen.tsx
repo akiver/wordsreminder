@@ -3,12 +3,7 @@ import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { TextInput } from 'react-native'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
-import {
-  STATUS_ERROR,
-  STATUS_IDLE,
-  STATUS_LOADING,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_ERROR, STATUS_IDLE, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { signUp } from '@services/sign-up'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { Spacer } from '@components/spacer'
@@ -119,11 +114,7 @@ class SignUpScreen extends React.Component<Props, State> {
           </>
         }
         link={
-          <Text
-            fontSize={16}
-            onPress={this.handleSignInPress}
-            testID={SIGNUP_LINK_SIGNIN}
-          >
+          <Text fontSize={16} onPress={this.handleSignInPress} testID={SIGNUP_LINK_SIGNIN}>
             Sign in
           </Text>
         }

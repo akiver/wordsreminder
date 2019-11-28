@@ -19,10 +19,7 @@ const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) => (
       {({ theme }) => (
         <TextInput
           ref={ref}
-          style={[
-            styles.inputText,
-            { color: theme.primary025, borderColor: theme.primary025 },
-          ]}
+          style={[styles.inputText, { color: theme.primary025, borderColor: theme.primary025 }]}
           placeholderTextColor={theme.primary050}
           {...props}
         />

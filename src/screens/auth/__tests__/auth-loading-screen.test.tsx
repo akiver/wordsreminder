@@ -23,9 +23,7 @@ describe('AuthLoadingScreen', () => {
   })
 
   it('should render a loading', () => {
-    const { queryByText } = render(
-      <AuthLoadingScreen navigation={navigation} />
-    )
+    const { queryByText } = render(<AuthLoadingScreen navigation={navigation} />)
 
     expect(queryByText(/loading.../i)).not.toBeNull()
   })

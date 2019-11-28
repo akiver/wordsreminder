@@ -1,11 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import { WORDS_SCREEN } from '@constants/screens'
-import {
-  DICTIONARIES_ROW,
-  DICTIONARIES_ROW_WORDS_COUNT,
-  DICTIONARIES_ROW_UPDATED_AT,
-} from '@e2e/ids'
+import { DICTIONARIES_ROW, DICTIONARIES_ROW_WORDS_COUNT, DICTIONARIES_ROW_UPDATED_AT } from '@e2e/ids'
 import { DictionaryRow } from '../dictionary-row'
 import { NavigationParams } from 'react-navigation'
 import { Dictionary } from '@models/dictionary'
@@ -24,9 +20,7 @@ describe('DictionaryRow', () => {
     updatedAt: null,
   }
 
-  const renderComponent = (
-    dictionary: Partial<Dictionary> | undefined = undefined
-  ) => {
+  const renderComponent = (dictionary: Partial<Dictionary> | undefined = undefined) => {
     return render(
       <DictionaryRow
         navigation={navigation}

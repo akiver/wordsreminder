@@ -1,9 +1,6 @@
 import React from 'react'
 import { NavigationActions, StackActions } from 'react-navigation'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 import RNSecureStorage, { ACCESSIBLE } from 'rn-secure-storage'
 import { Vibration } from 'react-native'
 import { PASSCODE_KEY } from '@constants/async-storage'
@@ -31,9 +28,7 @@ class TurnOnPasscodeScreen extends React.Component<Props, State> {
   handlePasscodeEntered = async (passcode: number[]) => {
     const { isPasscodeConfirmation } = this.state
     if (isPasscodeConfirmation) {
-      const isPasscodesMatch =
-        new Set(passcode.filter(el => this.state.passcode.includes(el)))
-          .size === 4
+      const isPasscodesMatch = new Set(passcode.filter(el => this.state.passcode.includes(el))).size === 4
       if (isPasscodesMatch) {
         const passcodeAsString = passcode.map(Number).join('')
         try {
@@ -42,15 +37,12 @@ class TurnOnPasscodeScreen extends React.Component<Props, State> {
           })
           const navAction = StackActions.reset({
             index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: SETTINGS_SCREEN }),
-            ],
+            actions: [NavigationActions.navigate({ routeName: SETTINGS_SCREEN })],
           })
           this.props.navigation.dispatch(navAction)
         } catch (error) {
           this.setState({
-            error:
-              'An error occured while turning on passcode, please try again.',
+            error: 'An error occured while turning on passcode, please try again.',
             isPasscodeConfirmation: false,
             passcode: [],
             passcodeConfirmation: [],

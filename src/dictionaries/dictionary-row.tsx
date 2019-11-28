@@ -19,10 +19,7 @@ import {
   DICTIONARIES_ROW_WORDS_COUNT,
   DICTIONARIES_ROW_UPDATED_AT,
 } from '@e2e/ids'
-import {
-  PARAM_DICTIONARY,
-  PARAM_SCREEN_TITLE,
-} from '@constants/navigation-parameters'
+import { PARAM_DICTIONARY, PARAM_SCREEN_TITLE } from '@constants/navigation-parameters'
 import { Dictionary } from '@models/dictionary'
 
 type Props = {
@@ -112,28 +109,18 @@ class DictionaryRow extends React.Component<Props> {
   render() {
     const { dictionary } = this.props
     return (
-      <Swipeable
-        renderRightActions={this.renderRightActions}
-        ref={this.swipeableRef}
-      >
+      <Swipeable renderRightActions={this.renderRightActions} ref={this.swipeableRef}>
         <ListRow onPress={this.handleEntryPress} testID={this.props.testID}>
           <>
             <Text fontSize={20} testID={DICTIONARIES_ROW_NAME(dictionary.id)}>
               {dictionary.name}
             </Text>
             <View style={styles.details}>
-              <Text
-                fontSize={18}
-                color="primary050"
-                testID={DICTIONARIES_ROW_WORDS_COUNT}
-              >
+              <Text fontSize={18} color="primary050" testID={DICTIONARIES_ROW_WORDS_COUNT}>
                 {`${dictionary.words.length} word(s)`}
               </Text>
               {dictionary.updatedAt !== null && (
-                <View
-                  style={styles.updatedAt}
-                  testID={DICTIONARIES_ROW_UPDATED_AT}
-                >
+                <View style={styles.updatedAt} testID={DICTIONARIES_ROW_UPDATED_AT}>
                   <ClockIcon />
                   <Spacer marginLeft={5}>
                     <Text fontSize={16} color="primary050">

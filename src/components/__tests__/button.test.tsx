@@ -21,9 +21,7 @@ describe('Button', () => {
     )
   }
 
-  const { rerender, queryByText, getByRole, getByText } = render(
-    createComponent()
-  )
+  const { rerender, queryByText, getByRole, getByText } = render(createComponent())
 
   it('should display a text', () => {
     expect(queryByText(text)).not.toBeNull()
@@ -47,9 +45,7 @@ describe('Button', () => {
     const theme = themes[THEME_DARK_VALUE]
     rerender(createComponent({}, theme))
 
-    expect(getByRole('button').props.style.backgroundColor).toBe(
-      theme.primary025
-    )
+    expect(getByRole('button').props.style.backgroundColor).toBe(theme.primary025)
     expect(getByText(text).props.style.color).toBe(theme.primary100)
   })
 
@@ -57,9 +53,7 @@ describe('Button', () => {
     const theme = themes[THEME_LIGHT_VALUE]
     rerender(createComponent({}, theme))
 
-    expect(getByRole('button').props.style.backgroundColor).toBe(
-      theme.primary025
-    )
+    expect(getByRole('button').props.style.backgroundColor).toBe(theme.primary025)
     expect(getByText(text).props.style.color).toBe(theme.primary100)
   })
 })

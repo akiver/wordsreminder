@@ -1,24 +1,10 @@
 import React from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
-import {
-  Query,
-  DocumentSnapshot,
-  QuerySnapshot,
-  DocumentChange,
-  SnapshotError,
-} from 'react-native-firebase/firestore'
-import {
-  NavigationStackProp,
-  NavigationStackOptions,
-} from 'react-navigation-stack'
+import { Query, DocumentSnapshot, QuerySnapshot, DocumentChange, SnapshotError } from 'react-native-firebase/firestore'
+import { NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 import memoize from 'memoize-one'
 import { AddButton } from '@components/add-button'
-import {
-  STATUS_ERROR,
-  STATUS_SUCCESS,
-  STATUS_LOADING,
-  STATUS,
-} from '@constants/statuses'
+import { STATUS_ERROR, STATUS_SUCCESS, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { ErrorMessage } from '@components/error-message'
 import { ActivityIndicator } from '@components/activity-indicator'
 import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error'
@@ -27,10 +13,7 @@ import { Text } from '@components/text'
 import { MainView } from '@components/main-view'
 import { ADD_BUTTON, EMPTY_LIST_MESSAGE } from '@e2e/ids'
 import { FilterBar } from './filter-bar'
-import {
-  PARAM_SCREEN_TITLE,
-  PARAM_HAS_FILTER_ENABLED,
-} from '@constants/navigation-parameters'
+import { PARAM_SCREEN_TITLE, PARAM_HAS_FILTER_ENABLED } from '@constants/navigation-parameters'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { Entity } from '@models/entity'
 
@@ -56,11 +39,7 @@ const initialState = Object.freeze({
 })
 
 class FiltrableList extends React.PureComponent<Props, State> {
-  static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: NavigationStackProp
-  }): NavigationStackOptions => {
+  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
     return {
       title: navigation.getParam(PARAM_SCREEN_TITLE),
     }
@@ -75,9 +54,7 @@ class FiltrableList extends React.PureComponent<Props, State> {
   filterEntities = memoize((entities: Entity[], filter?: string) => {
     let filteredEntities = entities
     if (!isStringEmpty(filter)) {
-      filteredEntities = entities.filter(entity =>
-        this.props.filterEntities(filter!, entity)
-      )
+      filteredEntities = entities.filter(entity => this.props.filterEntities(filter!, entity))
     }
 
     // Have to manually sort entities because chaining firestore().where().orderBy() throw an error.
@@ -86,10 +63,7 @@ class FiltrableList extends React.PureComponent<Props, State> {
   })
 
   async componentDidMount() {
-    this.unsubscribe = this.query.onSnapshot(
-      this.onCollectionUpdate,
-      this.onCollectionError
-    )
+    this.unsubscribe = this.query.onSnapshot(this.onCollectionUpdate, this.onCollectionError)
     await this.refreshEntities()
   }
 
@@ -147,9 +121,7 @@ class FiltrableList extends React.PureComponent<Props, State> {
     try {
       const snap = await this.query.get()
       this.setState({
-        entities: snap.docs
-          .map(doc => this.props.documentSnapshotToEntity(doc))
-          .sort(this.compareUpdatedAt),
+        entities: snap.docs.map(doc => this.props.documentSnapshotToEntity(doc)).sort(this.compareUpdatedAt),
         status: STATUS_SUCCESS,
       })
     } catch (error) {
@@ -224,22 +196,14 @@ class FiltrableList extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const hasFilterEnabled = this.props.navigation.getParam(
-      PARAM_HAS_FILTER_ENABLED
-    )
+    const hasFilterEnabled = this.props.navigation.getParam(PARAM_HAS_FILTER_ENABLED)
     return (
       <MainView testID={this.props.testID}>
         {hasFilterEnabled && (
-          <FilterBar
-            onCloseFilterPress={this.handleCloseFilterPress}
-            onFilterChange={this.handleFilterChange}
-          />
+          <FilterBar onCloseFilterPress={this.handleCloseFilterPress} onFilterChange={this.handleFilterChange} />
         )}
         {this.renderContent()}
-        <AddButton
-          onPress={this.props.onAddPress}
-          testID={ADD_BUTTON(this.props.testID)}
-        />
+        <AddButton onPress={this.props.onAddPress} testID={ADD_BUTTON(this.props.testID)} />
       </MainView>
     )
   }

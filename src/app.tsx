@@ -4,11 +4,7 @@ import { StatusBar, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import RNBootSplash from 'react-native-bootsplash'
 import { themes, ThemeContext, Themes } from '@contexts/theme-context'
-import {
-  THEME_KEY,
-  THEME_DARK_VALUE,
-  THEME_LIGHT_VALUE,
-} from '@constants/async-storage'
+import { THEME_KEY, THEME_DARK_VALUE, THEME_LIGHT_VALUE } from '@constants/async-storage'
 import { AppStack } from '@stacks/app-stack'
 import { NavigationState } from 'react-navigation'
 
@@ -67,10 +63,7 @@ class App extends React.Component<null, State> {
   handleToggleTheme = () => {
     this.setState(({ theme }) => {
       return {
-        theme:
-          theme === themes[THEME_DARK_VALUE]
-            ? themes[THEME_LIGHT_VALUE]
-            : themes[THEME_DARK_VALUE],
+        theme: theme === themes[THEME_DARK_VALUE] ? themes[THEME_LIGHT_VALUE] : themes[THEME_DARK_VALUE],
       }
     })
   }

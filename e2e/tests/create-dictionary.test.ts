@@ -7,12 +7,7 @@ import { createTestUser } from '@e2e/database/create-test-user'
 import { navigateToCreateDictionaryScreen } from '@e2e/navigation/navigate-to-create-dictionary-screen'
 import { createDictionary } from '@e2e/database/create-dictionary'
 import { getDictionaryByName } from '@e2e/database/getDictionaryByName'
-import {
-  DICTIONARY_CREATE_INPUT_NAME,
-  SAVE_BUTTON,
-  DICTIONARY_CREATE_SCREEN,
-  DICTIONARIES_ROW,
-} from '@e2e/ids'
+import { DICTIONARY_CREATE_INPUT_NAME, SAVE_BUTTON, DICTIONARY_CREATE_SCREEN, DICTIONARIES_ROW } from '@e2e/ids'
 import { sleep } from '@e2e/utils/sleep'
 
 describe('Create dictionary screen', () => {

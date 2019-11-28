@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from 'react-native'
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import React from 'react'
 import { Text } from '@components/text'
 import { ThemeContext } from '@contexts/theme-context'

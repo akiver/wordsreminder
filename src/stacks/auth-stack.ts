@@ -1,7 +1,4 @@
-import {
-  createStackNavigator,
-  NavigationStackScreenProps,
-} from 'react-navigation-stack'
+import { createStackNavigator, NavigationStackScreenProps } from 'react-navigation-stack'
 import { AUTH_SIGN_IN_SCREEN, AUTH_SIGN_UP_SCREEN } from '@constants/screens'
 import { SignUpScreen } from '@screens/auth/sign-up-screen'
 import { SignInScreen } from '@screens/auth/sign-in-screen'

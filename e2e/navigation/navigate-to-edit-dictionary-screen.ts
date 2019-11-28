@@ -1,9 +1,5 @@
 import { element, waitFor, by } from 'detox'
-import {
-  DICTIONARIES_ROW,
-  DICTIONARIES_ROW_EDIT,
-  DICTIONARY_EDIT_SCREEN,
-} from '@e2e/ids'
+import { DICTIONARIES_ROW, DICTIONARIES_ROW_EDIT, DICTIONARY_EDIT_SCREEN } from '@e2e/ids'
 
 const navigateToEditDictionaryScreen = async (dictionaryId: string) => {
   await waitFor(element(by.id(DICTIONARIES_ROW(dictionaryId))))

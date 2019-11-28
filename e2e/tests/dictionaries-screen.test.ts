@@ -44,18 +44,12 @@ describe('Dictionaries screen', () => {
       await waitFor(element(by.id(DICTIONARIES_ROW(dictionary1Id))))
         .toBeVisible()
         .withTimeout(4000)
-      await waitFor(
-        element(by.id(DICTIONARIES_ROW(dictionary2Id)))
-      ).toBeVisible()
+      await waitFor(element(by.id(DICTIONARIES_ROW(dictionary2Id)))).toBeVisible()
     })
 
     it('should display the dictionaries list', async () => {
-      await expect(
-        element(by.id(DICTIONARIES_ROW(dictionary1Id)))
-      ).toBeVisible()
-      await expect(
-        element(by.id(DICTIONARIES_ROW(dictionary2Id)))
-      ).toBeVisible()
+      await expect(element(by.id(DICTIONARIES_ROW(dictionary1Id)))).toBeVisible()
+      await expect(element(by.id(DICTIONARIES_ROW(dictionary2Id)))).toBeVisible()
       await expect(element(by.id(EMPTY_LIST_MESSAGE))).toBeNotVisible()
     })
 
@@ -78,9 +72,7 @@ describe('Dictionaries screen', () => {
       if (process.env.PLATFORM === 'android') {
         await element(by.text('DELETE')).tap()
       } else {
-        await element(
-          by.type('_UIAlertControllerActionView').and(by.label('Delete'))
-        ).tap()
+        await element(by.type('_UIAlertControllerActionView').and(by.label('Delete'))).tap()
       }
       const dictionaryRowId = DICTIONARIES_ROW(dictionary1Id)
       await waitFor(element(by.id(dictionaryRowId)))

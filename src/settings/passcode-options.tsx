@@ -2,10 +2,7 @@ import React from 'react'
 import RNSecureStorage from 'rn-secure-storage'
 import { Button } from '@components/button'
 import { PASSCODE_KEY } from '@constants/async-storage'
-import {
-  SETTINGS_TURN_ON_PASSCODE_SCREEN,
-  SETTINGS_TURN_OFF_PASSCODE_SCREEN,
-} from '@constants/screens'
+import { SETTINGS_TURN_ON_PASSCODE_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens'
 import { Spacer } from '@components/spacer'
 import { NavigationStackProp } from 'react-navigation-stack'
 
@@ -57,16 +54,9 @@ class SettingsPasscodeOptions extends React.Component<Props, State> {
 
     let options
     if (this.state.isPasscodeEnabled) {
-      options = (
-        <Button
-          onPress={this.handleTurnOffPasscodePress}
-          text="Turn passcode off"
-        />
-      )
+      options = <Button onPress={this.handleTurnOffPasscodePress} text="Turn passcode off" />
     } else {
-      options = (
-        <Button onPress={this.handleTogglePasscode} text="Turn passcode on" />
-      )
+      options = <Button onPress={this.handleTogglePasscode} text="Turn passcode on" />
     }
 
     return <Spacer marginBottom={20}>{options}</Spacer>

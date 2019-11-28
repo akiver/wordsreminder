@@ -18,14 +18,10 @@ export const DICTIONARY_CREATE_INPUT_NAME = 'dictionary-create-input-name'
 
 // Dictionaries screen
 export const DICTIONARIES_SCREEN = 'dictionaries-screen'
-export const DICTIONARIES_ROW = (dictionaryId: string) =>
-  `dictionary-${dictionaryId}`
-export const DICTIONARIES_ROW_EDIT = (dictionaryId: string) =>
-  `dictionary-edit-action-${dictionaryId}`
-export const DICTIONARIES_ROW_DELETE = (dictionaryId: string) =>
-  `dictionary-delete-action-${dictionaryId}`
-export const DICTIONARIES_ROW_NAME = (dictionaryId: string) =>
-  `dictionary-name-${dictionaryId}`
+export const DICTIONARIES_ROW = (dictionaryId: string) => `dictionary-${dictionaryId}`
+export const DICTIONARIES_ROW_EDIT = (dictionaryId: string) => `dictionary-edit-action-${dictionaryId}`
+export const DICTIONARIES_ROW_DELETE = (dictionaryId: string) => `dictionary-delete-action-${dictionaryId}`
+export const DICTIONARIES_ROW_NAME = (dictionaryId: string) => `dictionary-name-${dictionaryId}`
 export const DICTIONARIES_ROW_WORDS_COUNT = 'dictionary-words-count'
 export const DICTIONARIES_ROW_UPDATED_AT = 'dictionary-updated-at'
 
@@ -54,8 +50,7 @@ export const WORD_EDIT_INPUT_DESCRIPTION = 'word-edit-input-description'
 export const WORDS_SCREEN = 'words-screen'
 export const WORDS_ROW = (wordId: string) => `word-${wordId}`
 export const WORDS_ROW_EDIT = (wordId: string) => `word-edit-action-${wordId}`
-export const WORDS_ROW_DELETE = (wordId: string) =>
-  `word-delete-action-${wordId}`
+export const WORDS_ROW_DELETE = (wordId: string) => `word-delete-action-${wordId}`
 export const WORDS_ROW_VALUE = (wordId: string) => `word-value-${wordId}`
 export const WORDS_ROW_SIGNIFICATION = 'word-signification'
 export const WORDS_ROW_DESCRIPTION = 'word-description'

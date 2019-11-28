@@ -51,8 +51,6 @@ describe('SignIn', () => {
       .toBeVisible()
       .withTimeout(2000)
     await expect(element(by.id(ERROR_MESSAGE))).toBeVisible()
-    await expect(element(by.id(ERROR_MESSAGE))).toHaveText(
-      'Invalid credentials.'
-    )
+    await expect(element(by.id(ERROR_MESSAGE))).toHaveText('Invalid credentials.')
   })
 })

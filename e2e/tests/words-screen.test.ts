@@ -1,10 +1,7 @@
 import { expect, element, device, waitFor, by } from 'detox'
 import { db } from '@e2e/database/db'
 import { deleteCollection } from '@e2e/database/delete-collection'
-import {
-  E2E_COLLECTION_DICTIONARIES,
-  E2E_COLLECTION_WORDS,
-} from '@e2e/constants'
+import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants'
 import { signInUser } from '@e2e/navigation/sign-in-user'
 import { navigateToWordsScreen } from '@e2e/navigation/navigate-to-words-screen'
 import { createTestUser } from '@e2e/database/create-test-user'
@@ -70,9 +67,7 @@ describe('WordsScreen screen', () => {
       if (process.env.PLATFORM === 'android') {
         await element(by.text('DELETE')).tap()
       } else {
-        await element(
-          by.type('_UIAlertControllerActionView').and(by.label('Delete'))
-        ).tap()
+        await element(by.type('_UIAlertControllerActionView').and(by.label('Delete'))).tap()
       }
       await waitFor(element(by.id(WORDS_ROW(wordId))))
         .toBeNotVisible()

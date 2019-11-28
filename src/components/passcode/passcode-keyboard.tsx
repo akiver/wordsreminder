@@ -80,103 +80,53 @@ class PasscodeKeyboard extends React.Component<Props, State> {
     return (
       <MainView>
         <View style={styles.container}>
-          <Animated.Text style={{ color, fontSize: 18 }}>
-            {this.props.message}
-          </Animated.Text>
+          <Animated.Text style={{ color, fontSize: 18 }}>{this.props.message}</Animated.Text>
           <Spacer marginTop={20}>
             <View style={styles.row}>
-              {Array.from(Array(4), (v, index) => index + 1).map(
-                indicatorNumber => {
-                  return (
-                    <Spacer
-                      key={`indicator-${indicatorNumber}`}
-                      marginLeft={indicatorNumber === 1 ? 0 : 5}
-                    >
-                      <Indicator
-                        isFilled={passcode.length >= indicatorNumber}
-                        borderInterpolation={color}
-                      />
-                    </Spacer>
-                  )
-                }
-              )}
+              {Array.from(Array(4), (v, index) => index + 1).map(indicatorNumber => {
+                return (
+                  <Spacer key={`indicator-${indicatorNumber}`} marginLeft={indicatorNumber === 1 ? 0 : 5}>
+                    <Indicator isFilled={passcode.length >= indicatorNumber} borderInterpolation={color} />
+                  </Spacer>
+                )
+              })}
             </View>
           </Spacer>
           <Spacer marginTop={20}>
             <View style={styles.row}>
-              <NumberButton
-                value="1"
-                onPress={this.handleNumberPress(1)}
-                animatedBorderColor={color}
-              />
+              <NumberButton value="1" onPress={this.handleNumberPress(1)} animatedBorderColor={color} />
               <Spacer marginLeft={10}>
-                <NumberButton
-                  value="2"
-                  onPress={this.handleNumberPress(2)}
-                  animatedBorderColor={color}
-                />
+                <NumberButton value="2" onPress={this.handleNumberPress(2)} animatedBorderColor={color} />
               </Spacer>
               <Spacer marginLeft={10}>
-                <NumberButton
-                  value="3"
-                  onPress={this.handleNumberPress(3)}
-                  animatedBorderColor={color}
-                />
+                <NumberButton value="3" onPress={this.handleNumberPress(3)} animatedBorderColor={color} />
               </Spacer>
             </View>
             <Spacer marginTop={10}>
               <View style={styles.row}>
-                <NumberButton
-                  value="4"
-                  onPress={this.handleNumberPress(4)}
-                  animatedBorderColor={color}
-                />
+                <NumberButton value="4" onPress={this.handleNumberPress(4)} animatedBorderColor={color} />
                 <Spacer marginLeft={10}>
-                  <NumberButton
-                    value="5"
-                    onPress={this.handleNumberPress(5)}
-                    animatedBorderColor={color}
-                  />
+                  <NumberButton value="5" onPress={this.handleNumberPress(5)} animatedBorderColor={color} />
                 </Spacer>
                 <Spacer marginLeft={10}>
-                  <NumberButton
-                    value="6"
-                    onPress={this.handleNumberPress(6)}
-                    animatedBorderColor={color}
-                  />
+                  <NumberButton value="6" onPress={this.handleNumberPress(6)} animatedBorderColor={color} />
                 </Spacer>
               </View>
             </Spacer>
             <Spacer marginTop={10}>
               <View style={styles.row}>
-                <NumberButton
-                  value="7"
-                  onPress={this.handleNumberPress(7)}
-                  animatedBorderColor={color}
-                />
+                <NumberButton value="7" onPress={this.handleNumberPress(7)} animatedBorderColor={color} />
                 <Spacer marginLeft={10}>
-                  <NumberButton
-                    value="8"
-                    onPress={this.handleNumberPress(8)}
-                    animatedBorderColor={color}
-                  />
+                  <NumberButton value="8" onPress={this.handleNumberPress(8)} animatedBorderColor={color} />
                 </Spacer>
                 <Spacer marginLeft={10}>
-                  <NumberButton
-                    value="9"
-                    onPress={this.handleNumberPress(9)}
-                    animatedBorderColor={color}
-                  />
+                  <NumberButton value="9" onPress={this.handleNumberPress(9)} animatedBorderColor={color} />
                 </Spacer>
               </View>
             </Spacer>
             <Spacer marginTop={10}>
               <View style={[styles.row, { justifyContent: 'flex-end' }]}>
-                <NumberButton
-                  value="0"
-                  onPress={this.handleNumberPress(0)}
-                  animatedBorderColor={color}
-                />
+                <NumberButton value="0" onPress={this.handleNumberPress(0)} animatedBorderColor={color} />
                 <Spacer marginLeft={10}>
                   <DeleteButton onPress={this.handleDeletePress} />
                 </Spacer>

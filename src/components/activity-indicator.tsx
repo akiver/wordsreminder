@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  ActivityIndicator as RNActivityIndicator,
-  StyleSheet,
-  ActivityIndicatorProps,
-  ViewStyle,
-} from 'react-native'
+import { ActivityIndicator as RNActivityIndicator, StyleSheet, ActivityIndicatorProps, ViewStyle } from 'react-native'
 import { ThemeContext } from '@contexts/theme-context'
 
 type Props = ActivityIndicatorProps & {

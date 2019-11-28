@@ -9,20 +9,12 @@ import { FiltrableList } from '@components/list/filtrable-list'
 import { DICTIONARIES_SCREEN, DICTIONARIES_ROW } from '@e2e/ids'
 import { FilterOpenButton } from '@components/filter-open-button'
 import { PARAM_HAS_FILTER_ENABLED } from '@constants/navigation-parameters'
-import {
-  NavigationStackScreenProps,
-  NavigationStackOptions,
-  NavigationStackProp,
-} from 'react-navigation-stack'
+import { NavigationStackScreenProps, NavigationStackOptions, NavigationStackProp } from 'react-navigation-stack'
 
 type Props = NavigationStackScreenProps
 
 class DictionariesScreen extends React.Component<Props> {
-  static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: NavigationStackProp
-  }): NavigationStackOptions => {
+  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
     const { params } = navigation.state
     const options = {
       title: 'Dictionaries',
@@ -37,8 +29,7 @@ class DictionariesScreen extends React.Component<Props> {
       }
     }
 
-    const onOpenFilterPress = () =>
-      navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
+    const onOpenFilterPress = () => navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
     return {
       ...options,
       headerRight: <FilterOpenButton onPress={onOpenFilterPress} />,
@@ -58,13 +49,7 @@ class DictionariesScreen extends React.Component<Props> {
   }
 
   renderDictionary = ({ item }: { item: Dictionary }) => {
-    return (
-      <DictionaryRow
-        dictionary={item}
-        navigation={this.props.navigation}
-        testID={DICTIONARIES_ROW(item.id)}
-      />
-    )
+    return <DictionaryRow dictionary={item} navigation={this.props.navigation} testID={DICTIONARIES_ROW(item.id)} />
   }
 
   render() {

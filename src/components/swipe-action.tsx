@@ -14,14 +14,7 @@ type Props = {
   testID: string
 }
 
-const SwipeAction = ({
-  progress,
-  dragX,
-  text,
-  backgroundColor,
-  onPress,
-  testID,
-}: Props) => {
+const SwipeAction = ({ progress, dragX, text, backgroundColor, onPress, testID }: Props) => {
   const translateX = progress.interpolate({
     inputRange: [0, 1],
     outputRange: [dragX, 0],
@@ -29,11 +22,7 @@ const SwipeAction = ({
 
   return (
     <Animated.View style={{ flex: 1, transform: [{ translateX }] }}>
-      <RectButton
-        style={[styles.action, { backgroundColor }]}
-        onPress={onPress}
-        testID={testID}
-      >
+      <RectButton style={[styles.action, { backgroundColor }]} onPress={onPress} testID={testID}>
         <Text color="white" fontSize={16}>
           {text}
         </Text>

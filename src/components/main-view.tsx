@@ -11,10 +11,7 @@ const MainView = ({ testID, children }: Props) => {
   return (
     <ThemeContext.Consumer>
       {({ theme }) => (
-        <SafeAreaView
-          style={[styles.container, { backgroundColor: theme.primary100 }]}
-          testID={testID}
-        >
+        <SafeAreaView style={[styles.container, { backgroundColor: theme.primary100 }]} testID={testID}>
           {children}
         </SafeAreaView>
       )}
