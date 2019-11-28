@@ -6,7 +6,7 @@ type Props = {
   children?: never
 }
 
-const CorrectIcon = ({  }: Props) => (
+const CorrectIcon = ({}: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Svg width={25} height={25} viewBox="0 0 442.533 442.533">

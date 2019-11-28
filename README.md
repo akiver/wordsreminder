@@ -10,7 +10,7 @@ Click on the picture to watch a brief video ↑
 
 ## Setup
 
-**I made this application for personal use and is not intended to be on Apple / Google stores, you will have to create your own Firebase project.**
+**I made this application for personal usage and is not intended to be on Apple / Google stores, you will have to create your own Firebase project.**
 
 ### Common platform steps:
 
@@ -58,8 +58,9 @@ Follow the instructions below for your target platform.
 **Follow common steps from the [setup section](#common-platform-steps) before continuing!**
 
 1. Download your `google-services.json` from the project settings of the [firebase console](https://console.firebase.google.com).
-2. Move the file into `android/app/google-services.json`.
-3. `yarn android` (will run in simulator).
+2. Edit this file and rename the field `package_name` to `com.wordsreminder`.
+3. Move the file into `android/app/google-services.json`.
+4. `yarn android` (will run in simulator).
 
 ## Install on device (release)
 

@@ -6,7 +6,7 @@ type Props = {
   children?: never
 }
 
-const FilterIcon = ({  }: Props) => (
+const FilterIcon = ({}: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Svg viewBox="0 0 56.966 56.966" width={25} height={25}>

@@ -6,7 +6,7 @@ type Props = {
   children?: never
 }
 
-const LeftArrowIcon = ({  }: Props) => (
+const LeftArrowIcon = ({}: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Svg viewBox="0 0 492 492" width={25} height={25}>

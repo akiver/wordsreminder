@@ -6,7 +6,7 @@ type Props = {
   children?: never
 }
 
-const PlusIcon = ({  }: Props) => (
+const PlusIcon = ({}: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Svg width={56} height={56} viewBox="0 0 510 510" testID="plus-icon">

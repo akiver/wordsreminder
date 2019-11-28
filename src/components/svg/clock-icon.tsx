@@ -6,7 +6,7 @@ type Props = {
   children?: never
 }
 
-const ClockIcon = ({  }: Props) => (
+const ClockIcon = ({}: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Svg width={16} height={16} viewBox="0 0 97.16 97.16" testID="clock-icon">
