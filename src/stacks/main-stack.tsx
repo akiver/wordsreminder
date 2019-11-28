@@ -1,12 +1,6 @@
 import React from 'react'
-import {
-  createStackNavigator,
-  NavigationStackProp,
-} from 'react-navigation-stack'
-import {
-  createBottomTabNavigator,
-  TabBarIconProps,
-} from 'react-navigation-tabs'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { DictionariesScreen } from '@screens/dictionaries/dictionaries-screen'
 import { CreateDictionaryScreen } from '@screens/dictionaries/create-dictionary-screen'
 import { EditDictionaryScreen } from '@screens/dictionaries/edit-dictionary-screen'
@@ -84,14 +78,8 @@ const MainStack = createBottomTabNavigator(
     ),
   },
   {
-    defaultNavigationOptions: ({
-      navigation,
-      screenProps,
-    }: {
-      navigation: NavigationStackProp // TODO change it when react-navigation-tabs will export a typed NavigationTabProp
-      screenProps: ScreenProps
-    }) => {
-      const theme = screenProps.theme
+    defaultNavigationOptions: ({ navigation, screenProps }) => {
+      const theme = (screenProps as ScreenProps).theme
       return {
         tabBarOptions: {
           style: {
@@ -99,7 +87,8 @@ const MainStack = createBottomTabNavigator(
           },
           showLabel: false,
         },
-        tabBarIcon: function TabBarIcon({ focused }: TabBarIconProps) {
+        // eslint-disable-next-line
+        tabBarIcon: ({ focused }) => {
           const { routeName } = navigation.state
           const opacity = focused ? 1 : 0.5
           if (routeName === DICTIONARIES_SCREEN) {
