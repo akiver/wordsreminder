@@ -39,7 +39,7 @@
     ]
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.6.3",
+    "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/bottom-tabs": "^5.0.0-alpha.37",
     "@react-navigation/native": "^5.0.0-alpha.27",
@@ -47,14 +47,14 @@
     "memoize-one": "^5.1.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-bootsplash": "^1.0.3",
+    "react-native-bootsplash": "^1.2.1",
     "react-native-config": "^0.11.7",
     "react-native-firebase": "^5.5.6",
     "react-native-gesture-handler": "1.5.3",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.25",
-    "react-native-svg": "^9.13.3",
+    "react-native-svg": "^11.0.1",
     "react-native-touch-id": "^4.4.1",
     "rn-secure-storage": "^2.0.3"
   },
@@ -103,7 +103,7 @@
         "build": "xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
         "device": {
-          "name": "iPhone X"
+          "name": "iPhone 11"
         }
       },
       "ios.sim.release": {
@@ -111,7 +111,7 @@
         "build": "export RCT_NO_LAUNCH_PACKAGER=true && export RN_SRC_EXT=e2e.ts && xcodebuild -workspace ios/WordsReminder.xcworkspace -UseNewBuildSystem=NO -scheme WordsReminder -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet",
         "type": "ios.simulator",
         "device": {
-          "name": "iPhone X"
+          "name": "iPhone 11"
         }
       },
       "android.emu.debug": {
