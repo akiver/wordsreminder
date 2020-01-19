@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native'
-import { PlusIcon } from '@components/svg/plus-icon'
+import React from 'react';
+import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native';
+import { PlusIcon } from '@components/svg/plus-icon';
 
 type Props = {
-  onPress: () => void
-  testID?: string
-  children?: never
-}
+  onPress: () => void;
+  testID?: string;
+  children?: never;
+};
 
 export const AddButton = ({ onPress, testID }: Props) => {
   return (
@@ -19,12 +19,12 @@ export const AddButton = ({ onPress, testID }: Props) => {
     >
       <PlusIcon />
     </TouchableHighlight>
-  )
-}
+  );
+};
 
 type Style = {
-  addButton: ViewStyle
-}
+  addButton: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   addButton: {
@@ -32,4 +32,4 @@ const styles = StyleSheet.create<Style>({
     bottom: 20,
     right: 20,
   },
-})
+});

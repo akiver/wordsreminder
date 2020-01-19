@@ -1,5 +1,4 @@
-const defaultSourceExts = require('metro-config/src/defaults/defaults')
-  .sourceExts
+const defaultSourceExts = require('metro-config/src/defaults/defaults').sourceExts;
 
 module.exports = {
   resolver: {
@@ -15,4 +14,4 @@ module.exports = {
       },
     }),
   },
-}
+};

@@ -1,13 +1,13 @@
-import React from 'react'
-import { Text as RNText, TextProps } from 'react-native'
-import { ThemeContext, Theme } from '@contexts/theme-context'
+import React from 'react';
+import { Text as RNText, TextProps } from 'react-native';
+import { ThemeContext, Theme } from '@contexts/theme-context';
 
 type Props = TextProps & {
-  color?: keyof Theme
-  fontSize?: number
-  fontWeight?: 'normal' | 'bold'
-  children: string
-}
+  color?: keyof Theme;
+  fontSize?: number;
+  fontWeight?: 'normal' | 'bold';
+  children: string;
+};
 
 export const Text = ({
   onPress,
@@ -36,8 +36,8 @@ export const Text = ({
           >
             {children}
           </RNText>
-        )
+        );
       }}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};

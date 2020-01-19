@@ -1,13 +1,13 @@
-import { StyleSheet, TouchableOpacity, Animated, TouchableOpacityProps, ViewStyle } from 'react-native'
-import React from 'react'
-import { Text } from '@components/text'
-import { ThemeContext } from '@contexts/theme-context'
+import { StyleSheet, TouchableOpacity, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
+import React from 'react';
+import { Text } from '@components/text';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = TouchableOpacityProps & {
-  value: string
-  animatedBorderColor: Animated.AnimatedInterpolation
-  children?: never
-}
+  value: string;
+  animatedBorderColor: Animated.AnimatedInterpolation;
+  children?: never;
+};
 
 export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => (
   <ThemeContext.Consumer>
@@ -27,12 +27,12 @@ export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: 
       </Animated.View>
     )}
   </ThemeContext.Consumer>
-)
+);
 
 type Style = {
-  view: ViewStyle
-  touchable: ViewStyle
-}
+  view: ViewStyle;
+  touchable: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   view: {
@@ -46,4 +46,4 @@ const styles = StyleSheet.create<Style>({
     width: 80,
     borderRadius: 80,
   },
-})
+});

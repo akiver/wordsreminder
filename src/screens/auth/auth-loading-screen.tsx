@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, ViewStyle } from 'react-native'
-import { auth } from 'react-native-firebase'
-import { Text } from '@components/text'
-import { MainView } from '@components/main-view'
-import { AuthStack } from '@stacks/auth-stack'
-import { TabsStack } from '@stacks/tabs-stack'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ViewStyle } from 'react-native';
+import { auth } from 'react-native-firebase';
+import { Text } from '@components/text';
+import { MainView } from '@components/main-view';
+import { AuthStack } from '@stacks/auth-stack';
+import { TabsStack } from '@stacks/tabs-stack';
 
 export const AuthLoadingScreen = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [user, setUser] = useState<object | null>(null)
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<object | null>(null);
 
   useEffect(() => {
     auth().onAuthStateChanged((user: object | null) => {
-      setUser(user)
-      setIsLoading(false)
-    })
-  }, [])
+      setUser(user);
+      setIsLoading(false);
+    });
+  }, []);
 
   if (isLoading) {
     return (
@@ -24,19 +24,19 @@ export const AuthLoadingScreen = () => {
           <Text fontSize={38}>Loading...</Text>
         </View>
       </MainView>
-    )
+    );
   }
 
   if (user === null) {
-    return <AuthStack />
+    return <AuthStack />;
   }
 
-  return <TabsStack />
-}
+  return <TabsStack />;
+};
 
 type Style = {
-  container: ViewStyle
-}
+  container: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -44,4 +44,4 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
     justifyContent: 'center',
   },
-})
+});

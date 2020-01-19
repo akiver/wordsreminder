@@ -1,24 +1,24 @@
-import React, { ReactChild } from 'react'
-import { StyleSheet, KeyboardAvoidingView, View, Platform, ViewStyle } from 'react-native'
-import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses'
-import { ErrorMessage } from '@components/error-message'
-import { Spacer } from '@components/spacer'
-import { ActivityIndicator } from '@components/activity-indicator'
-import { ThemeContext } from '@contexts/theme-context'
-import { useHeaderHeight } from '@react-navigation/stack'
+import React, { ReactChild } from 'react';
+import { StyleSheet, KeyboardAvoidingView, View, Platform, ViewStyle } from 'react-native';
+import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses';
+import { ErrorMessage } from '@components/error-message';
+import { Spacer } from '@components/spacer';
+import { ActivityIndicator } from '@components/activity-indicator';
+import { ThemeContext } from '@contexts/theme-context';
+import { useHeaderHeight } from '@react-navigation/stack';
 
 type Props = {
-  status: STATUS
-  error?: string
-  submitButton: ReactChild
-  inputs: ReactChild
-  link: ReactChild
-  testID?: string
-  children?: never
-}
+  status: STATUS;
+  error?: string;
+  submitButton: ReactChild;
+  inputs: ReactChild;
+  link: ReactChild;
+  testID?: string;
+  children?: never;
+};
 
 export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => {
-  const headerHeight = useHeaderHeight()
+  const headerHeight = useHeaderHeight();
   return (
     <ThemeContext.Consumer>
       {({ theme }) => {
@@ -44,18 +44,18 @@ export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }
               </View>
             </View>
           </KeyboardAvoidingView>
-        )
+        );
       }}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  container: ViewStyle
-  content: ViewStyle
-  inputs: ViewStyle
-  buttons: ViewStyle
-}
+  container: ViewStyle;
+  content: ViewStyle;
+  inputs: ViewStyle;
+  buttons: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -75,4 +75,4 @@ const styles = StyleSheet.create<Style>({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-})
+});

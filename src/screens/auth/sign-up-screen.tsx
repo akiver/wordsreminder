@@ -1,56 +1,56 @@
-import React from 'react'
-import { TextInput } from 'react-native'
-import { Button } from '@components/button'
-import { InputText } from '@components/input-text'
-import { STATUS_ERROR, STATUS_IDLE, STATUS_LOADING, STATUS } from '@constants/statuses'
-import { signUp } from '@services/sign-up'
-import { isStringEmpty } from '@utils/is-string-empty'
-import { Spacer } from '@components/spacer'
-import { AuthLayout } from '@auth/auth-layout'
-import { Text } from '@components/text'
+import React from 'react';
+import { TextInput } from 'react-native';
+import { Button } from '@components/button';
+import { InputText } from '@components/input-text';
+import { STATUS_ERROR, STATUS_IDLE, STATUS_LOADING, STATUS } from '@constants/statuses';
+import { signUp } from '@services/sign-up';
+import { isStringEmpty } from '@utils/is-string-empty';
+import { Spacer } from '@components/spacer';
+import { AuthLayout } from '@auth/auth-layout';
+import { Text } from '@components/text';
 import {
   SIGNUP_SCREEN,
   SIGNUP_INPUT_EMAIL,
   SIGNUP_INPUT_PASSWORD,
   SIGNUP_LINK_SIGNIN,
   SIGNUP_SUBMIT_BUTTON,
-} from '@e2e/ids'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { RouteProp } from '@react-navigation/native'
-import { AuthStackParamList } from '@stacks/auth-stack'
+} from '@e2e/ids';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import { AuthStackParamList } from '@stacks/auth-stack';
 
-type SignUpScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signup'>
-type SignUpScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signup'>
+type SignUpScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signup'>;
+type SignUpScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signup'>;
 
 type Props = {
-  navigation: SignUpScreenNavigationProps
-  route: SignUpScreenRouteProps
-}
-type State = typeof initialState
+  navigation: SignUpScreenNavigationProps;
+  route: SignUpScreenRouteProps;
+};
+type State = typeof initialState;
 
 const initialState = Object.freeze({
   status: STATUS_IDLE as STATUS,
   email: '',
   password: '',
   error: undefined,
-})
+});
 
 export class SignUpScreen extends React.Component<Props, State> {
-  readonly state = initialState
+  readonly state = initialState;
 
-  passwordRef: React.RefObject<TextInput> = React.createRef()
+  passwordRef: React.RefObject<TextInput> = React.createRef();
 
   handleEmailChange = (email: string) => {
     this.setState({
       email,
-    })
-  }
+    });
+  };
 
   handlePasswordChange = (password: string) => {
     this.setState({
       password,
-    })
-  }
+    });
+  };
 
   submitSignUp = () => {
     this.setState(
@@ -59,31 +59,31 @@ export class SignUpScreen extends React.Component<Props, State> {
       },
       async () => {
         try {
-          const { email, password } = this.state
-          await signUp(email, password)
+          const { email, password } = this.state;
+          await signUp(email, password);
         } catch (error) {
           this.setState({
             status: STATUS_ERROR,
             error: error.message,
-          })
+          });
         }
       }
-    )
-  }
+    );
+  };
 
   handleSignInPress = () => {
-    this.props.navigation.goBack()
-  }
+    this.props.navigation.goBack();
+  };
 
   handleEmailSubmitEditing = () => {
     if (this.passwordRef.current !== null) {
-      this.passwordRef.current.focus()
+      this.passwordRef.current.focus();
     }
-  }
+  };
 
   isCreateButtonDisabled() {
-    const { email, password } = this.state
-    return isStringEmpty(email) || isStringEmpty(password)
+    const { email, password } = this.state;
+    return isStringEmpty(email) || isStringEmpty(password);
   }
 
   render() {
@@ -135,6 +135,6 @@ export class SignUpScreen extends React.Component<Props, State> {
           />
         }
       />
-    )
+    );
   }
 }

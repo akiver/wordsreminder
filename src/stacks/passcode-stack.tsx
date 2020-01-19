@@ -1,15 +1,15 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import { APP_LOCKER_SCREEN, AUTH_LOADING_SCREEN } from '@constants/screens'
-import { LockerScreen } from '@screens/locker-screen'
-import { AuthLoadingScreen } from '@screens/auth/auth-loading-screen'
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { APP_LOCKER_SCREEN, AUTH_LOADING_SCREEN } from '@constants/screens';
+import { LockerScreen } from '@screens/locker-screen';
+import { AuthLoadingScreen } from '@screens/auth/auth-loading-screen';
 
 type PasscodeStackParamList = {
-  [APP_LOCKER_SCREEN]: undefined
-  [AUTH_LOADING_SCREEN]: undefined
-}
+  [APP_LOCKER_SCREEN]: undefined;
+  [AUTH_LOADING_SCREEN]: undefined;
+};
 
-const Stack = createStackNavigator<PasscodeStackParamList>()
+const Stack = createStackNavigator<PasscodeStackParamList>();
 
 export const PasscodeStack = () => {
   return (
@@ -30,5 +30,5 @@ export const PasscodeStack = () => {
         }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};

@@ -6,10 +6,13 @@ module.exports = {
     },
   },
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    // The following plugin must be at the end.
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md#usage-with-prettier
     'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   settings: {
@@ -25,4 +28,4 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-inferrable-types': 0,
   },
-}
+};

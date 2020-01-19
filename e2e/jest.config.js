@@ -1,5 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils') // eslint-disable-line
-const { compilerOptions } = require('../tsconfig') // eslint-disable-line
+const { pathsToModuleNameMapper } = require('ts-jest/utils'); // eslint-disable-line
+const { compilerOptions } = require('../tsconfig'); // eslint-disable-line
 
 module.exports = {
   preset: 'ts-jest',
@@ -10,4 +10,4 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/../', // it will map jest to the parent dir so setup.ts cwd will be '..'
   }),
-}
+};

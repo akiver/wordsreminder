@@ -1,12 +1,12 @@
-import { StyleSheet, Animated, TouchableOpacityProps, ViewStyle } from 'react-native'
-import React from 'react'
-import { ThemeContext } from '@contexts/theme-context'
+import { StyleSheet, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
+import React from 'react';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = TouchableOpacityProps & {
-  isFilled: boolean
-  borderInterpolation?: Animated.AnimatedInterpolation
-  children?: never
-}
+  isFilled: boolean;
+  borderInterpolation?: Animated.AnimatedInterpolation;
+  children?: never;
+};
 
 export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => (
   <ThemeContext.Consumer>
@@ -22,11 +22,11 @@ export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) =>
       />
     )}
   </ThemeContext.Consumer>
-)
+);
 
 type Style = {
-  container: ViewStyle
-}
+  container: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -34,4 +34,4 @@ const styles = StyleSheet.create<Style>({
     width: 20,
     borderRadius: 20,
   },
-})
+});

@@ -1,12 +1,12 @@
-import React from 'react'
-import { TouchableHighlight } from 'react-native'
-import { Spacer } from '@components/spacer'
-import { FilterIcon } from '@components/svg/filter-icon'
-import { FILTER_OPEN_BUTTON } from '@e2e/ids'
+import React from 'react';
+import { TouchableHighlight } from 'react-native';
+import { Spacer } from '@components/spacer';
+import { FilterIcon } from '@components/svg/filter-icon';
+import { FILTER_OPEN_BUTTON } from '@e2e/ids';
 
 type Props = {
-  onPress: () => void
-}
+  onPress: () => void;
+};
 
 export const FilterOpenButton = ({ onPress }: Props) => {
   return (
@@ -15,5 +15,5 @@ export const FilterOpenButton = ({ onPress }: Props) => {
         <FilterIcon />
       </TouchableHighlight>
     </Spacer>
-  )
-}
+  );
+};

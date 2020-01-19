@@ -1,10 +1,10 @@
-import React from 'react'
-import Svg, { G, Path } from 'react-native-svg'
-import { ThemeContext } from '@contexts/theme-context'
+import React from 'react';
+import Svg, { G, Path } from 'react-native-svg';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = {
-  children?: never
-}
+  children?: never;
+};
 
 export const ClockIcon = ({}: Props) => {
   return (
@@ -18,5 +18,5 @@ export const ClockIcon = ({}: Props) => {
         </Svg>
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};

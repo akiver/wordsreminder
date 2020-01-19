@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, TextInput, TextInputProps, TextStyle } from 'react-native'
-import { Spacer } from '@components/spacer'
-import { Text } from '@components/text'
-import { ThemeContext } from '@contexts/theme-context'
+import React from 'react';
+import { StyleSheet, TextInput, TextInputProps, TextStyle } from 'react-native';
+import { Spacer } from '@components/spacer';
+import { Text } from '@components/text';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = TextInputProps & {
-  label: string
-}
+  label: string;
+};
 
 export const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) => {
   return (
@@ -27,14 +27,14 @@ export const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) 
         )}
       </ThemeContext.Consumer>
     </>
-  )
-})
+  );
+});
 
-InputText.displayName = 'InputText'
+InputText.displayName = 'InputText';
 
 type Style = {
-  inputText: TextStyle
-}
+  inputText: TextStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   inputText: {
@@ -42,4 +42,4 @@ const styles = StyleSheet.create<Style>({
     paddingBottom: 15,
     fontSize: 22,
   },
-})
+});

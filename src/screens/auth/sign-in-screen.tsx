@@ -1,58 +1,58 @@
-import React from 'react'
-import { TextInput } from 'react-native'
-import { Button } from '@components/button'
-import { InputText } from '@components/input-text'
-import { signIn } from '@services/sign-in'
-import { STATUS_LOADING, STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses'
-import { AUTH_SIGN_UP_SCREEN } from '@constants/screens'
-import { isStringEmpty } from '@utils/is-string-empty'
-import { Spacer } from '@components/spacer'
-import { AuthLayout } from '@auth/auth-layout'
-import { Text } from '@components/text'
+import React from 'react';
+import { TextInput } from 'react-native';
+import { Button } from '@components/button';
+import { InputText } from '@components/input-text';
+import { signIn } from '@services/sign-in';
+import { STATUS_LOADING, STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses';
+import { AUTH_SIGN_UP_SCREEN } from '@constants/screens';
+import { isStringEmpty } from '@utils/is-string-empty';
+import { Spacer } from '@components/spacer';
+import { AuthLayout } from '@auth/auth-layout';
+import { Text } from '@components/text';
 import {
   SIGNIN_SCREEN,
   SIGNIN_SUBMIT_BUTTON,
   SIGNIN_INPUT_EMAIL,
   SIGNIN_INPUT_PASSWORD,
   SIGNIN_LINK_SIGNUP,
-} from '@e2e/ids'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { AuthStackParamList } from '@stacks/auth-stack'
-import { RouteProp } from '@react-navigation/native'
+} from '@e2e/ids';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthStackParamList } from '@stacks/auth-stack';
+import { RouteProp } from '@react-navigation/native';
 
-type SignInScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signin'>
-type SignInScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signin'>
+type SignInScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signin'>;
+type SignInScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signin'>;
 
 type Props = {
-  navigation: SignInScreenNavigationProps
-  route: SignInScreenRouteProps
-}
+  navigation: SignInScreenNavigationProps;
+  route: SignInScreenRouteProps;
+};
 
-type State = typeof initialState
+type State = typeof initialState;
 
 const initialState = Object.freeze({
   status: STATUS_IDLE as STATUS,
   email: '',
   password: '',
   error: undefined as string | undefined,
-})
+});
 
 export class SignInScreen extends React.Component<Props, State> {
-  readonly state = initialState
+  readonly state = initialState;
 
-  passwordRef: React.RefObject<TextInput> = React.createRef()
+  passwordRef: React.RefObject<TextInput> = React.createRef();
 
   handleEmailChange = (email: string) => {
     this.setState({
       email,
-    })
-  }
+    });
+  };
 
   handlePasswordChange = (password: string) => {
     this.setState({
       password,
-    })
-  }
+    });
+  };
 
   submitSignIn = () => {
     this.setState(
@@ -61,31 +61,31 @@ export class SignInScreen extends React.Component<Props, State> {
       },
       async () => {
         try {
-          const { email, password } = this.state
-          await signIn(email, password)
+          const { email, password } = this.state;
+          await signIn(email, password);
         } catch (error) {
           this.setState({
             status: STATUS_ERROR,
             error: error.message,
-          })
+          });
         }
       }
-    )
-  }
+    );
+  };
 
   handleSignUpPress = () => {
-    this.props.navigation.push(AUTH_SIGN_UP_SCREEN)
-  }
+    this.props.navigation.push(AUTH_SIGN_UP_SCREEN);
+  };
 
   handleEmailSubmitEditing = () => {
     if (this.passwordRef.current !== null) {
-      this.passwordRef.current.focus()
+      this.passwordRef.current.focus();
     }
-  }
+  };
 
   isSignInButtonDisabled() {
-    const { email, password } = this.state
-    return isStringEmpty(email) || isStringEmpty(password)
+    const { email, password } = this.state;
+    return isStringEmpty(email) || isStringEmpty(password);
   }
 
   render() {
@@ -137,6 +137,6 @@ export class SignInScreen extends React.Component<Props, State> {
           />
         }
       />
-    )
+    );
   }
 }

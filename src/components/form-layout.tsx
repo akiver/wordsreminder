@@ -1,15 +1,15 @@
-import React, { ReactNode } from 'react'
-import { StyleSheet, ScrollView, ViewStyle } from 'react-native'
-import { STATUS, STATUS_ERROR } from '@constants/statuses'
-import { ErrorMessage } from '@components/error-message'
-import { Spacer } from '@components/spacer'
-import { MainView } from '@components/main-view'
+import React, { ReactNode } from 'react';
+import { StyleSheet, ScrollView, ViewStyle } from 'react-native';
+import { STATUS, STATUS_ERROR } from '@constants/statuses';
+import { ErrorMessage } from '@components/error-message';
+import { Spacer } from '@components/spacer';
+import { MainView } from '@components/main-view';
 
 type Props = {
-  status: STATUS
-  error?: string
-  children: ReactNode
-}
+  status: STATUS;
+  error?: string;
+  children: ReactNode;
+};
 
 export const FormLayout = ({ status, error, children }: Props) => {
   return (
@@ -23,12 +23,12 @@ export const FormLayout = ({ status, error, children }: Props) => {
         {children}
       </ScrollView>
     </MainView>
-  )
-}
+  );
+};
 
 type Style = {
-  scrollView: ViewStyle
-}
+  scrollView: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   scrollView: {
@@ -36,4 +36,4 @@ const styles = StyleSheet.create<Style>({
     paddingTop: 10,
     paddingHorizontal: 10,
   },
-})
+});

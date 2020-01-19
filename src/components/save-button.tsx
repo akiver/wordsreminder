@@ -1,16 +1,16 @@
-import React from 'react'
-import { ActivityIndicator, TouchableHighlight } from 'react-native'
-import { STATUS, STATUS_LOADING } from '@constants/statuses'
-import { CorrectIcon } from '@components/svg/correct-icon'
-import { Spacer } from '@components/spacer'
-import { ThemeContext } from '@contexts/theme-context'
-import { SAVE_BUTTON } from '@e2e/ids'
+import React from 'react';
+import { ActivityIndicator, TouchableHighlight } from 'react-native';
+import { STATUS, STATUS_LOADING } from '@constants/statuses';
+import { CorrectIcon } from '@components/svg/correct-icon';
+import { Spacer } from '@components/spacer';
+import { ThemeContext } from '@contexts/theme-context';
+import { SAVE_BUTTON } from '@e2e/ids';
 
 type Props = {
-  status: STATUS
-  onPress: () => void
-  disabled: boolean
-}
+  status: STATUS;
+  onPress: () => void;
+  disabled: boolean;
+};
 
 export const SaveButton = ({ status, onPress, disabled = false }: Props) => {
   if (status === STATUS_LOADING) {
@@ -20,7 +20,7 @@ export const SaveButton = ({ status, onPress, disabled = false }: Props) => {
           {({ theme }) => <ActivityIndicator size="large" color={theme.primary025} />}
         </ThemeContext.Consumer>
       </Spacer>
-    )
+    );
   }
 
   return (
@@ -34,5 +34,5 @@ export const SaveButton = ({ status, onPress, disabled = false }: Props) => {
         <CorrectIcon />
       </TouchableHighlight>
     </Spacer>
-  )
-}
+  );
+};

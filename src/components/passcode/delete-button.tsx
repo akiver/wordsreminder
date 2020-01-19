@@ -1,11 +1,11 @@
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
-import React from 'react'
-import { Text } from '@components/text'
-import { ThemeContext } from '@contexts/theme-context'
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
+import React from 'react';
+import { Text } from '@components/text';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = TouchableOpacityProps & {
-  children?: never
-}
+  children?: never;
+};
 
 export const DeleteButton = ({ onPress, ...props }: Props) => (
   <ThemeContext.Consumer>
@@ -25,11 +25,11 @@ export const DeleteButton = ({ onPress, ...props }: Props) => (
       </TouchableOpacity>
     )}
   </ThemeContext.Consumer>
-)
+);
 
 type Style = {
-  container: ViewStyle
-}
+  container: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -40,4 +40,4 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
     justifyContent: 'center',
   },
-})
+});

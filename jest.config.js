@@ -1,6 +1,6 @@
-const { defaults: tsjPreset } = require('ts-jest/presets') // eslint-disable-line
-const { pathsToModuleNameMapper } = require('ts-jest/utils') // eslint-disable-line
-const { compilerOptions } = require('./tsconfig') // eslint-disable-line
+const { defaults: tsjPreset } = require('ts-jest/presets'); // eslint-disable-line
+const { pathsToModuleNameMapper } = require('ts-jest/utils'); // eslint-disable-line
+const { compilerOptions } = require('./tsconfig'); // eslint-disable-line
 
 module.exports = {
   ...tsjPreset,
@@ -14,4 +14,4 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
-}
+};

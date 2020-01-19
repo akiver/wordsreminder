@@ -1,20 +1,20 @@
-import React from 'react'
-import { render } from '@testing-library/react-native'
-import renderer from 'react-test-renderer'
-import { ErrorMessage } from '../error-message'
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import renderer from 'react-test-renderer';
+import { ErrorMessage } from '../error-message';
 
 describe('ErrorMessage', () => {
-  const message = 'A message'
+  const message = 'A message';
 
-  const createComponent = () => <ErrorMessage message={message} />
+  const createComponent = () => <ErrorMessage message={message} />;
   it('should display a message', async () => {
-    const { findByText } = render(createComponent())
+    const { findByText } = render(createComponent());
 
-    findByText(message)
-  })
+    findByText(message);
+  });
 
   it('should match snapshot', () => {
-    const tree = renderer.create(createComponent()).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+    const tree = renderer.create(createComponent()).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});

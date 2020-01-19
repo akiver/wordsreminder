@@ -1,32 +1,32 @@
-import React from 'react'
-import { TextInput, View } from 'react-native'
-import { InputText } from '@components/input-text'
-import { SaveButton } from '@components/save-button'
-import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
-import { createWord } from '@services/create-word'
-import { isStringEmpty } from '@utils/is-string-empty'
-import { FormLayout } from '@components/form-layout'
-import { Spacer } from '@components/spacer'
+import React from 'react';
+import { TextInput, View } from 'react-native';
+import { InputText } from '@components/input-text';
+import { SaveButton } from '@components/save-button';
+import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses';
+import { createWord } from '@services/create-word';
+import { isStringEmpty } from '@utils/is-string-empty';
+import { FormLayout } from '@components/form-layout';
+import { Spacer } from '@components/spacer';
 import {
   WORD_CREATE_SCREEN,
   WORD_CREATE_INPUT_VALUE,
   WORD_CREATE_INPUT_SIGNIFICATION,
   WORD_CREATE_INPUT_DESCRIPTION,
-} from '@e2e/ids'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
-import { RouteProp } from '@react-navigation/native'
-import { WORDS_CREATE_SCREEN } from '@constants/screens'
+} from '@e2e/ids';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
+import { RouteProp } from '@react-navigation/native';
+import { WORDS_CREATE_SCREEN } from '@constants/screens';
 
-type CreateWordScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>
-type CreateWordScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>
+type CreateWordScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>;
+type CreateWordScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>;
 
 type Props = {
-  navigation: CreateWordScreenNavigationProps
-  route: CreateWordScreenRouteProps
-}
+  navigation: CreateWordScreenNavigationProps;
+  route: CreateWordScreenRouteProps;
+};
 
-type State = typeof initialState
+type State = typeof initialState;
 
 const initialState = Object.freeze({
   value: undefined as string | undefined,
@@ -34,57 +34,57 @@ const initialState = Object.freeze({
   description: undefined as string | undefined,
   status: STATUS_IDLE as STATUS,
   error: undefined as string | undefined,
-})
+});
 
 export class CreateWordScreen extends React.Component<Props, State> {
-  significationRef: React.RefObject<TextInput> = React.createRef()
+  significationRef: React.RefObject<TextInput> = React.createRef();
 
-  descriptionRef: React.RefObject<TextInput> = React.createRef()
+  descriptionRef: React.RefObject<TextInput> = React.createRef();
 
-  readonly state = initialState
+  readonly state = initialState;
 
-  INPUT_MARGIN_TOP = 10
+  INPUT_MARGIN_TOP = 10;
 
   componentDidMount() {
     this.props.navigation.setOptions({
       title: 'Add a word',
-    })
-    this.updateSaveButton()
+    });
+    this.updateSaveButton();
   }
 
   updateSaveButton = () => {
     this.props.navigation.setOptions({
       headerRight: () => {
-        const { status, signification, value } = this.state
+        const { status, signification, value } = this.state;
         return (
           <SaveButton
             disabled={status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification)}
             onPress={this.handleAddPress}
             status={status}
           />
-        )
+        );
       },
-    })
-  }
+    });
+  };
 
   handleAddPress = () => {
     this.setState({ status: STATUS_LOADING }, async () => {
-      const { navigation, route } = this.props
+      const { navigation, route } = this.props;
       try {
-        this.updateSaveButton()
-        const dictionaryId: string = route.params.dictionaryId
-        const { value, signification, description } = this.state
-        await createWord(dictionaryId, value, signification, description)
-        navigation.goBack()
+        this.updateSaveButton();
+        const dictionaryId: string = route.params.dictionaryId;
+        const { value, signification, description } = this.state;
+        await createWord(dictionaryId, value, signification, description);
+        navigation.goBack();
       } catch (error) {
         this.setState({ status: STATUS_ERROR, error: error.message }, () => {
           this.setState({
             status: STATUS_ERROR,
-          })
-        })
+          });
+        });
       }
-    })
-  }
+    });
+  };
 
   handleWordChange = (word: string) => {
     this.setState(
@@ -92,10 +92,10 @@ export class CreateWordScreen extends React.Component<Props, State> {
         value: word,
       },
       () => {
-        this.updateSaveButton()
+        this.updateSaveButton();
       }
-    )
-  }
+    );
+  };
 
   handleSignificationChange = (signification: string) => {
     this.setState(
@@ -103,30 +103,30 @@ export class CreateWordScreen extends React.Component<Props, State> {
         signification,
       },
       () => {
-        this.updateSaveButton()
+        this.updateSaveButton();
       }
-    )
-  }
+    );
+  };
 
   handleDescriptionChange = (description: string): void => {
     this.setState({
       description,
-    })
-  }
+    });
+  };
 
   handleWordSubmitEditing = () => {
-    const signification = this.significationRef.current
+    const signification = this.significationRef.current;
     if (signification !== null) {
-      signification.focus()
+      signification.focus();
     }
-  }
+  };
 
   handleSignificationSubmitEditing = () => {
-    const description = this.descriptionRef.current
+    const description = this.descriptionRef.current;
     if (description !== null) {
-      description.focus()
+      description.focus();
     }
-  }
+  };
 
   render() {
     return (
@@ -164,6 +164,6 @@ export class CreateWordScreen extends React.Component<Props, State> {
           </Spacer>
         </View>
       </FormLayout>
-    )
+    );
   }
 }

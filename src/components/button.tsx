@@ -1,12 +1,12 @@
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
-import React from 'react'
-import { Text } from '@components/text'
-import { ThemeContext } from '@contexts/theme-context'
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
+import React from 'react';
+import { Text } from '@components/text';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = TouchableOpacityProps & {
-  text: string
-  children?: never
-}
+  text: string;
+  children?: never;
+};
 
 export const Button = ({ onPress, text, ...props }: Props) => {
   return (
@@ -28,13 +28,13 @@ export const Button = ({ onPress, text, ...props }: Props) => {
         </TouchableOpacity>
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  container: ViewStyle
-  disabled: ViewStyle
-}
+  container: ViewStyle;
+  disabled: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -47,4 +47,4 @@ const styles = StyleSheet.create<Style>({
   disabled: {
     opacity: 0.3,
   },
-})
+});

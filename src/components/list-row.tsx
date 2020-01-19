@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react'
-import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native'
-import { ThemeContext } from '@contexts/theme-context'
+import React, { ReactNode } from 'react';
+import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = {
-  onPress?: () => void
-  testID: string
-  children: ReactNode
-}
+  onPress?: () => void;
+  testID: string;
+  children: ReactNode;
+};
 
 export const ListRow = ({ onPress, testID, children }: Props) => {
   return (
@@ -28,12 +28,12 @@ export const ListRow = ({ onPress, testID, children }: Props) => {
         </TouchableHighlight>
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  container: ViewStyle
-}
+  container: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -41,4 +41,4 @@ const styles = StyleSheet.create<Style>({
     borderBottomWidth: 1,
     padding: 10,
   },
-})
+});

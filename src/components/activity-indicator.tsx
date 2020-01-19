@@ -1,10 +1,10 @@
-import React from 'react'
-import { ActivityIndicator as RNActivityIndicator, StyleSheet, ActivityIndicatorProps, ViewStyle } from 'react-native'
-import { ThemeContext } from '@contexts/theme-context'
+import React from 'react';
+import { ActivityIndicator as RNActivityIndicator, StyleSheet, ActivityIndicatorProps, ViewStyle } from 'react-native';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = ActivityIndicatorProps & {
-  children?: never
-}
+  children?: never;
+};
 
 export const ActivityIndicator = ({ size = 'small' }: Props) => {
   return (
@@ -18,15 +18,15 @@ export const ActivityIndicator = ({ size = 'small' }: Props) => {
         />
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  activityIndicator: ViewStyle
-}
+  activityIndicator: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   activityIndicator: {
     padding: 10,
   },
-})
+});

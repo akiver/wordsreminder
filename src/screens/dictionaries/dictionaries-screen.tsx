@@ -1,74 +1,74 @@
-import React from 'react'
-import { Query } from 'react-native-firebase/firestore'
-import { firestore } from 'react-native-firebase'
-import { DICTIONARIES } from '@constants/database'
-import { DICTIONARIES_CREATE_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens'
-import { DictionaryRow } from '@dictionaries/dictionary-row'
-import { documentSnapshotToDictionary, Dictionary } from '@models/dictionary'
-import { FiltrableList } from '@components/list/filtrable-list'
-import { DICTIONARIES_SCREEN_ID, DICTIONARIES_ROW } from '@e2e/ids'
-import { FilterOpenButton } from '@components/filter-open-button'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
-import { RouteProp } from '@react-navigation/native'
+import React from 'react';
+import { Query } from 'react-native-firebase/firestore';
+import { firestore } from 'react-native-firebase';
+import { DICTIONARIES } from '@constants/database';
+import { DICTIONARIES_CREATE_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens';
+import { DictionaryRow } from '@dictionaries/dictionary-row';
+import { documentSnapshotToDictionary, Dictionary } from '@models/dictionary';
+import { FiltrableList } from '@components/list/filtrable-list';
+import { DICTIONARIES_SCREEN_ID, DICTIONARIES_ROW } from '@e2e/ids';
+import { FilterOpenButton } from '@components/filter-open-button';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
+import { RouteProp } from '@react-navigation/native';
 
-type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>
-type DictionariesScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>
+type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
+type DictionariesScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
 
 type Props = {
-  navigation: DictionariesScreenNavigationProps
-  route: DictionariesScreenRouteProps
-}
+  navigation: DictionariesScreenNavigationProps;
+  route: DictionariesScreenRouteProps;
+};
 
 type State = {
-  hasFilterEnabled: boolean
-}
+  hasFilterEnabled: boolean;
+};
 
 export class DictionariesScreen extends React.Component<Props, State> {
   state: State = {
     hasFilterEnabled: false,
-  }
+  };
 
   public componentDidMount() {
     this.props.navigation.setOptions({
       title: 'Dictionaries',
       headerRight: () => <FilterOpenButton onPress={this.onOpenFilterPress} />,
-    })
+    });
   }
 
   private onOpenFilterPress = () => {
     this.setState({
       hasFilterEnabled: true,
-    })
+    });
     this.props.navigation.setOptions({
       headerShown: false,
-    })
-  }
+    });
+  };
 
   query: Query = firestore()
     .collection(DICTIONARIES)
-    .orderBy('updatedAt', 'desc')
+    .orderBy('updatedAt', 'desc');
 
   filterDictionaries(filter: string, dictionary: Dictionary) {
-    return dictionary.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+    return dictionary.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
   }
 
   handleAddDictionaryPress = () => {
-    this.props.navigation.push(DICTIONARIES_CREATE_SCREEN)
-  }
+    this.props.navigation.push(DICTIONARIES_CREATE_SCREEN);
+  };
 
   renderDictionary = ({ item }: { item: Dictionary }) => {
-    return <DictionaryRow dictionary={item} navigation={this.props.navigation} testID={DICTIONARIES_ROW(item.id)} />
-  }
+    return <DictionaryRow dictionary={item} navigation={this.props.navigation} testID={DICTIONARIES_ROW(item.id)} />;
+  };
 
   onCloseFilter = () => {
     this.setState({
       hasFilterEnabled: false,
-    })
+    });
     this.props.navigation.setOptions({
       headerShown: true,
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -83,6 +83,6 @@ export class DictionariesScreen extends React.Component<Props, State> {
         onCloseFilter={this.onCloseFilter}
         hasFilterEnabled={this.state.hasFilterEnabled}
       />
-    )
+    );
   }
 }

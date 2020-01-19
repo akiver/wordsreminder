@@ -21,7 +21,7 @@
     "ios:release": "yarn ios --configuration Release",
     "lint": "eslint \"{src,e2e,migrations}/**/*.{ts,tsx}\"",
     "migrate": "ts-node -P migrations/tsconfig.json migrations/index.ts",
-    "prettier": "prettier --write \"{src,e2e,migrations}/**/*.{ts,tsx}\"",
+    "prettier": "prettier --write \"{src,e2e,migrations}/**/*.{ts,tsx,json,js}\" \"./*.{js,json}\"",
     "pod": "pushd ios && pod install && popd",
     "pod-update": "pushd ios && pod update && popd",
     "rnlink": "react-native link",
@@ -32,11 +32,16 @@
     "tw": "jest --watch"
   },
   "lint-staged": {
-    "{src,e2e,migrations}/**/*.ts*": [
+    "*.ts*": [
       "prettier --write",
       "eslint",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
@@ -130,11 +135,6 @@
           "avdName": "Pixel_2_API_28"
         }
       }
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
     }
   }
 }

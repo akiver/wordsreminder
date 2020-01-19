@@ -1,81 +1,81 @@
-import React from 'react'
-import { View, StyleSheet, Animated, ViewStyle } from 'react-native'
-import { MainView } from '@components/main-view'
-import { Spacer } from '@components/spacer'
-import { NumberButton } from '@components/passcode/number-button'
-import { Indicator } from '@components/passcode/indicator'
-import { DeleteButton } from '@components/passcode/delete-button'
-import { ThemeContext, Theme } from '@contexts/theme-context'
+import React from 'react';
+import { View, StyleSheet, Animated, ViewStyle } from 'react-native';
+import { MainView } from '@components/main-view';
+import { Spacer } from '@components/spacer';
+import { NumberButton } from '@components/passcode/number-button';
+import { Indicator } from '@components/passcode/indicator';
+import { DeleteButton } from '@components/passcode/delete-button';
+import { ThemeContext, Theme } from '@contexts/theme-context';
 
 const initialState = Object.freeze({
   passcode: [] as number[],
-})
+});
 
 type Props = {
-  message: string
-  shouldAnimateError: boolean
-  onPasscodeEntered: (passcode: number[]) => void | Promise<void>
-}
-type State = typeof initialState
+  message: string;
+  shouldAnimateError: boolean;
+  onPasscodeEntered: (passcode: number[]) => void | Promise<void>;
+};
+type State = typeof initialState;
 
 export class PasscodeKeyboard extends React.Component<Props, State> {
-  static contextType = ThemeContext
+  static contextType = ThemeContext;
 
-  readonly state = initialState
+  readonly state = initialState;
 
-  animatedColor = new Animated.Value(0)
+  animatedColor = new Animated.Value(0);
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {
-    const { shouldAnimateError } = nextProps
+    const { shouldAnimateError } = nextProps;
     if (shouldAnimateError) {
       Animated.timing(this.animatedColor, {
         toValue: 1,
         duration: 500,
       }).start(() => {
-        this.animatedColor.setValue(0)
-      })
+        this.animatedColor.setValue(0);
+      });
     }
 
     return (
       shouldAnimateError ||
       nextProps.message !== this.props.message ||
       nextState.passcode.length !== this.state.passcode.length
-    )
+    );
   }
 
   handleNumberPress = (value: number) => () => {
     this.setState(
       ({ passcode }) => ({ passcode: [...passcode, value] }),
       () => {
-        const { passcode } = this.state
+        const { passcode } = this.state;
         if (passcode.length === 4) {
           this.setState({
             passcode: [],
-          })
-          this.props.onPasscodeEntered(passcode)
+          });
+          this.props.onPasscodeEntered(passcode);
         }
       }
-    )
-  }
+    );
+  };
 
   handleDeletePress = () => {
     this.setState(({ passcode }) => {
       if (passcode.length === 0) {
-        return { passcode }
+        return { passcode };
       }
       return {
         passcode: passcode.slice(0, -1),
-      }
-    })
-  }
+      };
+    });
+  };
 
   render() {
-    const { passcode } = this.state
-    const theme: Theme = this.context.theme
+    const { passcode } = this.state;
+    const theme: Theme = this.context.theme;
     const color = this.animatedColor.interpolate({
       inputRange: [0, 1],
       outputRange: [theme.primary025, theme.danger],
-    })
+    });
 
     return (
       <MainView>
@@ -88,7 +88,7 @@ export class PasscodeKeyboard extends React.Component<Props, State> {
                   <Spacer key={`indicator-${indicatorNumber}`} marginLeft={indicatorNumber === 1 ? 0 : 5}>
                     <Indicator isFilled={passcode.length >= indicatorNumber} borderInterpolation={color} />
                   </Spacer>
-                )
+                );
               })}
             </View>
           </Spacer>
@@ -135,14 +135,14 @@ export class PasscodeKeyboard extends React.Component<Props, State> {
           </Spacer>
         </View>
       </MainView>
-    )
+    );
   }
 }
 
 type Style = {
-  container: ViewStyle
-  row: ViewStyle
-}
+  container: ViewStyle;
+  row: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
@@ -153,4 +153,4 @@ const styles = StyleSheet.create<Style>({
   row: {
     flexDirection: 'row',
   },
-})
+});

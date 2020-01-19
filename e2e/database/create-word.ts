@@ -1,6 +1,6 @@
-import { firestore } from 'firebase-admin'
-import { db, admin } from '@e2e/database/db'
-import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants'
+import { firestore } from 'firebase-admin';
+import { db, admin } from '@e2e/database/db';
+import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants';
 
 export const createWord = async (
   dictionaryId: string,
@@ -10,7 +10,7 @@ export const createWord = async (
 ) => {
   const dictionary = firestore()
     .collection(E2E_COLLECTION_DICTIONARIES)
-    .doc(dictionaryId)
+    .doc(dictionaryId);
 
   const word = await db.collection(E2E_COLLECTION_WORDS).add({
     value,
@@ -19,12 +19,12 @@ export const createWord = async (
     dictionary: dictionaryId,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-  })
+  });
 
   await dictionary.update({
     words: firestore.FieldValue.arrayUnion(word.id),
     updatedAt: firestore.FieldValue.serverTimestamp(),
-  })
+  });
 
-  return word
-}
+  return word;
+};

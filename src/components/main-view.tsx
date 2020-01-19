@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react'
-import { StyleSheet, SafeAreaView, ViewStyle } from 'react-native'
-import { ThemeContext } from '@contexts/theme-context'
+import React, { ReactNode } from 'react';
+import { StyleSheet, SafeAreaView, ViewStyle } from 'react-native';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = {
-  children: ReactNode
-  testID?: string
-}
+  children: ReactNode;
+  testID?: string;
+};
 
 export const MainView = ({ testID, children }: Props) => {
   return (
@@ -16,15 +16,15 @@ export const MainView = ({ testID, children }: Props) => {
         </SafeAreaView>
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  container: ViewStyle
-}
+  container: ViewStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
   },
-})
+});

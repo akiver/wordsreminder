@@ -1,10 +1,10 @@
-import React from 'react'
-import { DictionariesScreen } from '@screens/dictionaries/dictionaries-screen'
-import { CreateDictionaryScreen } from '@screens/dictionaries/create-dictionary-screen'
-import { EditDictionaryScreen } from '@screens/dictionaries/edit-dictionary-screen'
-import { WordsScreen } from '@screens/words/words-screen'
-import { CreateWordScreen } from '@screens/words/create-word-screen'
-import { EditWordScreen } from '@screens/words/edit-word-screen'
+import React from 'react';
+import { DictionariesScreen } from '@screens/dictionaries/dictionaries-screen';
+import { CreateDictionaryScreen } from '@screens/dictionaries/create-dictionary-screen';
+import { EditDictionaryScreen } from '@screens/dictionaries/edit-dictionary-screen';
+import { WordsScreen } from '@screens/words/words-screen';
+import { CreateWordScreen } from '@screens/words/create-word-screen';
+import { EditWordScreen } from '@screens/words/edit-word-screen';
 import {
   DICTIONARIES_SCREEN,
   DICTIONARIES_CREATE_SCREEN,
@@ -12,26 +12,31 @@ import {
   WORDS_SCREEN,
   WORDS_CREATE_SCREEN,
   WORDS_EDIT_SCREEN,
-} from '@constants/screens'
-import { createStackNavigator } from '@react-navigation/stack'
-import { useTheme } from '../hooks/use-theme'
-import { PARAM_SCREEN_TITLE, PARAM_DICTIONARY, PARAM_DICTIONARY_ID, PARAM_WORD } from '@constants/navigation-parameters'
-import { Dictionary } from '@models/dictionary'
-import { Word } from '@models/word'
+} from '@constants/screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useTheme } from '../hooks/use-theme';
+import {
+  PARAM_SCREEN_TITLE,
+  PARAM_DICTIONARY,
+  PARAM_DICTIONARY_ID,
+  PARAM_WORD,
+} from '@constants/navigation-parameters';
+import { Dictionary } from '@models/dictionary';
+import { Word } from '@models/word';
 
 export type DictionariesStackParamList = {
-  [DICTIONARIES_SCREEN]: undefined
-  [DICTIONARIES_CREATE_SCREEN]: undefined
-  [DICTIONARIES_EDIT_SCREEN]: { [PARAM_DICTIONARY]: Dictionary }
-  [WORDS_SCREEN]: { [PARAM_SCREEN_TITLE]: string; [PARAM_DICTIONARY]: Dictionary }
-  [WORDS_CREATE_SCREEN]: { [PARAM_DICTIONARY_ID]: string }
-  [WORDS_EDIT_SCREEN]: { [PARAM_WORD]: Word }
-}
+  [DICTIONARIES_SCREEN]: undefined;
+  [DICTIONARIES_CREATE_SCREEN]: undefined;
+  [DICTIONARIES_EDIT_SCREEN]: { [PARAM_DICTIONARY]: Dictionary };
+  [WORDS_SCREEN]: { [PARAM_SCREEN_TITLE]: string; [PARAM_DICTIONARY]: Dictionary };
+  [WORDS_CREATE_SCREEN]: { [PARAM_DICTIONARY_ID]: string };
+  [WORDS_EDIT_SCREEN]: { [PARAM_WORD]: Word };
+};
 
-const Stack = createStackNavigator<DictionariesStackParamList>()
+const Stack = createStackNavigator<DictionariesStackParamList>();
 
 export const DictionariesStack = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Stack.Navigator
       initialRouteName={DICTIONARIES_SCREEN}
@@ -68,5 +73,5 @@ export const DictionariesStack = () => {
         }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};

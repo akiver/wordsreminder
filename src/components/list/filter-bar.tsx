@@ -1,13 +1,13 @@
-import React from 'react'
-import { StyleSheet, View, TextInput, ViewStyle, TextStyle } from 'react-native'
-import { Spacer } from '@components/spacer'
-import { FilterCloseButton } from '@components/filter-close-button'
-import { ThemeContext } from '@contexts/theme-context'
+import React from 'react';
+import { StyleSheet, View, TextInput, ViewStyle, TextStyle } from 'react-native';
+import { Spacer } from '@components/spacer';
+import { FilterCloseButton } from '@components/filter-close-button';
+import { ThemeContext } from '@contexts/theme-context';
 
 type Props = {
-  onCloseFilterPress: () => void
-  onFilterChange: (filter: string) => void
-}
+  onCloseFilterPress: () => void;
+  onFilterChange: (filter: string) => void;
+};
 
 export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
   return (
@@ -44,13 +44,13 @@ export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
         </View>
       )}
     </ThemeContext.Consumer>
-  )
-}
+  );
+};
 
 type Style = {
-  filterBar: ViewStyle
-  filterInput: TextStyle
-}
+  filterBar: ViewStyle;
+  filterInput: TextStyle;
+};
 
 const styles = StyleSheet.create<Style>({
   filterBar: {
@@ -65,4 +65,4 @@ const styles = StyleSheet.create<Style>({
     height: 40,
     paddingHorizontal: 20,
   },
-})
+});
