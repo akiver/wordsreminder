@@ -12,7 +12,7 @@ type Props = {
   disabled: boolean
 }
 
-const SaveButton = ({ status, onPress, disabled = false }: Props) => {
+export const SaveButton = ({ status, onPress, disabled = false }: Props) => {
   if (status === STATUS_LOADING) {
     return (
       <Spacer marginRight={10}>
@@ -36,5 +36,3 @@ const SaveButton = ({ status, onPress, disabled = false }: Props) => {
     </Spacer>
   )
 }
-
-export { SaveButton }

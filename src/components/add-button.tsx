@@ -8,17 +8,19 @@ type Props = {
   children?: never
 }
 
-const AddButton = ({ onPress, testID }: Props) => (
-  <TouchableHighlight
-    style={styles.addButton}
-    onPress={onPress}
-    underlayColor="transparent"
-    accessibilityRole="link"
-    testID={testID}
-  >
-    <PlusIcon />
-  </TouchableHighlight>
-)
+export const AddButton = ({ onPress, testID }: Props) => {
+  return (
+    <TouchableHighlight
+      style={styles.addButton}
+      onPress={onPress}
+      underlayColor="transparent"
+      accessibilityRole="link"
+      testID={testID}
+    >
+      <PlusIcon />
+    </TouchableHighlight>
+  )
+}
 
 type Style = {
   addButton: ViewStyle
@@ -31,5 +33,3 @@ const styles = StyleSheet.create<Style>({
     right: 20,
   },
 })
-
-export { AddButton }

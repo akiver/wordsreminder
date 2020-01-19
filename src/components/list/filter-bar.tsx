@@ -9,7 +9,7 @@ type Props = {
   onFilterChange: (filter: string) => void
 }
 
-const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
+export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
   return (
     <ThemeContext.Consumer>
       {({ theme }) => (
@@ -66,5 +66,3 @@ const styles = StyleSheet.create<Style>({
     paddingHorizontal: 20,
   },
 })
-
-export { FilterBar }

@@ -3,6 +3,14 @@ import { render } from '@testing-library/react-native'
 import { STATUS_IDLE, STATUS_ERROR, STATUS, STATUS_LOADING } from '@constants/statuses'
 import { AuthLayout } from '../auth-layout'
 
+jest.mock('@react-navigation/stack', () => {
+  return {
+    useHeaderHeight: () => {
+      return 40
+    },
+  }
+})
+
 describe('AuthLayout', () => {
   const Link = <>Link</>
   const Inputs = <>Inputs</>

@@ -6,15 +6,15 @@ import { E2E_COLLECTION_DICTIONARIES } from '@e2e/constants'
 import { createTestUser } from '@e2e/database/create-test-user'
 import { createDictionary } from '@e2e/database/create-dictionary'
 import {
-  DICTIONARIES_SCREEN,
+  DICTIONARIES_SCREEN_ID,
   DICTIONARIES_ROW,
   EMPTY_LIST_MESSAGE,
   WORDS_SCREEN,
   DICTIONARIES_ROW_EDIT,
-  DICTIONARY_EDIT_SCREEN,
+  DICTIONARY_EDIT_SCREEN_ID,
   DICTIONARIES_ROW_DELETE,
   ADD_BUTTON,
-  DICTIONARY_CREATE_SCREEN,
+  DICTIONARY_CREATE_SCREEN_ID,
 } from '@e2e/ids'
 
 describe('Dictionaries screen', () => {
@@ -63,7 +63,7 @@ describe('Dictionaries screen', () => {
       await element(by.id(DICTIONARIES_ROW(dictionary1Id))).swipe('left')
       await element(by.id(DICTIONARIES_ROW_EDIT(dictionary1Id))).tap()
 
-      await expect(element(by.id(DICTIONARY_EDIT_SCREEN))).toBeVisible()
+      await expect(element(by.id(DICTIONARY_EDIT_SCREEN_ID))).toBeVisible()
     })
 
     it('should delete the dictionary', async () => {
@@ -94,9 +94,9 @@ describe('Dictionaries screen', () => {
   })
 
   it('should navigate to the screen to create a dictionary', async () => {
-    const buttonId = ADD_BUTTON(DICTIONARIES_SCREEN)
+    const buttonId = ADD_BUTTON(DICTIONARIES_SCREEN_ID)
     await waitFor(element(by.id(buttonId))).toBeNotVisible()
     await element(by.id(buttonId)).tap()
-    await expect(element(by.id(DICTIONARY_CREATE_SCREEN))).toBeVisible()
+    await expect(element(by.id(DICTIONARY_CREATE_SCREEN_ID))).toBeVisible()
   })
 })

@@ -1,9 +1,7 @@
 import React from 'react'
-import { Alert, StyleSheet, View, ViewStyle } from 'react-native'
-import { AnimatedValue } from 'react-navigation'
-import { NavigationStackProp } from 'react-navigation-stack'
+import { Alert, StyleSheet, View, ViewStyle, Animated } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { WORDS_SCREEN, DICTIONARIES_EDIT_SCREEN } from '@constants/screens'
+import { WORDS_SCREEN, DICTIONARIES_EDIT_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens'
 import { ClockIcon } from '@components/svg/clock-icon'
 import { Text } from '@components/text'
 import { Spacer } from '@components/spacer'
@@ -21,14 +19,18 @@ import {
 } from '@e2e/ids'
 import { PARAM_DICTIONARY, PARAM_SCREEN_TITLE } from '@constants/navigation-parameters'
 import { Dictionary } from '@models/dictionary'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+
+type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>
 
 type Props = {
-  navigation: NavigationStackProp
+  navigation: DictionariesScreenNavigationProps
   dictionary: Dictionary
   testID: string
 }
 
-class DictionaryRow extends React.Component<Props> {
+export class DictionaryRow extends React.Component<Props> {
   swipeableRef = React.createRef<Swipeable>()
 
   closeSwipeable = () => {
@@ -82,7 +84,7 @@ class DictionaryRow extends React.Component<Props> {
     )
   }
 
-  renderRightActions = (progress: AnimatedValue) => {
+  renderRightActions = (progress: Animated.AnimatedInterpolation) => {
     const { dictionary } = this.props
     return (
       <SwipeActions width={192}>
@@ -153,5 +155,3 @@ const styles = StyleSheet.create<Style>({
     flexDirection: 'row',
   },
 })
-
-export { DictionaryRow }

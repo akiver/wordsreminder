@@ -1,6 +1,5 @@
 import React from 'react'
 import { TextInput, View } from 'react-native'
-import { NavigationStackScreenProps, NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { SaveButton } from '@components/save-button'
 import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
@@ -14,31 +13,30 @@ import {
   WORD_EDIT_INPUT_SIGNIFICATION,
   WORD_EDIT_INPUT_DESCRIPTION,
 } from '@e2e/ids'
-import { PARAM_WORD, PARAM_ON_SAVE_PRESS, PARAM_IS_SAVE_DISABLED, PARAM_STATUS } from '@constants/navigation-parameters'
-import { Word } from '@models/word'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+import { RouteProp } from '@react-navigation/native'
+import { WORDS_EDIT_SCREEN } from '@constants/screens'
 
-type Props = NavigationStackScreenProps
+type EditWordScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>
+type EditWordScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>
+
+type Props = {
+  navigation: EditWordScreenNavigationProps
+  route: EditWordScreenRouteProps
+}
+
 type State = ReturnType<typeof getInitialState>
 
 const getInitialState = (props: Props) => {
   return Object.freeze({
-    word: props.navigation.getParam(PARAM_WORD) as Word,
+    word: props.route.params.word,
     status: STATUS_IDLE as STATUS,
     error: undefined as string | undefined,
   })
 }
 
-class EditWordScreen extends React.Component<Props, State> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    const onSavePress: () => void | undefined = navigation.getParam(PARAM_ON_SAVE_PRESS)
-    const isSaveDisabled: boolean = navigation.getParam(PARAM_IS_SAVE_DISABLED)
-    const status: STATUS = navigation.getParam(PARAM_STATUS)
-    return {
-      title: 'Edit a word',
-      headerRight: onSavePress && <SaveButton disabled={isSaveDisabled} onPress={onSavePress} status={status} />,
-    }
-  }
-
+export class EditWordScreen extends React.Component<Props, State> {
   significationRef: React.RefObject<TextInput> = React.createRef()
 
   descriptionRef: React.RefObject<TextInput> = React.createRef()
@@ -48,9 +46,22 @@ class EditWordScreen extends React.Component<Props, State> {
   readonly state = getInitialState(this.props)
 
   componentDidMount() {
-    this.props.navigation.setParams({
-      [PARAM_ON_SAVE_PRESS]: this.handleSavePress,
-      [PARAM_STATUS]: this.state.status,
+    this.updateSaveButton()
+  }
+
+  private updateSaveButton = () => {
+    this.props.navigation.setOptions({
+      headerRight: () => {
+        const { status, word } = this.state
+        const { value, signification } = word
+        return (
+          <SaveButton
+            disabled={status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification)}
+            onPress={this.handleSavePress}
+            status={status}
+          />
+        )
+      },
     })
   }
 
@@ -58,26 +69,14 @@ class EditWordScreen extends React.Component<Props, State> {
     this.setState({ status: STATUS_LOADING }, async () => {
       const { navigation } = this.props
       try {
-        navigation.setParams({
-          [PARAM_STATUS]: STATUS_LOADING,
-        })
+        this.updateSaveButton()
         await updateWord(this.state.word)
         navigation.goBack()
       } catch (error) {
         this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          navigation.setParams({
-            [PARAM_STATUS]: STATUS_ERROR,
-          })
+          this.updateSaveButton()
         })
       }
-    })
-  }
-
-  updateIsSaveDisabledParameter = () => {
-    const { status } = this.state
-    const { value, signification } = this.state.word
-    this.props.navigation.setParams({
-      [PARAM_IS_SAVE_DISABLED]: status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification),
     })
   }
 
@@ -90,7 +89,7 @@ class EditWordScreen extends React.Component<Props, State> {
         },
       }),
       () => {
-        this.updateIsSaveDisabledParameter()
+        this.updateSaveButton()
       }
     )
   }
@@ -104,7 +103,7 @@ class EditWordScreen extends React.Component<Props, State> {
         },
       }),
       () => {
-        this.updateIsSaveDisabledParameter()
+        this.updateSaveButton()
       }
     )
   }
@@ -173,5 +172,3 @@ class EditWordScreen extends React.Component<Props, State> {
     )
   }
 }
-
-export { EditWordScreen }

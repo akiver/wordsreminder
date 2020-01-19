@@ -13,11 +13,11 @@ export const SIGNUP_LINK_SIGNIN = 'signup-link-signin'
 export const SIGNUP_SUBMIT_BUTTON = 'signup-submit-button'
 
 // Create dictionary screen
-export const DICTIONARY_CREATE_SCREEN = 'dictionary-create-screen'
+export const DICTIONARY_CREATE_SCREEN_ID = 'dictionary-create-screen'
 export const DICTIONARY_CREATE_INPUT_NAME = 'dictionary-create-input-name'
 
 // Dictionaries screen
-export const DICTIONARIES_SCREEN = 'dictionaries-screen'
+export const DICTIONARIES_SCREEN_ID = 'dictionaries-screen'
 export const DICTIONARIES_ROW = (dictionaryId: string) => `dictionary-${dictionaryId}`
 export const DICTIONARIES_ROW_EDIT = (dictionaryId: string) => `dictionary-edit-action-${dictionaryId}`
 export const DICTIONARIES_ROW_DELETE = (dictionaryId: string) => `dictionary-delete-action-${dictionaryId}`
@@ -26,11 +26,11 @@ export const DICTIONARIES_ROW_WORDS_COUNT = 'dictionary-words-count'
 export const DICTIONARIES_ROW_UPDATED_AT = 'dictionary-updated-at'
 
 // Dictionary edit screen
-export const DICTIONARY_EDIT_SCREEN = 'dictionary-edit-screen'
+export const DICTIONARY_EDIT_SCREEN_ID = 'dictionary-edit-screen'
 export const DICTIONARY_EDIT_INPUT_NAME = 'dictionary-edit-input-name'
 
 // Settings screen
-export const SETTINGS_SCREEN = 'settings-screen'
+export const SETTINGS_SCREEN_ID = 'settings-screen'
 export const SETTINGS_THEME_BUTTON = 'settings-theme-button'
 export const SETTINGS_SIGNOUT_BUTTON = 'settings-signout-button'
 
@@ -56,8 +56,6 @@ export const WORDS_ROW_SIGNIFICATION = 'word-signification'
 export const WORDS_ROW_DESCRIPTION = 'word-description'
 
 // Tabnav bottom
-export const TABNAV_DICTIONARIES_FOCUSED = 'tabnav-dictionaries-focused'
-export const TABNAV_DICTIONARIES_UNFOCUSED = 'tabnav-dictionaries-unfocused'
 export const TABNAV_SETTINGS_FOCUSED = 'tabnav-settings-focused'
 export const TABNAV_SETTINGS_UNFOCUSED = 'tabnav-settings-unfocused'
 

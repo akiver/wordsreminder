@@ -7,12 +7,10 @@ type Props = {
   onPress: () => void
 }
 
-const FilterCloseButton = ({ onPress }: Props) => {
+export const FilterCloseButton = ({ onPress }: Props) => {
   return (
     <TouchableHighlight onPress={onPress} testID={FILTER_CLOSE_BUTTON}>
       <LeftArrowIcon />
     </TouchableHighlight>
   )
 }
-
-export { FilterCloseButton }

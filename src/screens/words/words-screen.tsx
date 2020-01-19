@@ -2,48 +2,62 @@ import React from 'react'
 import { firestore } from 'react-native-firebase'
 import { Query } from 'react-native-firebase/firestore'
 import { WORDS } from '@constants/database'
-import { WORDS_CREATE_SCREEN } from '@constants/screens'
+import { WORDS_CREATE_SCREEN, WORDS_SCREEN } from '@constants/screens'
 import { documentSnapshotToWord, Word } from '@models/word'
 import { WordRow } from '@words/word-row'
 import { FiltrableList } from '@components/list/filtrable-list'
-import { WORDS_ROW, WORDS_SCREEN } from '@e2e/ids'
+import { WORDS_ROW, WORDS_SCREEN as WORDS_SCREEN_E2E } from '@e2e/ids'
 import { FilterOpenButton } from '@components/filter-open-button'
-import {
-  PARAM_DICTIONARY,
-  PARAM_SCREEN_TITLE,
-  PARAM_HAS_FILTER_ENABLED,
-  PARAM_DICTIONARY_ID,
-} from '@constants/navigation-parameters'
-import { NavigationStackScreenProps, NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
+import { PARAM_DICTIONARY, PARAM_SCREEN_TITLE, PARAM_DICTIONARY_ID } from '@constants/navigation-parameters'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+import { RouteProp } from '@react-navigation/native'
 
-type Props = NavigationStackScreenProps
+type WordsScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_SCREEN>
+type WordsScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_SCREEN>
 
-class WordsScreen extends React.Component<Props> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    const { params } = navigation.state
-    const options: NavigationStackOptions = {
-      title: navigation.getParam(PARAM_SCREEN_TITLE),
-    }
+type Props = {
+  navigation: WordsScreenNavigationProps
+  route: WordsScreenRouteProps
+}
 
-    const hasFilterEnabled = navigation.getParam(PARAM_HAS_FILTER_ENABLED)
-    if (params && hasFilterEnabled) {
-      return {
-        ...options,
-        // Remove the header to make space for the search bar.
-        header: null,
-      }
-    }
+type State = {
+  hasFilterEnabled: boolean
+}
 
-    const onOpenFilterPress = () => navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
-    return {
-      ...options,
-      headerRight: <FilterOpenButton onPress={onOpenFilterPress} />,
-    }
+export class WordsScreen extends React.Component<Props, State> {
+  state: State = {
+    hasFilterEnabled: false,
+  }
+
+  public componentDidMount() {
+    this.props.navigation.setOptions({
+      headerRight: () => <FilterOpenButton onPress={this.onOpenFilterPress} />,
+      title: this.props.route.params[PARAM_SCREEN_TITLE],
+    })
+  }
+
+  private onOpenFilterPress = () => {
+    this.setState({
+      hasFilterEnabled: true,
+    })
+    this.props.navigation.setOptions({
+      headerShown: false,
+    })
+  }
+
+  private onCloseFilter = () => {
+    this.setState({
+      hasFilterEnabled: false,
+    })
+    this.props.navigation.setOptions({
+      headerShown: true,
+    })
   }
 
   query: Query = firestore()
     .collection(WORDS)
-    .where('dictionary', '==', this.props.navigation.getParam(PARAM_DICTIONARY).id)
+    .where('dictionary', '==', this.props.route.params[PARAM_DICTIONARY].id)
   // Throw an error :/
   // https://github.com/invertase/react-native-firebase/issues/1437
   // .orderBy('updatedAt', 'desc')
@@ -56,9 +70,9 @@ class WordsScreen extends React.Component<Props> {
   }
 
   handleAddWordPress = () => {
-    const { navigation } = this.props
+    const { navigation, route } = this.props
     navigation.push(WORDS_CREATE_SCREEN, {
-      [PARAM_DICTIONARY_ID]: navigation.getParam(PARAM_DICTIONARY).id,
+      [PARAM_DICTIONARY_ID]: route.params.dictionary.id,
     })
   }
 
@@ -74,12 +88,11 @@ class WordsScreen extends React.Component<Props> {
         documentSnapshotToEntity={documentSnapshotToWord}
         onAddPress={this.handleAddWordPress}
         emptyListMessage="Press the add button to add a new word."
-        testID={WORDS_SCREEN}
+        testID={WORDS_SCREEN_E2E}
         filterEntities={this.filterWords}
-        navigation={this.props.navigation}
+        hasFilterEnabled={this.state.hasFilterEnabled}
+        onCloseFilter={this.onCloseFilter}
       />
     )
   }
 }
-
-export { WordsScreen }

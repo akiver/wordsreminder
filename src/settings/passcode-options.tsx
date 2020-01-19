@@ -1,66 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RNSecureStorage from 'rn-secure-storage'
 import { Button } from '@components/button'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { SETTINGS_TURN_ON_PASSCODE_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens'
 import { Spacer } from '@components/spacer'
-import { NavigationStackProp } from 'react-navigation-stack'
+import { useNavigation } from '@react-navigation/native'
 
-type Props = {
-  navigation: NavigationStackProp
-}
-type State = typeof initialState
+export const SettingsPasscodeOptions = () => {
+  const navigation = useNavigation()
+  const [isPasscodeStatusDetected, setIsPasscodeStatusDetected] = useState(false)
+  const [isPasscodeEnabled, setIsPasscodeEnabled] = useState(false)
 
-const initialState = Object.freeze({
-  isPasscodeStatusDetected: false,
-  isPasscodeEnabled: false,
-})
+  useEffect(() => {
+    const detectPasscodeEnabled = async () => {
+      try {
+        const storedPasscodeAsString = await RNSecureStorage.get(PASSCODE_KEY)
+        const isPasscodeEnabled = storedPasscodeAsString !== null
+        setIsPasscodeEnabled(isPasscodeEnabled)
+        setIsPasscodeStatusDetected(true)
+      } catch (error) {
+        if (error.code === '404' || error.code === 'EUNSPECIFIED') {
+          setIsPasscodeEnabled(false)
+          setIsPasscodeStatusDetected(true)
+        }
 
-class SettingsPasscodeOptions extends React.Component<Props, State> {
-  readonly state = initialState
-
-  async componentDidMount() {
-    try {
-      const storedPasscodeAsString = await RNSecureStorage.get(PASSCODE_KEY)
-      const isPasscodeEnabled = storedPasscodeAsString !== null
-      this.setState({
-        isPasscodeStatusDetected: true,
-        isPasscodeEnabled,
-      })
-    } catch (error) {
-      if (error.code === '404' || error.code === 'EUNSPECIFIED') {
-        this.setState({
-          isPasscodeStatusDetected: true,
-          isPasscodeEnabled: false,
-        })
+        // Error reading secured storage, don't show passcode options.
       }
-
-      // Error reading secured storage, don't show passcode options.
-    }
-  }
-
-  handleTogglePasscode = () => {
-    this.props.navigation.push(SETTINGS_TURN_ON_PASSCODE_SCREEN)
-  }
-
-  handleTurnOffPasscodePress = () => {
-    this.props.navigation.push(SETTINGS_TURN_OFF_PASSCODE_SCREEN)
-  }
-
-  render() {
-    if (!this.state.isPasscodeStatusDetected) {
-      return null
     }
 
-    let options
-    if (this.state.isPasscodeEnabled) {
-      options = <Button onPress={this.handleTurnOffPasscodePress} text="Turn passcode off" />
-    } else {
-      options = <Button onPress={this.handleTogglePasscode} text="Turn passcode on" />
-    }
+    detectPasscodeEnabled()
+  }, [])
 
-    return <Spacer marginBottom={20}>{options}</Spacer>
+  if (!isPasscodeStatusDetected) {
+    return null
   }
+
+  let options
+  if (isPasscodeEnabled) {
+    options = (
+      <Button
+        onPress={() => {
+          navigation.navigate(SETTINGS_TURN_OFF_PASSCODE_SCREEN)
+        }}
+        text="Turn passcode off"
+      />
+    )
+  } else {
+    options = (
+      <Button
+        onPress={() => {
+          navigation.navigate(SETTINGS_TURN_ON_PASSCODE_SCREEN)
+        }}
+        text="Turn passcode on"
+      />
+    )
+  }
+
+  return <Spacer marginBottom={20}>{options}</Spacer>
 }
-
-export { SettingsPasscodeOptions }

@@ -7,18 +7,27 @@ import { PASSCODE_KEY } from '@constants/async-storage'
 import { signOut } from '@services/sign-out'
 import { EnterPasscode } from '@components/enter-passcode'
 import { AUTH_LOADING_SCREEN } from '@constants/screens'
-import { Theme, themes } from '@contexts/theme-context'
-import { NavigationSwitchScreenProps } from 'react-navigation'
+import { ThemeContext } from '@contexts/theme-context'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from '@stacks/root-stack'
+import { RouteProp } from '@react-navigation/native'
 
 const initialState = Object.freeze({
   isLocked: false,
   passcode: '',
 })
 
-type State = typeof initialState
-type Props = NavigationSwitchScreenProps<{}, { theme: Theme }>
+type LockerScreenNavigationProps = StackNavigationProp<RootStackParamList, 'app-locker-screen'>
+type LockerScreenRouteProps = RouteProp<RootStackParamList, 'app-locker-screen'>
 
-class LockerScreen extends React.Component<Props, State> {
+type Props = {
+  navigation: LockerScreenNavigationProps
+  route: LockerScreenRouteProps
+}
+
+type State = typeof initialState
+
+export class LockerScreen extends React.Component<Props, State> {
   readonly state = initialState
 
   async componentDidMount() {
@@ -114,7 +123,10 @@ class LockerScreen extends React.Component<Props, State> {
   }
 
   navigateToAuthScreen = () => {
-    this.props.navigation.navigate(AUTH_LOADING_SCREEN)
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: AUTH_LOADING_SCREEN }],
+    })
   }
 
   handlePasscodeCorrect = () => {
@@ -133,9 +145,12 @@ class LockerScreen extends React.Component<Props, State> {
       )
     }
 
-    const theme = this.props.screenProps !== undefined ? (this.props.screenProps.theme as Theme) : themes.dark
-    return <View style={{ flex: 1, backgroundColor: theme.primary100 }} />
+    return (
+      <ThemeContext.Consumer>
+        {({ theme }) => {
+          return <View style={{ flex: 1, backgroundColor: theme.primary100 }} />
+        }}
+      </ThemeContext.Consumer>
+    )
   }
 }
-
-export { LockerScreen }

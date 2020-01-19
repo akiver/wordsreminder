@@ -12,10 +12,20 @@ import { Text } from '@components/text'
 import { ThemeContext, themes, Theme } from '@contexts/theme-context'
 import { THEME_KEY, THEME_LIGHT_VALUE, THEME_DARK_VALUE } from '@constants/async-storage'
 import { ActivityIndicator } from '@components/activity-indicator'
-import { SETTINGS_THEME_BUTTON, SETTINGS_SIGNOUT_BUTTON, SETTINGS_SCREEN } from '@e2e/ids'
+import { SETTINGS_THEME_BUTTON, SETTINGS_SIGNOUT_BUTTON, SETTINGS_SCREEN_ID } from '@e2e/ids'
 import { SettingsPasscodeOptions } from '@settings/passcode-options'
-import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RouteProp } from '@react-navigation/native'
+import { SettingsStackParamList } from '@stacks/settings-stack'
+import { SETTINGS_SCREEN } from '@constants/screens'
 
+type SettingsScreenNavigationProps = StackNavigationProp<SettingsStackParamList, typeof SETTINGS_SCREEN>
+type SettingsScreenRouteProps = RouteProp<SettingsStackParamList, typeof SETTINGS_SCREEN>
+
+type Props = {
+  navigation: SettingsScreenNavigationProps
+  route: SettingsScreenRouteProps
+}
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -23,13 +33,7 @@ const initialState = Object.freeze({
   error: undefined as string | undefined,
 })
 
-type Props = NavigationStackScreenProps
-
-class SettingsScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationStackOptions = {
-    title: 'Settings',
-  }
-
+export class SettingsScreen extends React.Component<Props, State> {
   readonly state = initialState
 
   handleThemePress = (toggleTheme: () => void, theme: Theme) => async () => {
@@ -101,10 +105,10 @@ class SettingsScreen extends React.Component<Props, State> {
     const user = auth().currentUser
 
     return (
-      <MainView testID={SETTINGS_SCREEN}>
+      <MainView testID={SETTINGS_SCREEN_ID}>
         <View style={styles.view}>
           {this.renderLoading()}
-          <SettingsPasscodeOptions navigation={this.props.navigation} />
+          <SettingsPasscodeOptions />
           <ThemeContext.Consumer>
             {({ theme, toggleTheme }) => {
               const themeValue = theme === themes.dark ? 'light' : 'dark'
@@ -149,5 +153,3 @@ const styles = StyleSheet.create<Style>({
     textAlign: 'center',
   },
 })
-
-export { SettingsScreen }

@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode
 }
 
-const ListRow = ({ onPress, testID, children }: Props) => {
+export const ListRow = ({ onPress, testID, children }: Props) => {
   return (
     <ThemeContext.Consumer>
       {({ theme }) => (
@@ -42,5 +42,3 @@ const styles = StyleSheet.create<Style>({
     padding: 10,
   },
 })
-
-export { ListRow }

@@ -5,6 +5,6 @@ admin.initializeApp({
   credential: admin.credential.cert(require('../google-services.json')),
 })
 
-const db = firestore()
+export const db = firestore()
 
-export { admin, db }
+export { admin }

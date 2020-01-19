@@ -2,38 +2,47 @@ import React from 'react'
 import { Query } from 'react-native-firebase/firestore'
 import { firestore } from 'react-native-firebase'
 import { DICTIONARIES } from '@constants/database'
-import { DICTIONARIES_CREATE_SCREEN } from '@constants/screens'
+import { DICTIONARIES_CREATE_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens'
 import { DictionaryRow } from '@dictionaries/dictionary-row'
 import { documentSnapshotToDictionary, Dictionary } from '@models/dictionary'
 import { FiltrableList } from '@components/list/filtrable-list'
-import { DICTIONARIES_SCREEN, DICTIONARIES_ROW } from '@e2e/ids'
+import { DICTIONARIES_SCREEN_ID, DICTIONARIES_ROW } from '@e2e/ids'
 import { FilterOpenButton } from '@components/filter-open-button'
-import { PARAM_HAS_FILTER_ENABLED } from '@constants/navigation-parameters'
-import { NavigationStackScreenProps, NavigationStackOptions, NavigationStackProp } from 'react-navigation-stack'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+import { RouteProp } from '@react-navigation/native'
 
-type Props = NavigationStackScreenProps
+type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>
+type DictionariesScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>
 
-class DictionariesScreen extends React.Component<Props> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    const { params } = navigation.state
-    const options = {
+type Props = {
+  navigation: DictionariesScreenNavigationProps
+  route: DictionariesScreenRouteProps
+}
+
+type State = {
+  hasFilterEnabled: boolean
+}
+
+export class DictionariesScreen extends React.Component<Props, State> {
+  state: State = {
+    hasFilterEnabled: false,
+  }
+
+  public componentDidMount() {
+    this.props.navigation.setOptions({
       title: 'Dictionaries',
-    }
+      headerRight: () => <FilterOpenButton onPress={this.onOpenFilterPress} />,
+    })
+  }
 
-    const hasFilterEnabled = navigation.getParam(PARAM_HAS_FILTER_ENABLED)
-    if (params && hasFilterEnabled) {
-      return {
-        ...options,
-        // Remove the header to make space for the search bar.
-        header: null,
-      }
-    }
-
-    const onOpenFilterPress = () => navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: true })
-    return {
-      ...options,
-      headerRight: <FilterOpenButton onPress={onOpenFilterPress} />,
-    }
+  private onOpenFilterPress = () => {
+    this.setState({
+      hasFilterEnabled: true,
+    })
+    this.props.navigation.setOptions({
+      headerShown: false,
+    })
   }
 
   query: Query = firestore()
@@ -52,6 +61,15 @@ class DictionariesScreen extends React.Component<Props> {
     return <DictionaryRow dictionary={item} navigation={this.props.navigation} testID={DICTIONARIES_ROW(item.id)} />
   }
 
+  onCloseFilter = () => {
+    this.setState({
+      hasFilterEnabled: false,
+    })
+    this.props.navigation.setOptions({
+      headerShown: true,
+    })
+  }
+
   render() {
     return (
       <FiltrableList
@@ -60,12 +78,11 @@ class DictionariesScreen extends React.Component<Props> {
         documentSnapshotToEntity={documentSnapshotToDictionary}
         onAddPress={this.handleAddDictionaryPress}
         emptyListMessage="Press the add button to add a new dictionary."
-        testID={DICTIONARIES_SCREEN}
-        navigation={this.props.navigation}
+        testID={DICTIONARIES_SCREEN_ID}
         filterEntities={this.filterDictionaries}
+        onCloseFilter={this.onCloseFilter}
+        hasFilterEnabled={this.state.hasFilterEnabled}
       />
     )
   }
 }
-
-export { DictionariesScreen }

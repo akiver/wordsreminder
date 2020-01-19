@@ -9,7 +9,7 @@ import {
   SIGNUP_INPUT_PASSWORD,
   SIGNUP_SUBMIT_BUTTON,
   ERROR_MESSAGE,
-  DICTIONARIES_SCREEN,
+  DICTIONARIES_SCREEN_ID,
   SIGNUP_LINK_SIGNIN,
 } from '@e2e/ids'
 
@@ -47,10 +47,10 @@ describe('SignUp', () => {
     await deleteUser(fakeEmail)
     await submitFormWithCredentials(fakeEmail, fakePassword)
 
-    await waitFor(element(by.id(DICTIONARIES_SCREEN)))
+    await waitFor(element(by.id(DICTIONARIES_SCREEN_ID)))
       .toBeVisible()
       .withTimeout(3000)
-    await expect(element(by.id(DICTIONARIES_SCREEN))).toBeVisible()
+    await expect(element(by.id(DICTIONARIES_SCREEN_ID))).toBeVisible()
   })
 
   it('should redirect to signin', async () => {

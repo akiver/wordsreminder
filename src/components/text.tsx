@@ -9,27 +9,35 @@ type Props = TextProps & {
   children: string
 }
 
-const Text = ({ onPress, color = 'primary025', fontSize = 16, fontWeight, children, style, ...props }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => {
-      return (
-        <RNText
-          style={Object.assign(
-            {
-              color: theme[color],
-              fontSize,
-              fontWeight,
-            },
-            style
-          )}
-          onPress={onPress}
-          {...props}
-        >
-          {children}
-        </RNText>
-      )
-    }}
-  </ThemeContext.Consumer>
-)
-
-export { Text }
+export const Text = ({
+  onPress,
+  color = 'primary025',
+  fontSize = 16,
+  fontWeight,
+  children,
+  style,
+  ...props
+}: Props) => {
+  return (
+    <ThemeContext.Consumer>
+      {({ theme }) => {
+        return (
+          <RNText
+            style={Object.assign(
+              {
+                color: theme[color],
+                fontSize,
+                fontWeight,
+              },
+              style
+            )}
+            onPress={onPress}
+            {...props}
+          >
+            {children}
+          </RNText>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
+}

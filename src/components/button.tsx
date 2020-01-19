@@ -8,26 +8,28 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const Button = ({ onPress, text, ...props }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => (
-      <TouchableOpacity
-        onPress={onPress}
-        style={{
-          ...styles.container,
-          backgroundColor: theme.primary025,
-          ...(props.disabled && styles.disabled),
-        }}
-        {...props}
-        accessibilityRole="button"
-      >
-        <Text color="primary100" fontSize={16} fontWeight="bold">
-          {text}
-        </Text>
-      </TouchableOpacity>
-    )}
-  </ThemeContext.Consumer>
-)
+export const Button = ({ onPress, text, ...props }: Props) => {
+  return (
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <TouchableOpacity
+          onPress={onPress}
+          style={{
+            ...styles.container,
+            backgroundColor: theme.primary025,
+            ...(props.disabled && styles.disabled),
+          }}
+          {...props}
+          accessibilityRole="button"
+        >
+          <Text color="primary100" fontSize={16} fontWeight="bold">
+            {text}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </ThemeContext.Consumer>
+  )
+}
 
 type Style = {
   container: ViewStyle
@@ -46,5 +48,3 @@ const styles = StyleSheet.create<Style>({
     opacity: 0.3,
   },
 })
-
-export { Button }

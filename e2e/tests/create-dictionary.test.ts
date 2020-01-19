@@ -7,7 +7,7 @@ import { createTestUser } from '@e2e/database/create-test-user'
 import { navigateToCreateDictionaryScreen } from '@e2e/navigation/navigate-to-create-dictionary-screen'
 import { createDictionary } from '@e2e/database/create-dictionary'
 import { getDictionaryByName } from '@e2e/database/getDictionaryByName'
-import { DICTIONARY_CREATE_INPUT_NAME, SAVE_BUTTON, DICTIONARY_CREATE_SCREEN, DICTIONARIES_ROW } from '@e2e/ids'
+import { DICTIONARY_CREATE_INPUT_NAME, SAVE_BUTTON, DICTIONARY_CREATE_SCREEN_ID, DICTIONARIES_ROW } from '@e2e/ids'
 import { sleep } from '@e2e/utils/sleep'
 
 describe('Create dictionary screen', () => {
@@ -24,7 +24,7 @@ describe('Create dictionary screen', () => {
   })
 
   it('should display the form', async () => {
-    await expect(element(by.id(DICTIONARY_CREATE_SCREEN))).toBeVisible()
+    await expect(element(by.id(DICTIONARY_CREATE_SCREEN_ID))).toBeVisible()
   })
 
   it('should not submit the form if it is invalid', async () => {

@@ -8,7 +8,7 @@ type Props = {
   onPress: () => void
 }
 
-const FilterOpenButton = ({ onPress }: Props) => {
+export const FilterOpenButton = ({ onPress }: Props) => {
   return (
     <Spacer marginRight={20}>
       <TouchableHighlight onPress={onPress} testID={FILTER_OPEN_BUTTON}>
@@ -17,5 +17,3 @@ const FilterOpenButton = ({ onPress }: Props) => {
     </Spacer>
   )
 }
-
-export { FilterOpenButton }

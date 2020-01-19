@@ -2,7 +2,7 @@ import { firestore } from 'firebase-admin'
 import { db, admin } from '@e2e/database/db'
 import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants'
 
-const createWord = async (
+export const createWord = async (
   dictionaryId: string,
   value: string,
   signification: string,
@@ -28,5 +28,3 @@ const createWord = async (
 
   return word
 }
-
-export { createWord }

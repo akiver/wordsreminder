@@ -1,12 +1,11 @@
 import React from 'react'
-import Config from 'react-native-config'
-import { StatusBar, View, Alert } from 'react-native'
+import { NavigationNativeContainer } from '@react-navigation/native'
+import { StatusBar, View } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import RNBootSplash from 'react-native-bootsplash'
 import { themes, ThemeContext, Themes } from '@contexts/theme-context'
 import { THEME_KEY, THEME_DARK_VALUE, THEME_LIGHT_VALUE } from '@constants/async-storage'
-import { AppStack } from '@stacks/app-stack'
-import { NavigationState } from 'react-navigation'
+import { RootStack } from '@stacks/root-stack'
 
 type State = typeof initialState
 
@@ -14,34 +13,7 @@ const initialState = Object.freeze({
   theme: themes.dark,
 })
 
-const persistenceKey = 'persistenceKey'
-const persistNavigationState = async (navState: NavigationState) => {
-  try {
-    await AsyncStorage.setItem(persistenceKey, JSON.stringify(navState))
-  } catch (error) {
-    Alert.alert(error)
-  }
-}
-
-const loadNavigationState = async () => {
-  const jsonString = await AsyncStorage.getItem(persistenceKey)
-  if (jsonString !== null) {
-    return JSON.parse(jsonString)
-  }
-
-  return null
-}
-
-function getPersistenceFunctions() {
-  return __DEV__ && Config.PERSIST_NAVIGATION === 'true'
-    ? {
-        persistNavigationState,
-        loadNavigationState,
-      }
-    : undefined
-}
-
-class App extends React.Component<null, State> {
+export class App extends React.Component<{}, State> {
   readonly state = initialState
 
   async componentDidMount() {
@@ -71,22 +43,22 @@ class App extends React.Component<null, State> {
   render() {
     const { theme } = this.state
     return (
-      <ThemeContext.Provider
-        value={{
-          theme,
-          toggleTheme: this.handleToggleTheme,
-        }}
-      >
-        <View style={{ flex: 1 }}>
-          <StatusBar
-            backgroundColor={theme.primary100}
-            barStyle={theme === themes.dark ? 'light-content' : 'dark-content'}
-          />
-          <AppStack screenProps={{ theme }} {...getPersistenceFunctions()} />
-        </View>
-      </ThemeContext.Provider>
+      <NavigationNativeContainer>
+        <ThemeContext.Provider
+          value={{
+            theme,
+            toggleTheme: this.handleToggleTheme,
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <StatusBar
+              backgroundColor={theme.primary100}
+              barStyle={theme === themes.dark ? 'light-content' : 'dark-content'}
+            />
+            <RootStack />
+          </View>
+        </ThemeContext.Provider>
+      </NavigationNativeContainer>
     )
   }
 }
-
-export { App }

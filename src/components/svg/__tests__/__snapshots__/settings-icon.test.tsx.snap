@@ -5,6 +5,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
   align="xMidYMid"
   bbHeight={28}
   bbWidth={28}
+  fill="#fff"
   focusable={false}
   height={28}
   meetOrSlice={0}
@@ -16,9 +17,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
         "backgroundColor": "transparent",
         "borderWidth": 0,
       },
-      Object {
-        "opacity": 0.3,
-      },
+      undefined,
       Object {
         "opacity": 1,
       },
@@ -37,7 +36,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
     fill={
       Array [
         0,
-        4278190080,
+        4294967295,
       ]
     }
     fillOpacity={1}
@@ -53,10 +52,14 @@ exports[`SettingsIcon should match snapshot 1`] = `
         0,
       ]
     }
-    opacity={0.3}
+    opacity={1}
     originX={0}
     originY={0}
-    propList={Array []}
+    propList={
+      Array [
+        "fill",
+      ]
+    }
     rotation={0}
     scaleX={1}
     scaleY={1}
@@ -119,7 +122,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
       fill={
         Array [
           0,
-          4294967295,
+          4278190080,
         ]
       }
       fillOpacity={1}
@@ -137,11 +140,7 @@ exports[`SettingsIcon should match snapshot 1`] = `
       opacity={1}
       originX={0}
       originY={0}
-      propList={
-        Array [
-          "fill",
-        ]
-      }
+      propList={Array []}
       rotation={0}
       scaleX={1}
       scaleY={1}

@@ -6,7 +6,7 @@ import {
   SIGNIN_SUBMIT_BUTTON,
   SIGNIN_INPUT_PASSWORD,
   SIGNIN_SCREEN,
-  DICTIONARIES_SCREEN,
+  DICTIONARIES_SCREEN_ID,
   ERROR_MESSAGE,
 } from '@e2e/ids'
 
@@ -36,10 +36,10 @@ describe('SignIn', () => {
 
     await submitFormWithCredentials(E2E_EMAIL, E2E_PASSWORD)
 
-    await waitFor(element(by.id(DICTIONARIES_SCREEN)))
+    await waitFor(element(by.id(DICTIONARIES_SCREEN_ID)))
       .toBeVisible()
       .withTimeout(2000)
-    await expect(element(by.id(DICTIONARIES_SCREEN))).toBeVisible()
+    await expect(element(by.id(DICTIONARIES_SCREEN_ID))).toBeVisible()
   })
 
   it('should display an error on invalid credentials', async () => {

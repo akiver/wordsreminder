@@ -1,7 +1,6 @@
 import React from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import { Query, DocumentSnapshot, QuerySnapshot, DocumentChange, SnapshotError } from 'react-native-firebase/firestore'
-import { NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 import memoize from 'memoize-one'
 import { AddButton } from '@components/add-button'
 import { STATUS_ERROR, STATUS_SUCCESS, STATUS_LOADING, STATUS } from '@constants/statuses'
@@ -13,7 +12,6 @@ import { Text } from '@components/text'
 import { MainView } from '@components/main-view'
 import { ADD_BUTTON, EMPTY_LIST_MESSAGE } from '@e2e/ids'
 import { FilterBar } from './filter-bar'
-import { PARAM_SCREEN_TITLE, PARAM_HAS_FILTER_ENABLED } from '@constants/navigation-parameters'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { Entity } from '@models/entity'
 
@@ -25,7 +23,8 @@ type Props = {
   emptyListMessage: string
   filterEntities: (filter: string, entity: any) => boolean
   testID: string
-  navigation: NavigationStackProp
+  onCloseFilter: () => void
+  hasFilterEnabled: boolean
 }
 
 type State = typeof initialState
@@ -38,13 +37,7 @@ const initialState = Object.freeze({
   error: undefined as string | undefined,
 })
 
-class FiltrableList extends React.PureComponent<Props, State> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    return {
-      title: navigation.getParam(PARAM_SCREEN_TITLE),
-    }
-  }
-
+export class FiltrableList extends React.PureComponent<Props, State> {
   readonly state = initialState
 
   unsubscribe?: () => void
@@ -155,7 +148,7 @@ class FiltrableList extends React.PureComponent<Props, State> {
   }
 
   handleCloseFilterPress = () => {
-    this.props.navigation.setParams({ [PARAM_HAS_FILTER_ENABLED]: false })
+    this.props.onCloseFilter()
     this.setState({
       filter: undefined,
     })
@@ -196,10 +189,9 @@ class FiltrableList extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const hasFilterEnabled = this.props.navigation.getParam(PARAM_HAS_FILTER_ENABLED)
     return (
       <MainView testID={this.props.testID}>
-        {hasFilterEnabled && (
+        {this.props.hasFilterEnabled && (
           <FilterBar onCloseFilterPress={this.handleCloseFilterPress} onFilterChange={this.handleFilterChange} />
         )}
         {this.renderContent()}
@@ -208,5 +200,3 @@ class FiltrableList extends React.PureComponent<Props, State> {
     )
   }
 }
-
-export { FiltrableList }

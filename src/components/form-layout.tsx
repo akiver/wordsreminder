@@ -11,18 +11,20 @@ type Props = {
   children: ReactNode
 }
 
-const FormLayout = ({ status, error, children }: Props) => (
-  <MainView>
-    <ScrollView style={styles.scrollView}>
-      {status === STATUS_ERROR && error !== undefined && (
-        <Spacer marginBottom={10} marginTop={10}>
-          <ErrorMessage message={error} />
-        </Spacer>
-      )}
-      {children}
-    </ScrollView>
-  </MainView>
-)
+export const FormLayout = ({ status, error, children }: Props) => {
+  return (
+    <MainView>
+      <ScrollView style={styles.scrollView}>
+        {status === STATUS_ERROR && error !== undefined && (
+          <Spacer marginBottom={10} marginTop={10}>
+            <ErrorMessage message={error} />
+          </Spacer>
+        )}
+        {children}
+      </ScrollView>
+    </MainView>
+  )
+}
 
 type Style = {
   scrollView: ViewStyle
@@ -35,5 +37,3 @@ const styles = StyleSheet.create<Style>({
     paddingHorizontal: 10,
   },
 })
-
-export { FormLayout }

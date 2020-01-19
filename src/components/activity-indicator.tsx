@@ -6,18 +6,20 @@ type Props = ActivityIndicatorProps & {
   children?: never
 }
 
-const ActivityIndicator = ({ size = 'small' }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => (
-      <RNActivityIndicator
-        color={theme.primary025}
-        size={size}
-        style={styles.activityIndicator}
-        accessibilityHint="Loading"
-      />
-    )}
-  </ThemeContext.Consumer>
-)
+export const ActivityIndicator = ({ size = 'small' }: Props) => {
+  return (
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <RNActivityIndicator
+          color={theme.primary025}
+          size={size}
+          style={styles.activityIndicator}
+          accessibilityHint="Loading"
+        />
+      )}
+    </ThemeContext.Consumer>
+  )
+}
 
 type Style = {
   activityIndicator: ViewStyle
@@ -28,5 +30,3 @@ const styles = StyleSheet.create<Style>({
     padding: 10,
   },
 })
-
-export { ActivityIndicator }

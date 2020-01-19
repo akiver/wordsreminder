@@ -1,6 +1,5 @@
 import React from 'react'
 import { TextInput, View } from 'react-native'
-import { NavigationStackScreenProps, NavigationStackOptions, NavigationStackProp } from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { SaveButton } from '@components/save-button'
 import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
@@ -14,14 +13,19 @@ import {
   WORD_CREATE_INPUT_SIGNIFICATION,
   WORD_CREATE_INPUT_DESCRIPTION,
 } from '@e2e/ids'
-import {
-  PARAM_ON_SAVE_PRESS,
-  PARAM_IS_SAVE_DISABLED,
-  PARAM_STATUS,
-  PARAM_DICTIONARY_ID,
-} from '@constants/navigation-parameters'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+import { RouteProp } from '@react-navigation/native'
+import { WORDS_CREATE_SCREEN } from '@constants/screens'
 
-type Props = NavigationStackScreenProps
+type CreateWordScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>
+type CreateWordScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_CREATE_SCREEN>
+
+type Props = {
+  navigation: CreateWordScreenNavigationProps
+  route: CreateWordScreenRouteProps
+}
+
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -32,17 +36,7 @@ const initialState = Object.freeze({
   error: undefined as string | undefined,
 })
 
-class CreateWordScreen extends React.Component<Props, State> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    const onSavePress: () => void | undefined = navigation.getParam(PARAM_ON_SAVE_PRESS)
-    const isSaveDisabled: boolean = navigation.getParam(PARAM_IS_SAVE_DISABLED)
-    const status: STATUS = navigation.getParam(PARAM_STATUS)
-    return {
-      title: 'Add a word',
-      headerRight: onSavePress && <SaveButton disabled={isSaveDisabled} onPress={onSavePress} status={status} />,
-    }
-  }
-
+export class CreateWordScreen extends React.Component<Props, State> {
   significationRef: React.RefObject<TextInput> = React.createRef()
 
   descriptionRef: React.RefObject<TextInput> = React.createRef()
@@ -52,39 +46,43 @@ class CreateWordScreen extends React.Component<Props, State> {
   INPUT_MARGIN_TOP = 10
 
   componentDidMount() {
-    this.props.navigation.setParams({
-      [PARAM_ON_SAVE_PRESS]: this.handleAddPress,
-      [PARAM_STATUS]: this.state.status,
-      [PARAM_IS_SAVE_DISABLED]: true,
+    this.props.navigation.setOptions({
+      title: 'Add a word',
+    })
+    this.updateSaveButton()
+  }
+
+  updateSaveButton = () => {
+    this.props.navigation.setOptions({
+      headerRight: () => {
+        const { status, signification, value } = this.state
+        return (
+          <SaveButton
+            disabled={status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification)}
+            onPress={this.handleAddPress}
+            status={status}
+          />
+        )
+      },
     })
   }
 
   handleAddPress = () => {
     this.setState({ status: STATUS_LOADING }, async () => {
-      const { navigation } = this.props
+      const { navigation, route } = this.props
       try {
-        navigation.setParams({
-          [PARAM_STATUS]: STATUS_LOADING,
-        })
-
-        const dictionaryId: string = navigation.getParam(PARAM_DICTIONARY_ID)
+        this.updateSaveButton()
+        const dictionaryId: string = route.params.dictionaryId
         const { value, signification, description } = this.state
         await createWord(dictionaryId, value, signification, description)
         navigation.goBack()
       } catch (error) {
         this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          navigation.setParams({
-            [PARAM_STATUS]: STATUS_ERROR,
+          this.setState({
+            status: STATUS_ERROR,
           })
         })
       }
-    })
-  }
-
-  updateIsSaveDisabledParameter = () => {
-    const { value, signification, status } = this.state
-    this.props.navigation.setParams({
-      [PARAM_IS_SAVE_DISABLED]: status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification),
     })
   }
 
@@ -94,7 +92,7 @@ class CreateWordScreen extends React.Component<Props, State> {
         value: word,
       },
       () => {
-        this.updateIsSaveDisabledParameter()
+        this.updateSaveButton()
       }
     )
   }
@@ -105,7 +103,7 @@ class CreateWordScreen extends React.Component<Props, State> {
         signification,
       },
       () => {
-        this.updateIsSaveDisabledParameter()
+        this.updateSaveButton()
       }
     )
   }
@@ -169,5 +167,3 @@ class CreateWordScreen extends React.Component<Props, State> {
     )
   }
 }
-
-export { CreateWordScreen }

@@ -6,10 +6,10 @@ import {
   SIGNIN_INPUT_EMAIL,
   SIGNIN_INPUT_PASSWORD,
   SIGNIN_SUBMIT_BUTTON,
-  DICTIONARIES_SCREEN,
+  DICTIONARIES_SCREEN_ID,
 } from '@e2e/ids'
 
-const signInUser = async () => {
+export const signInUser = async () => {
   await createUser(E2E_EMAIL, E2E_PASSWORD)
   await waitFor(element(by.id(SIGNIN_SCREEN))).toBeVisible()
 
@@ -19,9 +19,7 @@ const signInUser = async () => {
   await element(by.id(SIGNIN_INPUT_PASSWORD)).typeText(E2E_PASSWORD)
   await element(by.id(SIGNIN_SUBMIT_BUTTON)).tap()
 
-  await waitFor(element(by.id(DICTIONARIES_SCREEN)))
+  await waitFor(element(by.id(DICTIONARIES_SCREEN_ID)))
     .toBeVisible()
     .withTimeout(4000)
 }
-
-export { signInUser }

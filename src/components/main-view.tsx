@@ -7,7 +7,7 @@ type Props = {
   testID?: string
 }
 
-const MainView = ({ testID, children }: Props) => {
+export const MainView = ({ testID, children }: Props) => {
   return (
     <ThemeContext.Consumer>
       {({ theme }) => (
@@ -28,5 +28,3 @@ const styles = StyleSheet.create<Style>({
     flex: 1,
   },
 })
-
-export { MainView }

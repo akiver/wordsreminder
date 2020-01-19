@@ -1,6 +1,5 @@
 import React from 'react'
 import { TextInput } from 'react-native'
-import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
 import { signIn } from '@services/sign-in'
@@ -17,8 +16,18 @@ import {
   SIGNIN_INPUT_PASSWORD,
   SIGNIN_LINK_SIGNUP,
 } from '@e2e/ids'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { AuthStackParamList } from '@stacks/auth-stack'
+import { RouteProp } from '@react-navigation/native'
 
-type Props = NavigationStackScreenProps
+type SignInScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signin'>
+type SignInScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signin'>
+
+type Props = {
+  navigation: SignInScreenNavigationProps
+  route: SignInScreenRouteProps
+}
+
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -28,11 +37,7 @@ const initialState = Object.freeze({
   error: undefined as string | undefined,
 })
 
-class SignInScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationStackOptions = {
-    title: 'Sign in',
-  }
-
+export class SignInScreen extends React.Component<Props, State> {
   readonly state = initialState
 
   passwordRef: React.RefObject<TextInput> = React.createRef()
@@ -135,5 +140,3 @@ class SignInScreen extends React.Component<Props, State> {
     )
   }
 }
-
-export { SignInScreen }

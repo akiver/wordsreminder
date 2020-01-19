@@ -1,7 +1,19 @@
 import React from 'react'
-import { render } from '@testing-library/react-native'
-import { APP_STACK, AUTH_STACK } from '@constants/screens'
+import { render, waitForElement } from '@testing-library/react-native'
 import { AuthLoadingScreen } from '../auth-loading-screen'
+import { Text } from 'react-native'
+
+jest.mock('@stacks/tabs-stack', () => {
+  return {
+    TabsStack: () => <Text>Tabs stack</Text>, // eslint-disable-line
+  }
+})
+
+jest.mock('@stacks/auth-stack', () => {
+  return {
+    AuthStack: () => <Text>Auth stack</Text>, // eslint-disable-line
+  }
+})
 
 const onAuthStateChanged = jest.fn()
 jest.mock('react-native-firebase', () => {
@@ -14,35 +26,32 @@ jest.mock('react-native-firebase', () => {
   }
 })
 
-const navigate = jest.fn()
-const navigation: any = { navigate }
-
 describe('AuthLoadingScreen', () => {
   beforeEach(() => {
     onAuthStateChanged.mockClear()
   })
 
   it('should render a loading', () => {
-    const { queryByText } = render(<AuthLoadingScreen navigation={navigation} />)
+    const { queryByText } = render(<AuthLoadingScreen />)
 
     expect(queryByText(/loading.../i)).not.toBeNull()
   })
 
-  it(`should redirect to ${APP_STACK}`, () => {
+  it('should render tabs stack', async () => {
     onAuthStateChanged.mockImplementation(callback => {
       callback({ id: 'user-id' })
     })
-    render(<AuthLoadingScreen navigation={navigation} />)
+    const { findByText } = render(<AuthLoadingScreen />)
 
-    expect(navigate).toHaveBeenCalledWith(APP_STACK)
+    await waitForElement(() => findByText('Tabs stack'))
   })
 
-  it(`should redirect to ${AUTH_STACK}`, () => {
+  it('should render auth stack', async () => {
     onAuthStateChanged.mockImplementation(callback => {
       callback(null)
     })
-    render(<AuthLoadingScreen navigation={navigation} />)
+    const { findByText } = render(<AuthLoadingScreen />)
 
-    expect(navigate).toHaveBeenCalledWith(AUTH_STACK)
+    await waitForElement(() => findByText('Auth stack'))
   })
 })

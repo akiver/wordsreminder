@@ -8,7 +8,7 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => (
+export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Animated.View
@@ -35,5 +35,3 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 20,
   },
 })
-
-export { Indicator }

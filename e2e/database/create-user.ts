@@ -1,6 +1,6 @@
 import { admin } from '@e2e/database/db'
 
-const createUser = async (email: string, password: string) => {
+export const createUser = async (email: string, password: string) => {
   try {
     await admin.auth().createUser({
       email,
@@ -8,5 +8,3 @@ const createUser = async (email: string, password: string) => {
     })
   } catch (err) {}
 }
-
-export { createUser }

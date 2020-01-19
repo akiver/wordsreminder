@@ -1,99 +1,98 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Vibration } from 'react-native'
 import RNSecureStorage from 'rn-secure-storage'
-import { StackActions, NavigationActions } from 'react-navigation'
-import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
 import { STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { PASSCODE_KEY } from '@constants/async-storage'
 import { signOut } from '@services/sign-out'
-import { AUTH_LOADING_SCREEN, SETTINGS_SCREEN } from '@constants/screens'
+import { AUTH_LOADING_SCREEN, SETTINGS_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens'
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { SettingsStackParamList } from '@stacks/settings-stack'
 
-type Props = NavigationStackScreenProps
-type State = typeof initialState
+type State = {
+  status: STATUS
+  error: string | undefined
+  currentPasscode: string
+  attemptCount: number
+  shouldAnimateError: boolean
+}
 
-const initialState = Object.freeze({
-  status: STATUS_IDLE as STATUS,
-  error: undefined as string | undefined,
-  currentPasscode: '',
-  attemptCount: 0,
-  shouldAnimateError: false,
-})
+export const TurnOffPasscodeScreen = () => {
+  const navigation = useNavigation<
+    StackNavigationProp<SettingsStackParamList, typeof SETTINGS_TURN_OFF_PASSCODE_SCREEN>
+  >()
+  const [state, setState] = useState<State>({
+    attemptCount: 0,
+    currentPasscode: '',
+    error: undefined,
+    shouldAnimateError: false,
+    status: STATUS_IDLE,
+  })
 
-class TurnOffPasscodeScreen extends React.Component<Props, State> {
-  static navigationOptions: NavigationStackOptions = {
-    title: 'Turn off passcode',
-  }
-
-  readonly state = initialState
-
-  async componentDidMount() {
-    try {
-      const currentPasscode = await RNSecureStorage.get(PASSCODE_KEY)
-      if (currentPasscode !== null) {
-        this.setState({
-          currentPasscode,
-        })
-      }
-    } catch (error) {
-      this.props.navigation.pop()
-      Alert.alert('Error', 'An error occured, please try again.')
-    }
-  }
-
-  handlePasscodeEntered = async (passcode: number[]) => {
-    const { currentPasscode } = this.state
-    if (currentPasscode === passcode.map(Number).join('')) {
+  useEffect(() => {
+    const loadPasscode = async () => {
       try {
-        await RNSecureStorage.remove(PASSCODE_KEY)
-        const navAction = StackActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName: SETTINGS_SCREEN })],
-        })
-        this.props.navigation.dispatch(navAction)
+        const currentPasscode = await RNSecureStorage.get(PASSCODE_KEY)
+        if (currentPasscode !== null) {
+          setState({
+            ...state,
+            currentPasscode,
+          })
+        }
       } catch (error) {
-        this.setState({
-          status: STATUS_ERROR,
-          error: 'An error occured while turning off the passcode, please try again.',
-          attemptCount: 0,
-        })
+        navigation.goBack()
+        Alert.alert('Error', 'An error occurred, please try again.')
       }
-
-      return
     }
 
-    Vibration.vibrate(0, false)
-    if (this.state.attemptCount === 4) {
-      await signOut()
-      this.props.navigation.navigate(AUTH_LOADING_SCREEN)
-      return
-    }
+    loadPasscode()
+  }, [])
 
-    this.setState(
-      ({ attemptCount }) => {
-        return {
+  const { error } = state
+  return (
+    <PasscodeKeyboard
+      message={error !== undefined ? error : 'Enter your passcode'}
+      onPasscodeEntered={async (passcode: number[]) => {
+        const { currentPasscode } = state
+        if (currentPasscode === passcode.map(Number).join('')) {
+          try {
+            await RNSecureStorage.remove(PASSCODE_KEY)
+            navigation.reset({
+              index: 0,
+              routeNames: [],
+              routes: [],
+            })
+            navigation.navigate(SETTINGS_SCREEN)
+          } catch (error) {
+            setState({
+              ...state,
+              status: STATUS_ERROR,
+              error: 'An error occurred while turning off the passcode, please try again.',
+              attemptCount: 0,
+            })
+          }
+
+          return
+        }
+
+        Vibration.vibrate(0, false)
+        if (state.attemptCount === 4) {
+          await signOut()
+          navigation.navigate(AUTH_LOADING_SCREEN)
+          return
+        }
+
+        const { attemptCount } = state
+        setState({
+          ...state,
           status: STATUS_ERROR,
           error: `${attemptCount + 1} failed passcode attempts.`,
           attemptCount: attemptCount + 1,
           shouldAnimateError: true,
-        }
-      },
-      () => {
-        this.setState({ shouldAnimateError: false })
-      }
-    )
-  }
-
-  render() {
-    const { error } = this.state
-    return (
-      <PasscodeKeyboard
-        message={error !== undefined ? error : 'Enter your passcode'}
-        onPasscodeEntered={this.handlePasscodeEntered}
-        shouldAnimateError={this.state.shouldAnimateError}
-      />
-    )
-  }
+        })
+      }}
+      shouldAnimateError={state.shouldAnimateError}
+    />
+  )
 }
-
-export { TurnOffPasscodeScreen }

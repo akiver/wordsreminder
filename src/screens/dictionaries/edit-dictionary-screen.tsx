@@ -1,81 +1,77 @@
 import React from 'react'
 import { View } from 'react-native'
-import { NavigationStackScreenProps, NavigationStackProp, NavigationStackOptions } from 'react-navigation-stack'
 import { InputText } from '@components/input-text'
 import { SaveButton } from '@components/save-button'
 import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses'
 import { updateDictionary } from '@services/update-dictionary'
 import { isStringEmpty } from '@utils/is-string-empty'
 import { FormLayout } from '@components/form-layout'
-import { DICTIONARY_EDIT_SCREEN, DICTIONARY_EDIT_INPUT_NAME } from '@e2e/ids'
-import {
-  PARAM_DICTIONARY,
-  PARAM_IS_SAVE_DISABLED,
-  PARAM_STATUS,
-  PARAM_ON_SAVE_PRESS,
-} from '@constants/navigation-parameters'
-import { Dictionary } from '@models/dictionary'
+import { DICTIONARY_EDIT_SCREEN_ID, DICTIONARY_EDIT_INPUT_NAME } from '@e2e/ids'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+import { RouteProp } from '@react-navigation/native'
+import { DICTIONARIES_EDIT_SCREEN } from '@constants/screens'
 
-type Props = NavigationStackScreenProps
+type EditDictionaryScreenNavigationProps = StackNavigationProp<
+  DictionariesStackParamList,
+  typeof DICTIONARIES_EDIT_SCREEN
+>
+type EditDictionaryScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_EDIT_SCREEN>
+
+type Props = {
+  navigation: EditDictionaryScreenNavigationProps
+  route: EditDictionaryScreenRouteProps
+}
+
 type State = ReturnType<typeof getInitialState>
 
 const getInitialState = (props: Props) => {
   return Object.freeze({
     status: STATUS_IDLE as STATUS,
-    dictionary: props.navigation.getParam(PARAM_DICTIONARY) as Dictionary,
+    dictionary: props.route.params.dictionary,
     error: undefined as string | undefined,
   })
 }
 
-class EditDictionaryScreen extends React.Component<Props, State> {
-  static navigationOptions = ({ navigation }: { navigation: NavigationStackProp }): NavigationStackOptions => {
-    const onSavePress: () => void | undefined = navigation.getParam(PARAM_ON_SAVE_PRESS)
-    const isSaveDisabled: boolean = navigation.getParam(PARAM_IS_SAVE_DISABLED)
-    const status: STATUS = navigation.getParam(PARAM_STATUS)
-
-    return {
-      title: 'Edit a dictionary',
-      headerRight: onSavePress && <SaveButton disabled={isSaveDisabled} onPress={onSavePress} status={status} />,
-    }
-  }
-
+export class EditDictionaryScreen extends React.Component<Props, State> {
   readonly state = getInitialState(this.props)
 
-  componentDidMount() {
-    this.props.navigation.setParams({
-      [PARAM_ON_SAVE_PRESS]: this.handleSavePress,
-      [PARAM_STATUS]: this.state.status,
+  public componentDidMount() {
+    this.updateSaveButton()
+  }
+
+  private updateSaveButton = () => {
+    this.props.navigation.setOptions({
+      headerRight: () => {
+        const { status, dictionary } = this.state
+        const { name } = dictionary
+        return (
+          <SaveButton
+            disabled={status === STATUS_LOADING || isStringEmpty(name)}
+            onPress={this.handleSavePress}
+            status={status}
+          />
+        )
+      },
     })
   }
 
-  handleSavePress = () => {
+  private handleSavePress = () => {
     this.setState({ status: STATUS_LOADING }, async () => {
       const { navigation } = this.props
       try {
-        navigation.setParams({
-          [PARAM_STATUS]: STATUS_LOADING,
-        })
+        this.updateSaveButton()
         await updateDictionary(this.state.dictionary)
         navigation.goBack()
       } catch (error) {
         this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          navigation.setParams({
-            [PARAM_STATUS]: STATUS_ERROR,
-          })
+          this.updateSaveButton()
         })
       }
     })
   }
 
-  updateIsSaveDisabledParameter = () => {
-    const { status } = this.state
-    const { name } = this.state.dictionary
-    this.props.navigation.setParams({
-      [PARAM_IS_SAVE_DISABLED]: status === STATUS_LOADING || isStringEmpty(name),
-    })
-  }
-
-  handleNameChange = (name: string) => {
+  private handleNameChange = (name: string) => {
     this.setState(
       prevState => ({
         dictionary: {
@@ -84,15 +80,15 @@ class EditDictionaryScreen extends React.Component<Props, State> {
         },
       }),
       () => {
-        this.updateIsSaveDisabledParameter()
+        this.updateSaveButton()
       }
     )
   }
 
-  render() {
+  public render() {
     return (
       <FormLayout status={this.state.status} error={this.state.error}>
-        <View testID={DICTIONARY_EDIT_SCREEN}>
+        <View testID={DICTIONARY_EDIT_SCREEN_ID}>
           <InputText
             label="Name"
             placeholder="Dictionary's name"
@@ -107,5 +103,3 @@ class EditDictionaryScreen extends React.Component<Props, State> {
     )
   }
 }
-
-export { EditDictionaryScreen }

@@ -1,9 +1,7 @@
 import React from 'react'
-import { Alert } from 'react-native'
+import { Alert, Animated } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { NavigationStackProp } from 'react-navigation-stack'
-import { AnimatedValue } from 'react-navigation'
-import { WORDS_EDIT_SCREEN } from '@constants/screens'
+import { WORDS_EDIT_SCREEN, WORDS_SCREEN } from '@constants/screens'
 import { Text } from '@components/text'
 import { Spacer } from '@components/spacer'
 import { isStringEmpty } from '@utils/is-string-empty'
@@ -21,15 +19,19 @@ import {
 } from '@e2e/ids'
 import { PARAM_WORD } from '@constants/navigation-parameters'
 import { Word } from '@models/word'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { DictionariesStackParamList } from '@stacks/dictionaries-stack'
+
+type WordsScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_SCREEN>
 
 type Props = {
   word: Word
-  navigation: NavigationStackProp
+  navigation: WordsScreenNavigationProps
   testID: string
   children?: never
 }
 
-class WordRow extends React.Component<Props> {
+export class WordRow extends React.Component<Props> {
   swipeableRef = React.createRef<Swipeable>()
 
   closeSwipeable = () => {
@@ -73,7 +75,7 @@ class WordRow extends React.Component<Props> {
     )
   }
 
-  renderRightActions = (progress: AnimatedValue) => {
+  renderRightActions = (progress: Animated.AnimatedInterpolation) => {
     const { word } = this.props
     return (
       <SwipeActions width={192}>
@@ -126,5 +128,3 @@ class WordRow extends React.Component<Props> {
     )
   }
 }
-
-export { WordRow }

@@ -5,7 +5,7 @@ import { DANGER, INFO } from '@constants/colors'
 import { Text } from '@components/text'
 
 type Props = {
-  progress: Animated.Value
+  progress: Animated.AnimatedInterpolation
   dragX: number
   text: string
   backgroundColor: typeof DANGER | typeof INFO
@@ -14,7 +14,7 @@ type Props = {
   testID: string
 }
 
-const SwipeAction = ({ progress, dragX, text, backgroundColor, onPress, testID }: Props) => {
+export const SwipeAction = ({ progress, dragX, text, backgroundColor, onPress, testID }: Props) => {
   const translateX = progress.interpolate({
     inputRange: [0, 1],
     outputRange: [dragX, 0],
@@ -42,5 +42,3 @@ const styles = StyleSheet.create<Style>({
     justifyContent: 'center',
   },
 })
-
-export { SwipeAction }

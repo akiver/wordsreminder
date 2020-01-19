@@ -18,7 +18,7 @@ type Props = {
 }
 type State = typeof initialState
 
-class PasscodeKeyboard extends React.Component<Props, State> {
+export class PasscodeKeyboard extends React.Component<Props, State> {
   static contextType = ThemeContext
 
   readonly state = initialState
@@ -154,5 +154,3 @@ const styles = StyleSheet.create<Style>({
     flexDirection: 'row',
   },
 })
-
-export { PasscodeKeyboard }

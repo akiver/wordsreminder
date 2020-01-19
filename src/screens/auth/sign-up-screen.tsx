@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavigationStackScreenProps } from 'react-navigation-stack'
 import { TextInput } from 'react-native'
 import { Button } from '@components/button'
 import { InputText } from '@components/input-text'
@@ -16,8 +15,17 @@ import {
   SIGNUP_LINK_SIGNIN,
   SIGNUP_SUBMIT_BUTTON,
 } from '@e2e/ids'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RouteProp } from '@react-navigation/native'
+import { AuthStackParamList } from '@stacks/auth-stack'
 
-type Props = NavigationStackScreenProps
+type SignUpScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signup'>
+type SignUpScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signup'>
+
+type Props = {
+  navigation: SignUpScreenNavigationProps
+  route: SignUpScreenRouteProps
+}
 type State = typeof initialState
 
 const initialState = Object.freeze({
@@ -27,7 +35,7 @@ const initialState = Object.freeze({
   error: undefined,
 })
 
-class SignUpScreen extends React.Component<Props, State> {
+export class SignUpScreen extends React.Component<Props, State> {
   readonly state = initialState
 
   passwordRef: React.RefObject<TextInput> = React.createRef()
@@ -130,5 +138,3 @@ class SignUpScreen extends React.Component<Props, State> {
     )
   }
 }
-
-export { SignUpScreen }

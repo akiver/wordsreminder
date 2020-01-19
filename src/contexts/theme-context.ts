@@ -51,9 +51,7 @@ interface ThemeContextInterface {
   toggleTheme: () => void
 }
 
-const ThemeContext = createContext<ThemeContextInterface>({
+export const ThemeContext = createContext<ThemeContextInterface>({
   theme: themes[THEME_DARK_VALUE],
   toggleTheme: () => {},
 })
-
-export { ThemeContext }

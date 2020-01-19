@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode
 }
 
-const SwipeActions = ({ width, children }: Props) => {
+export const SwipeActions = ({ width, children }: Props) => {
   return <View style={[styles.actions, { width }]}>{children}</View>
 }
 
@@ -17,5 +17,3 @@ type Style = {
 const styles = StyleSheet.create<Style>({
   actions: { flexDirection: 'row' },
 })
-
-export { SwipeActions }

@@ -1,30 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
 import { auth } from 'react-native-firebase'
-import { NavigationSwitchProp } from 'react-navigation'
-import { APP_STACK, AUTH_STACK } from '@constants/screens'
 import { Text } from '@components/text'
 import { MainView } from '@components/main-view'
+import { AuthStack } from '@stacks/auth-stack'
+import { TabsStack } from '@stacks/tabs-stack'
 
-type Props = {
-  navigation: NavigationSwitchProp
-}
+export const AuthLoadingScreen = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState<object | null>(null)
 
-class AuthLoadingScreen extends React.Component<Props> {
-  componentDidMount() {
-    auth().onAuthStateChanged(this.handleAuthStateChanged)
-  }
+  useEffect(() => {
+    auth().onAuthStateChanged((user: object | null) => {
+      setUser(user)
+      setIsLoading(false)
+    })
+  }, [])
 
-  handleAuthStateChanged = (user: object | null) => {
-    const { navigation } = this.props
-    if (user !== null) {
-      navigation.navigate(APP_STACK)
-    } else {
-      navigation.navigate(AUTH_STACK)
-    }
-  }
-
-  render() {
+  if (isLoading) {
     return (
       <MainView>
         <View style={styles.container}>
@@ -33,6 +26,12 @@ class AuthLoadingScreen extends React.Component<Props> {
       </MainView>
     )
   }
+
+  if (user === null) {
+    return <AuthStack />
+  }
+
+  return <TabsStack />
 }
 
 type Style = {
@@ -46,5 +45,3 @@ const styles = StyleSheet.create<Style>({
     justifyContent: 'center',
   },
 })
-
-export { AuthLoadingScreen }

@@ -1,11 +1,11 @@
 import React, { ReactChild } from 'react'
 import { StyleSheet, KeyboardAvoidingView, View, Platform, ViewStyle } from 'react-native'
-import { Header } from 'react-navigation-stack'
 import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses'
 import { ErrorMessage } from '@components/error-message'
 import { Spacer } from '@components/spacer'
 import { ActivityIndicator } from '@components/activity-indicator'
 import { ThemeContext } from '@contexts/theme-context'
+import { useHeaderHeight } from '@react-navigation/stack'
 
 type Props = {
   status: STATUS
@@ -17,35 +17,38 @@ type Props = {
   children?: never
 }
 
-const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => {
-      return (
-        <KeyboardAvoidingView
-          style={[styles.container, { backgroundColor: theme.primary100 }]}
-          keyboardVerticalOffset={Header.HEIGHT + 10}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <View style={styles.content} testID={testID}>
-            <View style={styles.inputs}>
-              {status === STATUS_LOADING && <ActivityIndicator />}
-              {inputs}
-              {status === STATUS_ERROR && error !== undefined && (
-                <Spacer marginTop={20}>
-                  <ErrorMessage message={error} />
-                </Spacer>
-              )}
+export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => {
+  const headerHeight = useHeaderHeight()
+  return (
+    <ThemeContext.Consumer>
+      {({ theme }) => {
+        return (
+          <KeyboardAvoidingView
+            style={[styles.container, { backgroundColor: theme.primary100 }]}
+            keyboardVerticalOffset={headerHeight + 10}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          >
+            <View style={styles.content} testID={testID}>
+              <View style={styles.inputs}>
+                {status === STATUS_LOADING && <ActivityIndicator />}
+                {inputs}
+                {status === STATUS_ERROR && error !== undefined && (
+                  <Spacer marginTop={20}>
+                    <ErrorMessage message={error} />
+                  </Spacer>
+                )}
+              </View>
+              <View style={styles.buttons}>
+                {link}
+                <Spacer marginLeft={10}>{submitButton}</Spacer>
+              </View>
             </View>
-            <View style={styles.buttons}>
-              {link}
-              <Spacer marginLeft={10}>{submitButton}</Spacer>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-      )
-    }}
-  </ThemeContext.Consumer>
-)
+          </KeyboardAvoidingView>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
+}
 
 type Style = {
   container: ViewStyle
@@ -73,5 +76,3 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
   },
 })
-
-export { AuthLayout }

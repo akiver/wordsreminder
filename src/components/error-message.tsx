@@ -7,10 +7,10 @@ type Props = {
   children?: never
 }
 
-const ErrorMessage = ({ message }: Props) => (
-  <Text testID={ERROR_MESSAGE} color="danger" fontSize={20}>
-    {message}
-  </Text>
-)
-
-export { ErrorMessage }
+export const ErrorMessage = ({ message }: Props) => {
+  return (
+    <Text testID={ERROR_MESSAGE} color="danger" fontSize={20}>
+      {message}
+    </Text>
+  )
+}

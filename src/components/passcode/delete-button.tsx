@@ -7,7 +7,7 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const DeleteButton = ({ onPress, ...props }: Props) => (
+export const DeleteButton = ({ onPress, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <TouchableOpacity
@@ -41,5 +41,3 @@ const styles = StyleSheet.create<Style>({
     justifyContent: 'center',
   },
 })
-
-export { DeleteButton }

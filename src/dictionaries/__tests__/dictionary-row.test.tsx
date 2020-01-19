@@ -3,10 +3,10 @@ import { render, fireEvent } from '@testing-library/react-native'
 import { WORDS_SCREEN } from '@constants/screens'
 import { DICTIONARIES_ROW, DICTIONARIES_ROW_WORDS_COUNT, DICTIONARIES_ROW_UPDATED_AT } from '@e2e/ids'
 import { DictionaryRow } from '../dictionary-row'
-import { NavigationParams } from 'react-navigation'
 import { Dictionary } from '@models/dictionary'
+import { ParamListBase } from '@react-navigation/native'
 
-const push = jest.fn((path: string, params: NavigationParams) => path + params)
+const push = jest.fn((path: string, params: ParamListBase) => path + params)
 const navigation: any = { push }
 
 jest.mock('react-native-firebase', () => undefined)

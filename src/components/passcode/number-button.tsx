@@ -9,7 +9,7 @@ type Props = TouchableOpacityProps & {
   children?: never
 }
 
-const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => (
+export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => (
   <ThemeContext.Consumer>
     {({ theme }) => (
       <Animated.View
@@ -47,5 +47,3 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 80,
   },
 })
-
-export { NumberButton }
