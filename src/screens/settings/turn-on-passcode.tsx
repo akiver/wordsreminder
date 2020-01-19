@@ -52,7 +52,7 @@ export const TurnOnPasscodeScreen = () => {
               navigation.navigate(SETTINGS_SCREEN);
             } catch (error) {
               setState({
-                ...state,
+                shouldAnimateError: false,
                 error: 'An error occurred while turning on passcode, please try again.',
                 isPasscodeConfirmation: false,
                 passcode: [],
@@ -71,7 +71,7 @@ export const TurnOnPasscodeScreen = () => {
           }
         } else {
           setState({
-            ...state,
+            shouldAnimateError: false,
             error: undefined,
             isPasscodeConfirmation: true,
             passcode,

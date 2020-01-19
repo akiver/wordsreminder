@@ -67,6 +67,7 @@ export const TurnOffPasscodeScreen = () => {
           } catch (error) {
             setState({
               ...state,
+              shouldAnimateError: false,
               status: STATUS_ERROR,
               error: 'An error occurred while turning off the passcode, please try again.',
               attemptCount: 0,

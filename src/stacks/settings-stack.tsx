@@ -43,14 +43,14 @@ export const SettingsStack = () => {
         name={SETTINGS_TURN_OFF_PASSCODE_SCREEN}
         component={TurnOffPasscodeScreen}
         options={{
-          title: 'Turn on passcode',
+          title: 'Turn off passcode',
         }}
       />
       <Stack.Screen
         name={SETTINGS_TURN_ON_PASSCODE_SCREEN}
         component={TurnOnPasscodeScreen}
         options={{
-          title: 'Turn off passcode',
+          title: 'Turn on passcode',
         }}
       />
     </Stack.Navigator>
