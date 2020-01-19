@@ -33,9 +33,6 @@ target 'WordsReminder' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'Firebase/Core', '~> 6.2.0'
-  pod 'Firebase/Auth', '~> 6.2.0'
-  pod 'Firebase/Firestore', '~> 6.2.0'
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'react-native-config', :path => '../node_modules/react-native-config'

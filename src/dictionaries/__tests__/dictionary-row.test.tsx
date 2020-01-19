@@ -9,7 +9,7 @@ import { ParamListBase } from '@react-navigation/native';
 const push = jest.fn((path: string, params: ParamListBase) => path + params);
 const navigation: any = { push };
 
-jest.mock('react-native-firebase', () => undefined);
+jest.mock('@react-native-firebase/firestore', () => undefined);
 
 describe('DictionaryRow', () => {
   const dictionaryMock: Dictionary = {

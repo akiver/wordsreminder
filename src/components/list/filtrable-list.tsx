@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
-import { Query, DocumentSnapshot, QuerySnapshot, DocumentChange, SnapshotError } from 'react-native-firebase/firestore';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import memoize from 'memoize-one';
 import { AddButton } from '@components/add-button';
 import { STATUS_ERROR, STATUS_SUCCESS, STATUS_LOADING, STATUS } from '@constants/statuses';
@@ -16,9 +16,9 @@ import { isStringEmpty } from '@utils/is-string-empty';
 import { Entity } from '@models/entity';
 
 type Props = {
-  query: Query;
+  query: FirebaseFirestoreTypes.Query;
   onAddPress: () => void;
-  documentSnapshotToEntity: (doc: DocumentSnapshot) => Entity;
+  documentSnapshotToEntity: (doc: FirebaseFirestoreTypes.DocumentSnapshot) => Entity;
   renderItem: ListRenderItem<any>;
   emptyListMessage: string;
   filterEntities: (filter: string, entity: any) => boolean;
@@ -73,9 +73,9 @@ export class FiltrableList extends React.PureComponent<Props, State> {
     return e2.updatedAt.toMillis() - e1.updatedAt.toMillis();
   }
 
-  onCollectionUpdate = (querySnapshot: QuerySnapshot) => {
+  onCollectionUpdate = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
     let entities: Entity[] = Array.from(this.state.entities);
-    querySnapshot.docChanges.forEach((docChange: DocumentChange) => {
+    querySnapshot.docChanges().forEach((docChange: FirebaseFirestoreTypes.DocumentChange) => {
       const entity = this.props.documentSnapshotToEntity(docChange.doc);
       switch (docChange.type) {
         case 'added':
@@ -102,7 +102,7 @@ export class FiltrableList extends React.PureComponent<Props, State> {
     });
   };
 
-  onCollectionError = (error: SnapshotError) => {
+  onCollectionError = (error: Error) => {
     const errorMessage = getErrorMessageFromFirestoreError(error);
     this.setState({
       status: STATUS_ERROR as STATUS,

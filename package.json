@@ -46,6 +46,9 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.6",
+    "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/auth": "^6.2.0",
+    "@react-native-firebase/firestore": "^6.2.0",
     "@react-navigation/bottom-tabs": "^5.0.0-alpha.37",
     "@react-navigation/native": "^5.0.0-alpha.27",
     "@react-navigation/stack": "^5.0.0-alpha.61",
@@ -54,7 +57,6 @@
     "react-native": "0.61.5",
     "react-native-bootsplash": "^1.2.1",
     "react-native-config": "^0.11.7",
-    "react-native-firebase": "^5.5.6",
     "react-native-gesture-handler": "1.5.3",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.6.2",

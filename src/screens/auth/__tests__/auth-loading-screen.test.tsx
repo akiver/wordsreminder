@@ -16,13 +16,11 @@ jest.mock('@stacks/auth-stack', () => {
 });
 
 const onAuthStateChanged = jest.fn();
-jest.mock('react-native-firebase', () => {
-  return {
-    auth: () => {
-      return {
-        onAuthStateChanged,
-      };
-    },
+jest.mock('@react-native-firebase/auth', () => {
+  return () => {
+    return {
+      onAuthStateChanged,
+    };
   };
 });
 

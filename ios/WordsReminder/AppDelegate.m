@@ -5,25 +5,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+@import Firebase;
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <Firebase.h>
 #import "RNBootSplash.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [FIRApp configure];
-
    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+   if ([FIRApp defaultApp] == nil) {
+     [FIRApp configure];
+   }
    if (![defaults boolForKey:@"notFirstRun"]) {
      [defaults setBool:YES forKey:@"notFirstRun"];
      [defaults synchronize];
-     [[FIRAuth auth] signOut:NULL];
    }
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];

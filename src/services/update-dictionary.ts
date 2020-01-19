@@ -1,5 +1,5 @@
 import { isStringEmpty } from '@utils/is-string-empty';
-import { firestore } from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 import { DICTIONARIES } from '@constants/database';
 import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
 import { Dictionary } from '@models/dictionary';

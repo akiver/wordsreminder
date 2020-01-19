@@ -1,4 +1,4 @@
-import { firestore } from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 import { WORDS, DICTIONARIES } from '@constants/database';
 import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
 import { Dictionary } from '@models/dictionary';

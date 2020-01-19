@@ -20,7 +20,14 @@ module.exports = {
       version: 'detect',
     },
   },
-  ignorePatterns: ['babel.config.js', 'metro.config.js', 'prettier.config.js', 'jest.config.js', 'jest.setup.js'],
+  ignorePatterns: [
+    'babel.config.js',
+    'metro.config.js',
+    'prettier.config.js',
+    'jest.config.js',
+    'jest.setup.js',
+    '*.snap',
+  ],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     '@typescript-eslint/no-use-before-define': 0,

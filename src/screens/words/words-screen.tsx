@@ -1,6 +1,5 @@
 import React from 'react';
-import { firestore } from 'react-native-firebase';
-import { Query } from 'react-native-firebase/firestore';
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { WORDS } from '@constants/database';
 import { WORDS_CREATE_SCREEN, WORDS_SCREEN } from '@constants/screens';
 import { documentSnapshotToWord, Word } from '@models/word';
@@ -55,7 +54,7 @@ export class WordsScreen extends React.Component<Props, State> {
     });
   };
 
-  query: Query = firestore()
+  query: FirebaseFirestoreTypes.Query = firestore()
     .collection(WORDS)
     .where('dictionary', '==', this.props.route.params[PARAM_DICTIONARY].id);
   // Throw an error :/

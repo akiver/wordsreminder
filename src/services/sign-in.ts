@@ -1,4 +1,4 @@
-import { auth } from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
 

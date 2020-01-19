@@ -1,5 +1,5 @@
 import { Entity } from '@models/entity';
-import { DocumentSnapshot } from 'react-native-firebase/firestore';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export interface Word extends Entity {
   value: string;
@@ -8,7 +8,7 @@ export interface Word extends Entity {
   dictionary: string;
 }
 
-export const documentSnapshotToWord = (snap: DocumentSnapshot) => {
+export const documentSnapshotToWord = (snap: FirebaseFirestoreTypes.DocumentSnapshot) => {
   const word = snap.data() as Word;
   if (snap.id === null) {
     throw new Error('word snapshot document id not found');

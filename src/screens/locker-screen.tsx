@@ -1,7 +1,7 @@
 import React from 'react';
 import RNSecureStorage from 'rn-secure-storage';
 import { Alert, View } from 'react-native';
-import { auth } from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import TouchID from 'react-native-touch-id';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { signOut } from '@services/sign-out';

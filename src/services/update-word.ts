@@ -1,6 +1,6 @@
 import { isStringEmpty } from '@utils/is-string-empty';
 import { WORDS } from '@constants/database';
-import { firestore } from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
 import { Word } from '@models/word';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ViewStyle, TextStyle } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { auth } from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import { STATUS_IDLE, STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses';
 import { MainView } from '@components/main-view';
 import { Button } from '@components/button';

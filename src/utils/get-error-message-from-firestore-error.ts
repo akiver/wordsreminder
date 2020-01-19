@@ -1,6 +1,4 @@
-import { SnapshotError } from 'react-native-firebase/firestore';
-
-export const getErrorMessageFromFirestoreError = (error: SnapshotError) => {
+export const getErrorMessageFromFirestoreError = (error: Error & { code?: string }) => {
   let errorMessage = error.message;
   switch (error.code) {
     case 'firestore/permission-denied':

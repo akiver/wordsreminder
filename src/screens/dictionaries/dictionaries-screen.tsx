@@ -1,6 +1,5 @@
 import React from 'react';
-import { Query } from 'react-native-firebase/firestore';
-import { firestore } from 'react-native-firebase';
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { DICTIONARIES } from '@constants/database';
 import { DICTIONARIES_CREATE_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens';
 import { DictionaryRow } from '@dictionaries/dictionary-row';
@@ -45,7 +44,7 @@ export class DictionariesScreen extends React.Component<Props, State> {
     });
   };
 
-  query: Query = firestore()
+  query: FirebaseFirestoreTypes.Query = firestore()
     .collection(DICTIONARIES)
     .orderBy('updatedAt', 'desc');
 
