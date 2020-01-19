@@ -202,7 +202,6 @@ configurations.all {
 dependencies {
     implementation project(':rn-secure-storage')
     implementation project(':react-native-touch-id')
-    implementation project(':react-native-svg')
     implementation project(':react-native-firebase')
     implementation project(':react-native-config')
     implementation project(':react-native-gesture-handler')

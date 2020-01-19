@@ -39,7 +39,6 @@ target 'WordsReminder' do
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'react-native-config', :path => '../node_modules/react-native-config'
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'TouchID', :path => '../node_modules/react-native-touch-id'
 
   # https://github.com/luggit/react-native-config/issues/365

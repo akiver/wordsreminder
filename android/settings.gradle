@@ -5,8 +5,6 @@ include ':rn-secure-storage'
 project(':rn-secure-storage').projectDir = new File(rootProject.projectDir, '../node_modules/rn-secure-storage/android')
 include ':react-native-touch-id'
 project(':react-native-touch-id').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-touch-id/android')
-include ':react-native-svg'
-project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
 include ':react-native-firebase'
 project(':react-native-firebase').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-firebase/android')
 include ':react-native-config'
