@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TextInput, ViewStyle, TextStyle } from 'react-native';
 import { Spacer } from '@components/spacer';
 import { FilterCloseButton } from '@components/filter-close-button';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   onCloseFilterPress: () => void;
@@ -10,40 +10,37 @@ type Props = {
 };
 
 export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
+  const theme = useTheme();
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <View
-          style={{
-            borderBottomColor: theme.primary025,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Spacer marginLeft={20} marginRight={20}>
-            <View style={[styles.filterBar]}>
-              <Spacer marginRight={20}>
-                <FilterCloseButton onPress={onCloseFilterPress} />
-              </Spacer>
-              <TextInput
-                onChangeText={onFilterChange}
-                autoFocus={true}
-                placeholder="Search"
-                selectionColor={theme.primary025}
-                placeholderTextColor={theme.primary050}
-                autoCorrect={false}
-                style={[
-                  styles.filterInput,
-                  {
-                    borderColor: theme.primary025,
-                    color: theme.primary025,
-                  },
-                ]}
-              />
-            </View>
+    <View
+      style={{
+        borderBottomColor: theme.primary025,
+        borderBottomWidth: 1,
+      }}
+    >
+      <Spacer marginLeft={20} marginRight={20}>
+        <View style={[styles.filterBar]}>
+          <Spacer marginRight={20}>
+            <FilterCloseButton onPress={onCloseFilterPress} />
           </Spacer>
+          <TextInput
+            onChangeText={onFilterChange}
+            autoFocus={true}
+            placeholder="Search"
+            selectionColor={theme.primary025}
+            placeholderTextColor={theme.primary050}
+            autoCorrect={false}
+            style={[
+              styles.filterInput,
+              {
+                borderColor: theme.primary025,
+                color: theme.primary025,
+              },
+            ]}
+          />
         </View>
-      )}
-    </ThemeContext.Consumer>
+      </Spacer>
+    </View>
   );
 };
 

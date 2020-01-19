@@ -3,8 +3,8 @@ import { ActivityIndicator, TouchableHighlight } from 'react-native';
 import { STATUS, STATUS_LOADING } from '@constants/statuses';
 import { CorrectIcon } from '@components/svg/correct-icon';
 import { Spacer } from '@components/spacer';
-import { ThemeContext } from '@contexts/theme-context';
 import { SAVE_BUTTON } from '@e2e/ids';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   status: STATUS;
@@ -13,12 +13,11 @@ type Props = {
 };
 
 export const SaveButton = ({ status, onPress, disabled = false }: Props) => {
+  const theme = useTheme();
   if (status === STATUS_LOADING) {
     return (
       <Spacer marginRight={10}>
-        <ThemeContext.Consumer>
-          {({ theme }) => <ActivityIndicator size="large" color={theme.primary025} />}
-        </ThemeContext.Consumer>
+        <ActivityIndicator size="large" color={theme.primary025} />
       </Spacer>
     );
   }

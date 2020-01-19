@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { APP_LOCKER_SCREEN, AUTH_LOADING_SCREEN } from '@constants/screens';
-import { useTheme } from '../hooks/use-theme';
+import { useTheme } from '@hooks/use-theme';
 import { PasscodeStack } from './passcode-stack';
 
 export type RootStackParamList = {

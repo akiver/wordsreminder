@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   onPress?: () => void;
@@ -9,25 +9,22 @@ type Props = {
 };
 
 export const ListRow = ({ onPress, testID, children }: Props) => {
+  const theme = useTheme();
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <TouchableHighlight
-          underlayColor={theme.primary075}
-          style={[
-            styles.container,
-            {
-              backgroundColor: theme.primary100,
-              borderBottomColor: theme.primary025,
-            },
-          ]}
-          onPress={onPress}
-          testID={testID}
-        >
-          {children}
-        </TouchableHighlight>
-      )}
-    </ThemeContext.Consumer>
+    <TouchableHighlight
+      underlayColor={theme.primary075}
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.primary100,
+          borderBottomColor: theme.primary025,
+        },
+      ]}
+      onPress={onPress}
+      testID={testID}
+    >
+      {children}
+    </TouchableHighlight>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, SafeAreaView, ViewStyle } from 'react-native';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   children: ReactNode;
@@ -8,14 +8,11 @@ type Props = {
 };
 
 export const MainView = ({ testID, children }: Props) => {
+  const theme = useTheme();
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.primary100 }]} testID={testID}>
-          {children}
-        </SafeAreaView>
-      )}
-    </ThemeContext.Consumer>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.primary100 }]} testID={testID}>
+      {children}
+    </SafeAreaView>
   );
 };
 

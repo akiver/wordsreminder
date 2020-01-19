@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
 import React from 'react';
 import { Text } from '@components/text';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = TouchableOpacityProps & {
   value: string;
@@ -9,25 +9,24 @@ type Props = TouchableOpacityProps & {
   children?: never;
 };
 
-export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => (
-      <Animated.View
-        style={{
-          ...styles.view,
-          backgroundColor: theme.primary025,
-          borderColor: animatedBorderColor,
-        }}
-      >
-        <TouchableOpacity onPress={onPress} style={styles.touchable} {...props}>
-          <Text color="primary100" fontSize={16} fontWeight="bold">
-            {value}
-          </Text>
-        </TouchableOpacity>
-      </Animated.View>
-    )}
-  </ThemeContext.Consumer>
-);
+export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => {
+  const theme = useTheme();
+  return (
+    <Animated.View
+      style={{
+        ...styles.view,
+        backgroundColor: theme.primary025,
+        borderColor: animatedBorderColor,
+      }}
+    >
+      <TouchableOpacity onPress={onPress} style={styles.touchable} {...props}>
+        <Text color="primary100" fontSize={16} fontWeight="bold">
+          {value}
+        </Text>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
 
 type Style = {
   view: ViewStyle;

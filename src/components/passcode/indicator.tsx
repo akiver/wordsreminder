@@ -1,6 +1,6 @@
 import { StyleSheet, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
 import React from 'react';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = TouchableOpacityProps & {
   isFilled: boolean;
@@ -8,21 +8,20 @@ type Props = TouchableOpacityProps & {
   children?: never;
 };
 
-export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => (
-  <ThemeContext.Consumer>
-    {({ theme }) => (
-      <Animated.View
-        style={{
-          ...styles.container,
-          backgroundColor: isFilled ? theme.primary025 : theme.primary100,
-          borderWidth: 2,
-          borderColor: borderInterpolation || theme.primary025,
-        }}
-        {...props}
-      />
-    )}
-  </ThemeContext.Consumer>
-);
+export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => {
+  const theme = useTheme();
+  return (
+    <Animated.View
+      style={{
+        ...styles.container,
+        backgroundColor: isFilled ? theme.primary025 : theme.primary100,
+        borderWidth: 2,
+        borderColor: borderInterpolation || theme.primary025,
+      }}
+      {...props}
+    />
+  );
+};
 
 type Style = {
   container: ViewStyle;

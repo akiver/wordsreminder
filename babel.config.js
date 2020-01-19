@@ -18,6 +18,7 @@ module.exports = {
           '@services': './src/services',
           '@utils': './src/utils',
           '@contexts': './src/contexts',
+          '@hooks': './src/hooks',
           '@e2e': './e2e',
         },
       },

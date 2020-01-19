@@ -20,6 +20,7 @@ module.exports = {
       version: 'detect',
     },
   },
+  ignorePatterns: ['babel.config.js', 'metro.config.js', 'prettier.config.js', 'jest.config.js', 'jest.setup.js'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     '@typescript-eslint/no-use-before-define': 0,
@@ -27,5 +28,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'warn',
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-inferrable-types': 0,
+    'no-empty-pattern': 0,
   },
 };

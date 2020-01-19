@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
 import React from 'react';
 import { Text } from '@components/text';
-import { ThemeContext } from '@contexts/theme-context';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = TouchableOpacityProps & {
   text: string;
@@ -9,25 +9,22 @@ type Props = TouchableOpacityProps & {
 };
 
 export const Button = ({ onPress, text, ...props }: Props) => {
+  const theme = useTheme();
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <TouchableOpacity
-          onPress={onPress}
-          style={{
-            ...styles.container,
-            backgroundColor: theme.primary025,
-            ...(props.disabled && styles.disabled),
-          }}
-          {...props}
-          accessibilityRole="button"
-        >
-          <Text color="primary100" fontSize={16} fontWeight="bold">
-            {text}
-          </Text>
-        </TouchableOpacity>
-      )}
-    </ThemeContext.Consumer>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        ...styles.container,
+        backgroundColor: theme.primary025,
+        ...(props.disabled && styles.disabled),
+      }}
+      {...props}
+      accessibilityRole="button"
+    >
+      <Text color="primary100" fontSize={16} fontWeight="bold">
+        {text}
+      </Text>
+    </TouchableOpacity>
   );
 };
 

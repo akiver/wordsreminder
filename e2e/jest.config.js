@@ -1,5 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils'); // eslint-disable-line
-const { compilerOptions } = require('../tsconfig'); // eslint-disable-line
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('../tsconfig');
 
 module.exports = {
   preset: 'ts-jest',

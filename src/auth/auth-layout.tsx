@@ -4,8 +4,8 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses';
 import { ErrorMessage } from '@components/error-message';
 import { Spacer } from '@components/spacer';
 import { ActivityIndicator } from '@components/activity-indicator';
-import { ThemeContext } from '@contexts/theme-context';
 import { useHeaderHeight } from '@react-navigation/stack';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   status: STATUS;
@@ -19,34 +19,29 @@ type Props = {
 
 export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => {
   const headerHeight = useHeaderHeight();
+  const theme = useTheme();
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => {
-        return (
-          <KeyboardAvoidingView
-            style={[styles.container, { backgroundColor: theme.primary100 }]}
-            keyboardVerticalOffset={headerHeight + 10}
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          >
-            <View style={styles.content} testID={testID}>
-              <View style={styles.inputs}>
-                {status === STATUS_LOADING && <ActivityIndicator />}
-                {inputs}
-                {status === STATUS_ERROR && error !== undefined && (
-                  <Spacer marginTop={20}>
-                    <ErrorMessage message={error} />
-                  </Spacer>
-                )}
-              </View>
-              <View style={styles.buttons}>
-                {link}
-                <Spacer marginLeft={10}>{submitButton}</Spacer>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        );
-      }}
-    </ThemeContext.Consumer>
+    <KeyboardAvoidingView
+      style={[styles.container, { backgroundColor: theme.primary100 }]}
+      keyboardVerticalOffset={headerHeight + 10}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <View style={styles.content} testID={testID}>
+        <View style={styles.inputs}>
+          {status === STATUS_LOADING && <ActivityIndicator />}
+          {inputs}
+          {status === STATUS_ERROR && error !== undefined && (
+            <Spacer marginTop={20}>
+              <ErrorMessage message={error} />
+            </Spacer>
+          )}
+        </View>
+        <View style={styles.buttons}>
+          {link}
+          <Spacer marginLeft={10}>{submitButton}</Spacer>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 

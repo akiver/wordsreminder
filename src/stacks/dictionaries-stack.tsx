@@ -14,7 +14,7 @@ import {
   WORDS_EDIT_SCREEN,
 } from '@constants/screens';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from '../hooks/use-theme';
+import { useTheme } from '@hooks/use-theme';
 import {
   PARAM_SCREEN_TITLE,
   PARAM_DICTIONARY,

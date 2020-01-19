@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DICTIONARIES_SCREEN, SETTINGS_SCREEN } from '@constants/screens';
-import { useTheme } from '../hooks/use-theme';
+import { useTheme } from '@hooks/use-theme';
 import { DictionaryIcon } from '@components/svg/dictionary-icon';
 import { SettingsIcon } from '@components/svg/settings-icon';
 import { SettingsStack } from './settings-stack';

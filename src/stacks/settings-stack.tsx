@@ -9,7 +9,7 @@ import { SettingsScreen } from '@screens/settings/settings-screen';
 import { TurnOffPasscodeScreen } from '@screens/settings/turn-off-passcode';
 import { TurnOnPasscodeScreen } from '@screens/settings/turn-on-passcode';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from '../hooks/use-theme';
+import { useTheme } from '@hooks/use-theme';
 
 export type SettingsStackParamList = {
   [SETTINGS_SCREEN]: undefined;
