@@ -53,5 +53,5 @@ interface ThemeContextInterface {
 
 export const ThemeContext = createContext<ThemeContextInterface>({
   theme: themes[THEME_DARK_VALUE],
-  toggleTheme: () => {},
+  toggleTheme: () => {}, // eslint-disable-line
 })

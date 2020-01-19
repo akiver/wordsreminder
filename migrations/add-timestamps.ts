@@ -28,7 +28,7 @@ async function addTimestampToCollectionDocuments(collection: CollectionReference
   }
 }
 
-async function run() {
+export async function run() {
   const fs = new firestore.Firestore({
     projectId: process.env.PROJECT_ID,
     keyFilename: path.join('migrations', 'serviceAccountKey.json'),
@@ -40,5 +40,3 @@ async function run() {
     await addTimestampToCollectionDocuments(collection)
   }
 }
-
-export { run }
