@@ -7593,10 +7593,10 @@ rimraf@~2.4.0:
   dependencies:
     glob "^6.0.1"
 
-rn-secure-storage@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/rn-secure-storage/-/rn-secure-storage-2.0.3.tgz#46787ed470e3aff6ff6cdc69219b3374c6199030"
-  integrity sha512-EzY2/pEWtox5C1a0m3+j5QhYip1oYLSWR+0x5tVKKucZHIz+5kqtsoGNQK5rGg9J9xzCsYRF6nzl4eCiI/g2Zw==
+rn-secure-storage@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/rn-secure-storage/-/rn-secure-storage-2.0.4.tgz#1e7ae1e91514ed39e487ed3b47b73b638344cbd9"
+  integrity sha512-pDMLLHu2vXWTvEWdeYEP7g04sQQrTu6uc8STIf9ecbipV+N6fJ6nqM8+jMxBq1+u+8oa1L9hGmIwUYKixPpGSw==
 
 rsvp@^4.8.4:
   version "4.8.5"
