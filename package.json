@@ -82,7 +82,7 @@
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "cross-env": "^6.0.3",
-    "detox": "^15.1.2",
+    "detox": "^15.1.4",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
