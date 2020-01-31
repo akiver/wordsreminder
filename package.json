@@ -92,7 +92,7 @@
     "firebase-admin": "^8.9.1",
     "husky": "^4.0.10",
     "jest": "24.9.0",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.0.6",
     "metro-react-native-babel-preset": "^0.56.4",
     "prettier": "^1.19.1",
     "react-test-renderer": "16.12.0",
