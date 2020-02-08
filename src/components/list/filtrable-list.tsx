@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import memoize from 'memoize-one';
 import { AddButton } from '@components/add-button';
@@ -14,6 +14,7 @@ import { ADD_BUTTON, EMPTY_LIST_MESSAGE } from '@e2e/ids';
 import { FilterBar } from './filter-bar';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { Entity } from '@models/entity';
+import { useTheme } from '@hooks/use-theme';
 
 type Props = {
   query: FirebaseFirestoreTypes.Query;
@@ -27,150 +28,113 @@ type Props = {
   hasFilterEnabled: boolean;
 };
 
-type State = typeof initialState;
+type State = {
+  entities: Entity[];
+  filter: string | undefined;
+  isRefreshing: boolean;
+  status: STATUS;
+  error: string | undefined;
+};
 
-const initialState = Object.freeze({
-  entities: [] as Entity[],
-  filter: undefined as string | undefined,
-  isRefreshing: false,
-  status: STATUS_LOADING as STATUS,
-  error: undefined as string | undefined,
-});
+const compareUpdatedAt = (e1: Entity, e2: Entity) => {
+  if (e2.updatedAt == null || e1.updatedAt == null) {
+    return 0;
+  }
+  return e2.updatedAt.toMillis() - e1.updatedAt.toMillis();
+};
 
-export class FiltrableList extends React.PureComponent<Props, State> {
-  readonly state = initialState;
+export const FiltrableList = ({
+  hasFilterEnabled,
+  emptyListMessage,
+  renderItem,
+  documentSnapshotToEntity,
+  query,
+  testID,
+  onAddPress,
+  onCloseFilter,
+  filterEntities,
+}: Props) => {
+  const [state, setState] = useState<State>({
+    entities: [],
+    error: undefined,
+    filter: undefined,
+    isRefreshing: false,
+    status: STATUS_LOADING,
+  });
+  const theme = useTheme();
 
-  unsubscribe?: () => void;
+  const getEntitiesFromQuerySnapshot = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
+    return querySnapshot.docs.map(doc => documentSnapshotToEntity(doc)).sort(compareUpdatedAt);
+  };
 
-  query = this.props.query;
+  useEffect(() => {
+    const onCollectionUpdate = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
+      setState({
+        ...state,
+        status: STATUS_SUCCESS,
+        entities: getEntitiesFromQuerySnapshot(querySnapshot),
+      });
+    };
 
-  filterEntities = memoize((entities: Entity[], filter?: string) => {
+    const onCollectionError = (error: Error) => {
+      const errorMessage = getErrorMessageFromFirestoreError(error);
+      setState({
+        ...state,
+        status: STATUS_ERROR,
+        error: errorMessage,
+      });
+    };
+
+    const unsubscribe = query.onSnapshot(onCollectionUpdate, onCollectionError);
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const filterCurrentEntities = memoize((entities: Entity[], filter?: string) => {
     let filteredEntities = entities;
     if (!isStringEmpty(filter)) {
-      filteredEntities = entities.filter(entity => this.props.filterEntities(filter!, entity));
+      filteredEntities = entities.filter(entity => filterEntities(filter!, entity));
     }
 
-    // Have to manually sort entities because chaining firestore().where().orderBy() throw an error.
-    // https://github.com/invertase/react-native-firebase/issues/1437
-    return filteredEntities.sort(this.compareUpdatedAt);
+    return filteredEntities.sort(compareUpdatedAt);
   });
 
-  async componentDidMount() {
-    this.unsubscribe = this.query.onSnapshot(this.onCollectionUpdate, this.onCollectionError);
-    await this.refreshEntities();
-  }
-
-  componentWillUnmount() {
-    if (this.unsubscribe !== undefined) {
-      this.unsubscribe();
-    }
-  }
-
-  compareUpdatedAt(e1: Entity, e2: Entity) {
-    if (e2.updatedAt == null || e1.updatedAt == null) {
-      return 0;
-    }
-    return e2.updatedAt.toMillis() - e1.updatedAt.toMillis();
-  }
-
-  onCollectionUpdate = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
-    let entities: Entity[] = Array.from(this.state.entities);
-    querySnapshot.docChanges().forEach((docChange: FirebaseFirestoreTypes.DocumentChange) => {
-      const entity = this.props.documentSnapshotToEntity(docChange.doc);
-      switch (docChange.type) {
-        case 'added':
-          entities.push(entity);
-          break;
-        case 'removed':
-          entities = entities.filter(e => e.id !== entity.id);
-          break;
-        case 'modified':
-          entities = entities.map(e => {
-            if (e.id === entity.id) {
-              return entity;
-            }
-
-            return e;
-          });
-          break;
-        default:
-      }
-    });
-
-    this.setState({
-      entities,
-    });
-  };
-
-  onCollectionError = (error: Error) => {
-    const errorMessage = getErrorMessageFromFirestoreError(error);
-    this.setState({
-      status: STATUS_ERROR as STATUS,
-      error: errorMessage,
-    });
-  };
-
-  async refreshEntities() {
+  const refreshEntities = async () => {
     try {
-      const snap = await this.query.get();
-      this.setState({
-        entities: snap.docs.map(doc => this.props.documentSnapshotToEntity(doc)).sort(this.compareUpdatedAt),
+      const querySnapShot = await query.get();
+
+      setState({
+        ...state,
         status: STATUS_SUCCESS,
+        entities: getEntitiesFromQuerySnapshot(querySnapShot),
       });
     } catch (error) {
-      this.setState({
+      setState({
+        ...state,
         status: STATUS_ERROR,
         error: getErrorMessageFromFirestoreError(error),
       });
     }
-  }
-
-  keyExtractor = (entity: Entity): string => entity.id!;
-
-  handleRefresh = () => {
-    this.setState(
-      {
-        isRefreshing: true,
-      },
-      async () => {
-        await this.refreshEntities();
-        this.setState({
-          isRefreshing: false,
-        });
-      }
-    );
   };
 
-  handleFilterChange = (filter: string) => {
-    this.setState({
-      filter,
-    });
-  };
-
-  handleCloseFilterPress = () => {
-    this.props.onCloseFilter();
-    this.setState({
-      filter: undefined,
-    });
-  };
-
-  renderContent = () => {
-    const { status } = this.state;
-
+  const renderContent = () => {
+    const { status } = state;
     if (status === STATUS_LOADING) {
       return <ActivityIndicator />;
     }
 
     if (status === STATUS_ERROR) {
-      return <ErrorMessage message={this.state.error!} />;
+      return <ErrorMessage message={state.error!} />;
     }
 
-    const entities = this.filterEntities(this.state.entities, this.state.filter);
-    if (entities.length === 0) {
+    const filteredEntities = filterCurrentEntities(state.entities, state.filter);
+    if (filteredEntities.length === 0) {
       return (
         <Spacer marginTop={10} marginLeft={10} marginRight={10}>
           <Text testID={EMPTY_LIST_MESSAGE} color="primary025" fontSize={20}>
-            {this.props.emptyListMessage}
+            {emptyListMessage}
           </Text>
         </Spacer>
       );
@@ -178,25 +142,48 @@ export class FiltrableList extends React.PureComponent<Props, State> {
 
     return (
       <FlatList
-        data={entities}
-        renderItem={this.props.renderItem}
-        keyExtractor={this.keyExtractor}
-        refreshing={this.state.isRefreshing}
-        onRefresh={this.handleRefresh}
+        data={filteredEntities}
+        renderItem={renderItem}
+        keyExtractor={(entity: Entity): string => entity.id}
+        refreshing={state.isRefreshing}
+        onRefresh={async () => {
+          setState({
+            ...state,
+            isRefreshing: true,
+          });
+          await refreshEntities();
+          setState({
+            ...state,
+            isRefreshing: false,
+          });
+        }}
         keyboardShouldPersistTaps="handled"
+        refreshControl={<RefreshControl refreshing={state.isRefreshing} tintColor={theme.primary025} />}
       />
     );
   };
 
-  render() {
-    return (
-      <MainView testID={this.props.testID}>
-        {this.props.hasFilterEnabled && (
-          <FilterBar onCloseFilterPress={this.handleCloseFilterPress} onFilterChange={this.handleFilterChange} />
-        )}
-        {this.renderContent()}
-        <AddButton onPress={this.props.onAddPress} testID={ADD_BUTTON(this.props.testID)} />
-      </MainView>
-    );
-  }
-}
+  return (
+    <MainView testID={testID}>
+      {hasFilterEnabled && (
+        <FilterBar
+          onCloseFilterPress={() => {
+            onCloseFilter();
+            setState({
+              ...state,
+              filter: undefined,
+            });
+          }}
+          onFilterChange={(filter: string) => {
+            setState({
+              ...state,
+              filter,
+            });
+          }}
+        />
+      )}
+      {renderContent()}
+      <AddButton onPress={onAddPress} testID={ADD_BUTTON(testID)} />
+    </MainView>
+  );
+};

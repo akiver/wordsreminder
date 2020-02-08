@@ -1,1 +1,3 @@
-export const isStringEmpty = (value?: string) => value == null || !/\S/.test(value);
+export const isStringEmpty = (value?: string) => {
+  return value == null || !/\S/.test(value);
+};
