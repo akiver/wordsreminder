@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavigationNativeContainer, InitialState, NavigationState } from '@react-navigation/native';
+import { NavigationContainer, InitialState, NavigationState } from '@react-navigation/native';
 import { StatusBar, View } from 'react-native';
 import Config from 'react-native-config';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -60,7 +60,7 @@ export const App = () => {
   };
 
   return (
-    <NavigationNativeContainer initialState={initialState} onStateChange={onStateChange}>
+    <NavigationContainer initialState={initialState} onStateChange={onStateChange}>
       <ThemeContext.Provider
         value={{
           theme,
@@ -77,6 +77,6 @@ export const App = () => {
           <RootStack />
         </View>
       </ThemeContext.Provider>
-    </NavigationNativeContainer>
+    </NavigationContainer>
   );
 };

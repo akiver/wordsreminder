@@ -54,11 +54,6 @@ target 'WordsReminder' do
     end
   end
 
-  target 'WordsReminderTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   # https://github.com/facebook/react-native/issues/25349#issuecomment-523138303
   use_native_modules!
 end

@@ -1,8 +1,8 @@
-import { StyleSheet, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
+import { StyleSheet, Animated, ViewStyle } from 'react-native';
 import React from 'react';
 import { useTheme } from '@hooks/use-theme';
 
-type Props = TouchableOpacityProps & {
+type Props = Animated.AnimatedProps<{}> & {
   isFilled: boolean;
   borderInterpolation?: Animated.AnimatedInterpolation;
   children?: never;
