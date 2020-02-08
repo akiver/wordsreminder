@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationNativeContainer, InitialState, NavigationState } from '@react-navigation/native';
 import { StatusBar, View } from 'react-native';
+import Config from 'react-native-config';
 import AsyncStorage from '@react-native-community/async-storage';
 import RNBootSplash from 'react-native-bootsplash';
 import { themes, ThemeContext, Themes } from '@contexts/theme-context';
@@ -11,7 +12,7 @@ const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
 export const App = () => {
   const [theme, setTheme] = useState(themes.dark);
-  const [isReady, setIsReady] = useState(__DEV__ ? false : true);
+  const [isReady, setIsReady] = useState(__DEV__ && Config.PERSIST_NAVIGATION === 'true' ? false : true);
   const [initialState, setInitialState] = useState<InitialState>();
 
   useEffect(() => {
