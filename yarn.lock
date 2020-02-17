@@ -1603,12 +1603,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-6.3.1.tgz#be621eed8cb97c625f241615cd930ad1ebb3be2f"
   integrity sha512-d3EMg/YroKeKUQCxV45wr7hvgx0Xx7Gl5xFJlGNriwJVCJEe5LHJeEV+hL01uzbcq3h1U44w4nsV4V6VoUKASQ==
 
-"@react-navigation/bottom-tabs@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.0.0.tgz#1c0ffb3d8683b6b8eacee0a877e3322eca1c76f4"
-  integrity sha512-5H2bxI8fIkJIQHFSZqSHKnTPAZBAl4XssujVl7n+dyOp+RK7FPSUNB3lMo4vLcq8CfjchmRCfM+jrohi2zPhVQ==
+"@react-navigation/bottom-tabs@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.0.5.tgz#517e98a90a15cd61b3d7977e7f403e1f4011d9a4"
+  integrity sha512-0JuhMzoZLtzKIEbUj2VCq4D0ZTrTdug4zS3zumQeRbM+6X9aQJLIvqZn97PYnfs9QqOZZQulTAAXzbR2ItDvGg==
   dependencies:
-    "@react-navigation/routers" "^5.0.0"
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
@@ -4368,9 +4367,10 @@ gtoken@^4.1.0:
     jws "^4.0.0"
     mime "^2.2.0"
 
-"hammerjs@git+https://github.com/naver/hammer.js.git":
+"hammerjs@https://github.com/naver/hammer.js.git":
   version "2.0.17-snapshot"
-  resolved "git+https://github.com/naver/hammer.js.git#54bc698b25edd6e1b76ca975ebaced5ce0467d51"
+  uid "54bc698b25edd6e1b76ca975ebaced5ce0467d51"
+  resolved "https://github.com/naver/hammer.js.git#54bc698b25edd6e1b76ca975ebaced5ce0467d51"
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
