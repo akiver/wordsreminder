@@ -3,13 +3,13 @@ import { Firestore, Query } from '@google-cloud/firestore';
 function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolve: () => void, reject: () => void) {
   query
     .get()
-    .then(snapshot => {
+    .then((snapshot) => {
       if (snapshot.size === 0) {
         return 0;
       }
 
       const batch = db.batch();
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         batch.delete(doc.ref);
       });
 
@@ -17,7 +17,7 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
         return snapshot.size;
       });
     })
-    .then(numDeleted => {
+    .then((numDeleted) => {
       if (numDeleted === 0) {
         resolve();
         return;

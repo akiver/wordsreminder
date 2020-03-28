@@ -8,9 +8,7 @@ export const createWord = async (
   signification: string,
   description: string | null = null
 ) => {
-  const dictionary = firestore()
-    .collection(E2E_COLLECTION_DICTIONARIES)
-    .doc(dictionaryId);
+  const dictionary = firestore().collection(E2E_COLLECTION_DICTIONARIES).doc(dictionaryId);
 
   const word = await db.collection(E2E_COLLECTION_WORDS).add({
     value,

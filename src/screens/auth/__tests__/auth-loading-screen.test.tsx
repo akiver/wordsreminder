@@ -36,7 +36,7 @@ describe('AuthLoadingScreen', () => {
   });
 
   it('should render tabs stack', async () => {
-    onAuthStateChanged.mockImplementation(callback => {
+    onAuthStateChanged.mockImplementation((callback) => {
       callback({ id: 'user-id' });
     });
     const { findByText } = render(<AuthLoadingScreen />);
@@ -45,7 +45,7 @@ describe('AuthLoadingScreen', () => {
   });
 
   it('should render auth stack', async () => {
-    onAuthStateChanged.mockImplementation(callback => {
+    onAuthStateChanged.mockImplementation((callback) => {
       callback(null);
     });
     const { findByText } = render(<AuthLoadingScreen />);

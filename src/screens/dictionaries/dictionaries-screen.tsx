@@ -44,9 +44,7 @@ export class DictionariesScreen extends React.Component<Props, State> {
     });
   };
 
-  query: FirebaseFirestoreTypes.Query = firestore()
-    .collection(DICTIONARIES)
-    .orderBy('updatedAt', 'desc');
+  query: FirebaseFirestoreTypes.Query = firestore().collection(DICTIONARIES).orderBy('updatedAt', 'desc');
 
   filterDictionaries(filter: string, dictionary: Dictionary) {
     return dictionary.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;

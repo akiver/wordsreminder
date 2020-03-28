@@ -21,10 +21,7 @@ export const deleteWord = async (word: Word) => {
       }
     }
 
-    await firestore()
-      .collection(WORDS)
-      .doc(word.id)
-      .delete();
+    await firestore().collection(WORDS).doc(word.id).delete();
   } catch (error) {
     throw new Error(getErrorMessageFromFirestoreError(error));
   }

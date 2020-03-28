@@ -22,10 +22,7 @@ export const createWord = async (
     }
 
     const words = firestore().collection(WORDS);
-    const snap = await words
-      .where('dictionary', '==', dictionaryId)
-      .where('value', '==', value)
-      .get();
+    const snap = await words.where('dictionary', '==', dictionaryId).where('value', '==', value).get();
 
     if (!snap.empty) {
       throw new Error('This word already exists in this dictionary.');
@@ -40,9 +37,7 @@ export const createWord = async (
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
 
-    const dictionary = firestore()
-      .collection(DICTIONARIES)
-      .doc(dictionaryId);
+    const dictionary = firestore().collection(DICTIONARIES).doc(dictionaryId);
 
     await dictionary.update({
       words: firestore.FieldValue.arrayUnion(word.id),

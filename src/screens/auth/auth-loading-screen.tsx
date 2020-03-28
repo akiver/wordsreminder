@@ -11,7 +11,7 @@ export const AuthLoadingScreen = () => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   useEffect(() => {
-    auth().onAuthStateChanged(user => {
+    auth().onAuthStateChanged((user) => {
       setUser(user);
       setIsLoading(false);
     });

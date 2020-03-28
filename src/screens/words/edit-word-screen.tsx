@@ -82,7 +82,7 @@ export class EditWordScreen extends React.Component<Props, State> {
 
   handleWordChange = (word: string) => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         word: {
           ...prevState.word,
           value: word,
@@ -96,7 +96,7 @@ export class EditWordScreen extends React.Component<Props, State> {
 
   handleSignificationChange = (signification: string) => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         word: {
           ...prevState.word,
           signification,
@@ -109,7 +109,7 @@ export class EditWordScreen extends React.Component<Props, State> {
   };
 
   handleDescriptionChange = (description: string): void => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       word: {
         ...prevState.word,
         description,

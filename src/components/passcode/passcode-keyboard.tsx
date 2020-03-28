@@ -58,7 +58,7 @@ export const PasscodeKeyboard = ({ message, onPasscodeEntered, shouldAnimateErro
         <Animated.Text style={{ color, fontSize: 18 }}>{message}</Animated.Text>
         <Spacer marginTop={20}>
           <View style={styles.row}>
-            {Array.from(Array(4), (v, index) => index + 1).map(indicatorNumber => {
+            {Array.from(Array(4), (v, index) => index + 1).map((indicatorNumber) => {
               return (
                 <Spacer key={`indicator-${indicatorNumber}`} marginLeft={indicatorNumber === 1 ? 0 : 5}>
                   <Indicator isFilled={passcode.length >= indicatorNumber} borderInterpolation={color} />

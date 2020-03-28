@@ -37,7 +37,7 @@ export const TurnOnPasscodeScreen = () => {
       onPasscodeEntered={async (passcode: number[]) => {
         const { isPasscodeConfirmation } = state;
         if (isPasscodeConfirmation) {
-          const isPasscodesMatch = new Set(passcode.filter(el => state.passcode.includes(el))).size === 4;
+          const isPasscodesMatch = new Set(passcode.filter((el) => state.passcode.includes(el))).size === 4;
           if (isPasscodesMatch) {
             const passcodeAsString = passcode.map(Number).join('');
             try {

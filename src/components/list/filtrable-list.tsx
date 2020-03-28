@@ -64,7 +64,7 @@ export const FiltrableList = ({
   const theme = useTheme();
 
   const getEntitiesFromQuerySnapshot = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
-    return querySnapshot.docs.map(doc => documentSnapshotToEntity(doc)).sort(compareUpdatedAt);
+    return querySnapshot.docs.map((doc) => documentSnapshotToEntity(doc)).sort(compareUpdatedAt);
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export const FiltrableList = ({
   const filterCurrentEntities = memoize((entities: Entity[], filter?: string) => {
     let filteredEntities = entities;
     if (!isStringEmpty(filter)) {
-      filteredEntities = entities.filter(entity => filterEntities(filter!, entity));
+      filteredEntities = entities.filter((entity) => filterEntities(filter!, entity));
     }
 
     return filteredEntities.sort(compareUpdatedAt);

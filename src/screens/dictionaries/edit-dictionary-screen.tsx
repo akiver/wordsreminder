@@ -73,7 +73,7 @@ export class EditDictionaryScreen extends React.Component<Props, State> {
 
   private handleNameChange = (name: string) => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         dictionary: {
           ...prevState.dictionary,
           name,
