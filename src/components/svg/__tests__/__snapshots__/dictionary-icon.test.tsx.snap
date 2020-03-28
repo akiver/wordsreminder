@@ -17,10 +17,6 @@ exports[`DictionaryIcon should match snapshot 1`] = `
         "backgroundColor": "transparent",
         "borderWidth": 0,
       },
-      undefined,
-      Object {
-        "opacity": 1,
-      },
       Object {
         "flex": 0,
         "height": 28,
@@ -34,119 +30,23 @@ exports[`DictionaryIcon should match snapshot 1`] = `
 >
   <RNSVGGroup
     fill={4294967295}
-    fillOpacity={1}
-    fillRule={1}
-    font={Object {}}
-    matrix={
-      Array [
-        1,
-        0,
-        0,
-        1,
-        0,
-        0,
-      ]
-    }
-    opacity={1}
-    originX={0}
-    originY={0}
     propList={
       Array [
         "fill",
       ]
     }
-    rotation={0}
-    scaleX={1}
-    scaleY={1}
-    skewX={0}
-    skewY={0}
-    stroke={null}
-    strokeDasharray={null}
-    strokeDashoffset={null}
-    strokeLinecap={0}
-    strokeLinejoin={0}
-    strokeMiterlimit={4}
-    strokeOpacity={1}
-    strokeWidth={1}
-    vectorEffect={0}
-    x={0}
-    y={0}
   >
     <RNSVGPath
       d="M0 0h24v24H0z"
       fill={null}
-      fillOpacity={1}
-      fillRule={1}
-      matrix={
-        Array [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0,
-        ]
-      }
-      opacity={1}
-      originX={0}
-      originY={0}
       propList={
         Array [
           "fill",
         ]
       }
-      rotation={0}
-      scaleX={1}
-      scaleY={1}
-      skewX={0}
-      skewY={0}
-      stroke={null}
-      strokeDasharray={null}
-      strokeDashoffset={null}
-      strokeLinecap={0}
-      strokeLinejoin={0}
-      strokeMiterlimit={4}
-      strokeOpacity={1}
-      strokeWidth={1}
-      vectorEffect={0}
-      x={0}
-      y={0}
     />
     <RNSVGPath
       d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
-      fill={4278190080}
-      fillOpacity={1}
-      fillRule={1}
-      matrix={
-        Array [
-          1,
-          0,
-          0,
-          1,
-          0,
-          0,
-        ]
-      }
-      opacity={1}
-      originX={0}
-      originY={0}
-      propList={Array []}
-      rotation={0}
-      scaleX={1}
-      scaleY={1}
-      skewX={0}
-      skewY={0}
-      stroke={null}
-      strokeDasharray={null}
-      strokeDashoffset={null}
-      strokeLinecap={0}
-      strokeLinejoin={0}
-      strokeMiterlimit={4}
-      strokeOpacity={1}
-      strokeWidth={1}
-      vectorEffect={0}
-      x={0}
-      y={0}
     />
   </RNSVGGroup>
 </RNSVGSvgView>

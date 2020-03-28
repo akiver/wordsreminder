@@ -1,6 +1,26 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+
+def add_flipper_pods!
+  version = '~> 0.33.1'
+  pod 'FlipperKit', version, :configuration => 'Debug'
+  pod 'FlipperKit/FlipperKitLayoutPlugin', version, :configuration => 'Debug'
+  pod 'FlipperKit/SKIOSNetworkPlugin', version, :configuration => 'Debug'
+  pod 'FlipperKit/FlipperKitUserDefaultsPlugin', version, :configuration => 'Debug'
+  pod 'FlipperKit/FlipperKitReactPlugin', version, :configuration => 'Debug'
+end
+# Post Install processing for Flipper
+def flipper_post_install(installer)
+  installer.pods_project.targets.each do |target|
+    if target.name == 'YogaKit'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = '4.1'
+      end
+    end
+  end
+end
+
 target 'WordsReminder' do
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -25,9 +45,9 @@ target 'WordsReminder' do
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
   pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'ReactCommon/jscallinvoker', :path => "../node_modules/react-native/ReactCommon"
+  pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
-  pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga', :modular_headers => true
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
@@ -38,22 +58,15 @@ target 'WordsReminder' do
   pod 'react-native-config', :path => '../node_modules/react-native-config'
   pod 'TouchID', :path => '../node_modules/react-native-touch-id'
 
-  # https://github.com/luggit/react-native-config/issues/365
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      if target.name == 'react-native-config'
-        phase = target.project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
-        phase.shell_script = "cd ../../"\
-        " && RNC_ROOT=./node_modules/react-native-config/"\
-        " && export SYMROOT=$RNC_ROOT/ios/ReactNativeConfig"\
-        " && ruby $RNC_ROOT/ios/ReactNativeConfig/BuildDotenvConfig.ruby"
-        
-        target.build_phases << phase
-        target.build_phases.move(phase,0)
-      end
-    end
-  end
-
   # https://github.com/facebook/react-native/issues/25349#issuecomment-523138303
   use_native_modules!
+
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  add_flipper_pods!
+  post_install do |installer|
+    flipper_post_install(installer)
+  end
 end

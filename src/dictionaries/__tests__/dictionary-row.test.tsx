@@ -34,7 +34,8 @@ describe('DictionaryRow', () => {
   };
 
   describe('interactions', () => {
-    it('should navigate to the words screen on press', () => {
+    // https://github.com/testing-library/native-testing-library/issues/113
+    it.skip('should navigate to the words screen on press', () => {
       const { getByTestId } = renderComponent();
       fireEvent.press(getByTestId(DICTIONARIES_ROW('id')));
 
