@@ -1813,10 +1813,10 @@
   dependencies:
     shortid "^2.2.15"
 
-"@react-navigation/stack@^5.2.8":
-  version "5.2.8"
-  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.8.tgz#5011839bc134e4960c7e07dc3550f5d77618af11"
-  integrity sha512-LTtsl3CyEVPWmgjRA17hwrP9XUQzVRalg7BLroBfI/S6VUc0VGD9Qajt24qqisMoGCXBy+9GKI0wnjuuFSqBYg==
+"@react-navigation/stack@^5.2.18":
+  version "5.2.18"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.18.tgz#673e7e0183d216212ceb28b701c6c02d68d84ffc"
+  integrity sha512-8+6+4hfwqOP1brdwG8RffpRQqTIUH00YMm3wqXSex2N2aJCgR79gvYqWu23JtipfSUaMYCuO8n2LyUeg3W/AkQ==
   dependencies:
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
