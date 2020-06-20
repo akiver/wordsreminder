@@ -12,7 +12,7 @@ export const signIn = async (email?: string, password?: string) => {
       throw new Error('Password is required.');
     }
 
-    await auth().signInWithEmailAndPassword(email!, password!);
+    await auth().signInWithEmailAndPassword(email as string, password as string);
   } catch (error) {
     throw new Error(getErrorMessageFromFirestoreError(error));
   }

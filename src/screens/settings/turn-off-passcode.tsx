@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Vibration } from 'react-native';
 import RNSecureStorage from 'rn-secure-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { signOut } from '@services/sign-out';
 import { AUTH_LOADING_SCREEN, SETTINGS_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens';
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingsStackParamList } from '@stacks/settings-stack';
 
 type State = {
@@ -58,12 +58,16 @@ export const TurnOffPasscodeScreen = () => {
         if (currentPasscode === passcode.map(Number).join('')) {
           try {
             await RNSecureStorage.remove(PASSCODE_KEY);
-            navigation.reset({
-              index: 0,
-              routeNames: [],
-              routes: [],
-            });
-            navigation.navigate(SETTINGS_SCREEN);
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: SETTINGS_SCREEN,
+                  },
+                ],
+              })
+            );
           } catch (error) {
             setState({
               ...state,

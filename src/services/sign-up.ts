@@ -12,7 +12,7 @@ export const signUp = async (email?: string, password?: string) => {
       throw new Error('Password is required.');
     }
 
-    await auth().createUserWithEmailAndPassword(email!, password!);
+    await auth().createUserWithEmailAndPassword(email as string, password as string);
   } catch (error) {
     throw new Error(getErrorMessageFromFirestoreError(error));
   }

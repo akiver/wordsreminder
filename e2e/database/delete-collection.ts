@@ -30,7 +30,8 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
     .catch(reject);
 }
 
-export const deleteCollection = (db: Firestore, collectionPath: string, batchSize: number = 100) => {
+export const deleteCollection = (db: Firestore, collectionPath: string) => {
+  const batchSize = 100;
   const collectionRef = db.collection(collectionPath);
   const query = collectionRef.orderBy('__name__').limit(batchSize);
 

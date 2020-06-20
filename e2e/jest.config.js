@@ -4,6 +4,8 @@ const { compilerOptions } = require('../tsconfig');
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  testRunner: 'jest-circus/runner',
+  testTimeout: 120000,
   setupFilesAfterEnv: ['./setup.ts'],
   reporters: ['detox/runners/jest/streamlineReporter'],
   verbose: true,

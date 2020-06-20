@@ -6,13 +6,13 @@ import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
 import { useNavigation } from '@react-navigation/native';
 import { SETTINGS_SCREEN, SETTINGS_TURN_ON_PASSCODE_SCREEN } from '@constants/screens';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { CommonActions } from '@react-navigation/native';
 import { SettingsStackParamList } from '@stacks/settings-stack';
 
 type State = {
   error: string | undefined;
   isPasscodeConfirmation: boolean;
   passcode: number[];
-  passcodeConfirmation: number[];
   shouldAnimateError: boolean;
 };
 
@@ -24,7 +24,6 @@ export const TurnOnPasscodeScreen = () => {
     error: undefined,
     isPasscodeConfirmation: false,
     passcode: [],
-    passcodeConfirmation: [],
     shouldAnimateError: false,
   });
 
@@ -37,26 +36,29 @@ export const TurnOnPasscodeScreen = () => {
       onPasscodeEntered={async (passcode: number[]) => {
         const { isPasscodeConfirmation } = state;
         if (isPasscodeConfirmation) {
-          const isPasscodesMatch = new Set(passcode.filter((el) => state.passcode.includes(el))).size === 4;
-          if (isPasscodesMatch) {
-            const passcodeAsString = passcode.map(Number).join('');
+          const passcodeAsString = passcode.map(Number).join('');
+          const passcodesMatch = passcodeAsString === state.passcode.map(Number).join('');
+          if (passcodesMatch) {
             try {
               await RNSecureStorage.set(PASSCODE_KEY, passcodeAsString, {
                 accessible: ACCESSIBLE.WHEN_UNLOCKED,
               });
-              navigation.reset({
-                index: 0,
-                routeNames: [],
-                routes: [],
-              });
-              navigation.navigate(SETTINGS_SCREEN);
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: SETTINGS_SCREEN,
+                    },
+                  ],
+                })
+              );
             } catch (error) {
               setState({
                 shouldAnimateError: false,
                 error: 'An error occurred while turning on passcode, please try again.',
                 isPasscodeConfirmation: false,
                 passcode: [],
-                passcodeConfirmation: [],
               });
             }
           } else {
@@ -65,7 +67,6 @@ export const TurnOnPasscodeScreen = () => {
               error: 'Passcodes mismatch, try again.',
               isPasscodeConfirmation: false,
               passcode: [],
-              passcodeConfirmation: [],
               shouldAnimateError: true,
             });
           }
@@ -75,7 +76,6 @@ export const TurnOnPasscodeScreen = () => {
             error: undefined,
             isPasscodeConfirmation: true,
             passcode,
-            passcodeConfirmation: [],
           });
         }
       }}

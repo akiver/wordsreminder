@@ -23,7 +23,7 @@ export const PasscodeKeyboard = ({ message, onPasscodeEntered, shouldAnimateErro
     Animated.timing(animatedColor, {
       toValue: 1,
       duration: 500,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start(() => {
       animatedColor.setValue(0);
     });

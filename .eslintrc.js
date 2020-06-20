@@ -7,7 +7,6 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     // The following plugin must be at the end.
@@ -30,11 +29,7 @@ module.exports = {
   ],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
-    '@typescript-eslint/no-use-before-define': 0,
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/no-non-null-assertion': 'warn',
-    '@typescript-eslint/explicit-member-accessibility': 0,
-    '@typescript-eslint/no-inferrable-types': 0,
     'no-empty-pattern': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 };

@@ -17,8 +17,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@e2e/*": ["e2e/*"]
     },
-    "target": "esnext",
-    "lib": ["es6"],
+    "target": "ES2019",
+    "lib": ["ES2019"],
     "jsx": "react",
     "strict": true,
     "moduleResolution": "node",

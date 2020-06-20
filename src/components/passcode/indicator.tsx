@@ -2,7 +2,7 @@ import { StyleSheet, Animated, ViewStyle } from 'react-native';
 import React from 'react';
 import { useTheme } from '@hooks/use-theme';
 
-type Props = Animated.AnimatedProps<{}> & {
+type Props = {
   isFilled: boolean;
   borderInterpolation?: Animated.AnimatedInterpolation;
   children?: never;

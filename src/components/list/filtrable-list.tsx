@@ -95,7 +95,7 @@ export const FiltrableList = ({
   const filterCurrentEntities = memoize((entities: Entity[], filter?: string) => {
     let filteredEntities = entities;
     if (!isStringEmpty(filter)) {
-      filteredEntities = entities.filter((entity) => filterEntities(filter!, entity));
+      filteredEntities = entities.filter((entity) => filterEntities(filter as string, entity));
     }
 
     return filteredEntities.sort(compareUpdatedAt);
@@ -126,7 +126,7 @@ export const FiltrableList = ({
     }
 
     if (status === STATUS_ERROR) {
-      return <ErrorMessage message={state.error!} />;
+      return <ErrorMessage message={state.error as string} />;
     }
 
     const filteredEntities = filterCurrentEntities(state.entities, state.filter);
