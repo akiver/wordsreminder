@@ -62,7 +62,7 @@
     "react-native-screens": "2.9.0",
     "react-native-svg": "12.1.0",
     "react-native-touch-id": "4.4.1",
-    "rn-secure-storage": "2.0.4"
+    "rn-secure-storage": "2.0.5"
   },
   "devDependencies": {
     "@babel/core": "7.10.4",

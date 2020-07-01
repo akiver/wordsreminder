@@ -7892,10 +7892,10 @@ rimraf@~2.4.0:
   dependencies:
     glob "^6.0.1"
 
-rn-secure-storage@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/rn-secure-storage/-/rn-secure-storage-2.0.4.tgz#1e7ae1e91514ed39e487ed3b47b73b638344cbd9"
-  integrity sha512-pDMLLHu2vXWTvEWdeYEP7g04sQQrTu6uc8STIf9ecbipV+N6fJ6nqM8+jMxBq1+u+8oa1L9hGmIwUYKixPpGSw==
+rn-secure-storage@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/rn-secure-storage/-/rn-secure-storage-2.0.5.tgz#c4f60351d1385f270337f52eeadf7b35fc9994ac"
+  integrity sha512-p73/uTBrtjZbmq7ZLUvu40rkpWpuOVg9/EHPoeq1hh6GeJILLxVS9Pfnhn3dPsiBmoLPiy2+lS71WfPgavOUbA==
 
 rsvp@^4.8.4:
   version "4.8.5"
