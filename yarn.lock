@@ -1701,24 +1701,24 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.2.tgz#d2e1530af5702e00578914b41468898c10d3289c"
   integrity sha512-pIwc6e0ZINw6PJqNVsAxzOVJUDg6au2TdulY+ZOYQ11SPDs5I2n9likoGrElPmJjajT4s9h87uz/6PWP2k9PxQ==
 
-"@react-native-firebase/app@7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-7.3.1.tgz#432a93cae79295df7e881437029a5eeb522a1b79"
-  integrity sha512-pQM4YnPRl1PaXqdFEfJSSCB5ETM303Rwucy015K1YKANtcB4r5VlXYgVHOx7BesXMxOjkzYfXH8WLtnC8PD/Xw==
+"@react-native-firebase/app@8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-8.0.1.tgz#3030094cc0aa2a763feef2291aebd8c852e1a693"
+  integrity sha512-7TN6lGMNHbEAno2PH1BVGvhSz61o3Goq1LCI/1Bac7G8cPj8srNyAysOtzD/VkJmlEJ2UteK5MZKY2jckEsKAg==
   dependencies:
     "@react-native-firebase/app-types" "6.7.2"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-8.0.8.tgz#0b399c47151371a7c70c5a4d8ffed8483032fd70"
-  integrity sha512-b5yNss1OIl2Wx91ai9o226GCfG+1DmQS1ADTMQS9RJpLwTiBU58AuQO9K2IWdTFKIhMif/LB4cE3UQSASie7VA==
+"@react-native-firebase/auth@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-8.0.10.tgz#494814bf9a3fcb4d881046a13ea3b55107bb029a"
+  integrity sha512-pbqERiQyxB+x+1vrhKTiSbFW/FO47F5JeqYQUVz3tN7Gu8DgypIQwelnnytnJBvMsePABvsum6BmgV76tjwPeA==
 
-"@react-native-firebase/firestore@7.2.2":
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-7.2.2.tgz#f0e1eb26a62d9c47d74643788c6e0d5ca4d84ded"
-  integrity sha512-m0Yuzg2jZEfnI3RAmXxr4YYTOu5JC5zcL9ajv3Kq3gstkdX8itqE8D3CEQTWP6Sjs8X9Smpt+a8Un2ktkyftNQ==
+"@react-native-firebase/firestore@7.2.4":
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-7.2.4.tgz#27982fd0dba4c70ae03075f45584a9c27d8c2322"
+  integrity sha512-1VJZ7cYyMjdit2I51MmqQRvdxfFLgL2CvHEloiAfqXvzmVF6YQb4DY0ADn2S+l38kDVdZD89rNqxzEuOrl2xdA==
 
 "@react-navigation/bottom-tabs@5.6.1":
   version "5.6.1"
