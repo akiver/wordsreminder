@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render } from 'react-native-testing-library';
 import renderer from 'react-test-renderer';
 import { ErrorMessage } from '../error-message';
 

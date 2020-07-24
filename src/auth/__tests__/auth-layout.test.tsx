@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render } from 'react-native-testing-library';
 import { STATUS_IDLE, STATUS_ERROR, STATUS, STATUS_LOADING } from '@constants/statuses';
 import { AuthLayout } from '../auth-layout';
 
@@ -20,22 +20,24 @@ describe('AuthLayout', () => {
     return <AuthLayout link={Link} inputs={Inputs} submitButton={SubmitButton} status={STATUS_IDLE} {...props} />;
   };
 
-  const { rerender, queryByText, getByHintText } = render(createComponent());
-
   it('should display inputs', () => {
+    const { queryByText } = render(createComponent());
     expect(queryByText('Inputs')).toBeDefined();
   });
 
   it('should display a link', () => {
+    const { queryByText } = render(createComponent());
     expect(queryByText('Link')).toBeDefined();
   });
 
   it('should display a submit button', () => {
+    const { queryByText } = render(createComponent());
     expect(queryByText('Submit')).toBeDefined();
   });
 
-  describe('when an error occured', () => {
+  describe('when an error occurred', () => {
     it('should display the error', () => {
+      const { rerender, queryByText } = render(createComponent());
       rerender(
         createComponent({
           status: STATUS_ERROR,
@@ -49,13 +51,14 @@ describe('AuthLayout', () => {
 
   describe('when loading', () => {
     it('should display a loading indicator', () => {
+      const { rerender, getByA11yHint } = render(createComponent());
       rerender(
         createComponent({
           status: STATUS_LOADING,
         })
       );
 
-      expect(getByHintText('Loading')).toBeDefined();
+      expect(getByA11yHint('Loading')).toBeDefined();
     });
   });
 });

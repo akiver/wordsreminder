@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react-native';
+import { render } from 'react-native-testing-library';
 import { AuthLoadingScreen } from '../auth-loading-screen';
 import { Text } from 'react-native';
 
@@ -39,17 +39,17 @@ describe('AuthLoadingScreen', () => {
     onAuthStateChanged.mockImplementation((callback) => {
       callback({ id: 'user-id' });
     });
-    const { findByText } = render(<AuthLoadingScreen />);
+    const { queryByText } = render(<AuthLoadingScreen />);
 
-    await waitForElement(() => findByText('Tabs stack'));
+    expect(queryByText('Tabs stack')).toBeDefined();
   });
 
   it('should render auth stack', async () => {
     onAuthStateChanged.mockImplementation((callback) => {
       callback(null);
     });
-    const { findByText } = render(<AuthLoadingScreen />);
+    const { queryByText } = render(<AuthLoadingScreen />);
 
-    await waitForElement(() => findByText('Auth stack'));
+    expect(queryByText('Auth stack')).toBeDefined();
   });
 });

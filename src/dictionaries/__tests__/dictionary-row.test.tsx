@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent } from 'react-native-testing-library';
 import { WORDS_SCREEN } from '@constants/screens';
 import { DICTIONARIES_ROW, DICTIONARIES_ROW_WORDS_COUNT, DICTIONARIES_ROW_UPDATED_AT } from '@e2e/ids';
 import { DictionaryRow } from '../dictionary-row';
