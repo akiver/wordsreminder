@@ -27,8 +27,7 @@ describe('Button', () => {
     expect(queryByText(text)).not.toBeNull();
   });
 
-  // https://github.com/testing-library/native-testing-library/issues/113
-  it.skip('should be clickable', () => {
+  it('should be clickable', () => {
     const button = getByRole('button');
     fireEvent.press(button);
 

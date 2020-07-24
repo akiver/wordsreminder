@@ -10,8 +10,7 @@ describe('AddButton', () => {
     findByTestId('plus-icon');
   });
 
-  // https://github.com/testing-library/native-testing-library/issues/113
-  it.skip('should be clickable', () => {
+  it('should be clickable', () => {
     const link = getByRole('link');
     fireEvent.press(link);
 
