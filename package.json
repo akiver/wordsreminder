@@ -68,7 +68,7 @@
     "@babel/core": "7.10.5",
     "@babel/runtime": "7.10.5",
     "@google-cloud/firestore": "4.1.1",
-    "@testing-library/jest-native": "^3.1.0",
+    "@testing-library/jest-native": "^3.2.0",
     "@types/detox": "16.4.1",
     "@types/jest": "26.0.7",
     "@types/node": "14.0.25",
