@@ -76,7 +76,7 @@
     "@types/react-native": "0.63.22",
     "@types/react-test-renderer": "16.9.3",
     "@types/webpack-env": "1.15.3",
-    "@typescript-eslint/eslint-plugin": "4.2.0",
+    "@typescript-eslint/eslint-plugin": "4.11.1",
     "@typescript-eslint/parser": "4.2.0",
     "babel-jest": "26.3.0",
     "babel-plugin-module-resolver": "4.0.0",
