@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer, InitialState, NavigationState } from '@react-navigation/native';
 import { StatusBar, View } from 'react-native';
 import Config from 'react-native-config';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNBootSplash from 'react-native-bootsplash';
 import { themes, ThemeContext, Themes } from '@contexts/theme-context';
 import { THEME_KEY, THEME_DARK_VALUE, THEME_LIGHT_VALUE } from '@constants/async-storage';

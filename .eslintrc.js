@@ -9,9 +9,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    // The following plugin must be at the end.
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md#usage-with-prettier
-    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   settings: {
@@ -20,12 +18,18 @@ module.exports = {
     },
   },
   ignorePatterns: [
-    'babel.config.js',
-    'metro.config.js',
-    'prettier.config.js',
+    'node_modules',
+    'ios',
+    'android',
+    'assets',
+    '/*.js',
+    'yarn.lock',
     'jest.config.js',
-    'jest.setup.js',
     '*.snap',
+    'LICENSE',
+    '*.md',
+    '*.yml',
+    '*.ai',
   ],
   rules: {
     'react-hooks/rules-of-hooks': 'error',

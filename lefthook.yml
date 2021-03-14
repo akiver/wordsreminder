@@ -1,0 +1,10 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: prettier --write {staged_files} && eslint {staged_files}
+    compile:
+      run: tsc
+    test:
+      glob: '*.{ts,tsx}'
+      run: jest --config=jest.config.js --findRelatedTests {staged_files}

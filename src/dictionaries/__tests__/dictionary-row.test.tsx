@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { WORDS_SCREEN } from '@constants/screens';
 import { DICTIONARIES_ROW, DICTIONARIES_ROW_WORDS_COUNT, DICTIONARIES_ROW_UPDATED_AT } from '@e2e/ids';
 import { DictionaryRow } from '../dictionary-row';
@@ -71,12 +72,8 @@ describe('DictionaryRow', () => {
         const date = new Date();
         const { getByTestId, queryByText } = renderComponent({
           updatedAt: {
-            nanoseconds: 0,
-            seconds: 0,
-            isEqual: () => true,
-            toMillis: () => 0,
             toDate: () => date,
-          },
+          } as FirebaseFirestoreTypes.Timestamp,
         });
         expect(getByTestId(DICTIONARIES_ROW_UPDATED_AT)).not.toBeNull();
         expect(getByTestId('clock-icon')).not.toBeNull();

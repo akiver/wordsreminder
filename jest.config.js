@@ -8,7 +8,7 @@ module.exports = {
   transform: tsjPreset.transform,
   testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/', '<rootDir>/e2e/', '<rootDir>/migrations/'],
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!((jest-)?@react-native-community|react-native|@react-navigation|react-native-gesture-handler|rn-secure-storage.*))',
+    '<rootDir>/node_modules/(?!((jest-)?@react-native-community|@react-native|react-native|@react-navigation|react-native-gesture-handler|rn-secure-storage.*))',
   ],
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',

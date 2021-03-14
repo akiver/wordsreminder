@@ -1,1 +1,14 @@
+yarn.lock
+android
+ios
+assets
+node_modules
+.DS_Store
+LICENSE
+.*ignore
 *.tsx.snap
+*.ai
+.env*
+.buckconfig
+.watchmanconfig
+.git*
