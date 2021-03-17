@@ -7782,10 +7782,10 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-native-bootsplash@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-3.1.5.tgz#a71f2f71713aeb0a263ab63c6d2801f1ba0f9d42"
-  integrity sha512-U2k6WrdizOQ3SuDCwrfdTdLMp4b8GOFXQorlvZMyonuR+ZV1S5zEONylo+v+mwY9CBTE5UW6vQwSqs373/5p2w==
+react-native-bootsplash@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-3.2.0.tgz#671861fdd75444f91196d3e64d3539ef50c3a30f"
+  integrity sha512-1+xMWLxqIUPbKiiwrbiekw3uKtuyNpm0R1eg5p3/ISRMXs0eZy7DHfiyCqcLq1N1a3Gv0oTZn1E7WEA2NjgdhA==
   dependencies:
     chalk "^4.1.0"
     fs-extra "^9.1.0"
