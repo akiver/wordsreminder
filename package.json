@@ -46,7 +46,7 @@
     "react-native-bootsplash": "3.1.5",
     "react-native-config": "1.4.2",
     "react-native-gesture-handler": "1.10.3",
-    "react-native-reanimated": "1.13.2",
+    "react-native-reanimated": "2.1.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "2.18.1",
     "react-native-svg": "12.1.0",
