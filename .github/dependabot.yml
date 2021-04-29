@@ -1,0 +1,107 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  labels:
+  - tech
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: "@google-cloud/firestore"
+    versions:
+    - 4.10.0
+    - 4.9.8
+    - 4.9.9
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.14.1
+    - 4.14.2
+    - 4.15.0
+    - 4.15.1
+    - 4.15.2
+    - 4.16.1
+    - 4.17.0
+    - 4.18.0
+    - 4.19.0
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.14.1
+    - 4.14.2
+    - 4.15.0
+    - 4.15.1
+    - 4.15.2
+    - 4.16.1
+    - 4.17.0
+    - 4.18.0
+    - 4.19.0
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: "@types/react-native"
+    versions:
+    - 0.63.46
+    - 0.63.47
+    - 0.63.48
+    - 0.63.49
+    - 0.63.50
+    - 0.63.51
+    - 0.63.52
+    - 0.64.0
+    - 0.64.1
+    - 0.64.2
+  - dependency-name: react-native-reanimated
+    versions:
+    - 2.0.1
+  - dependency-name: react-native-bootsplash
+    versions:
+    - 3.2.0
+  - dependency-name: ts-jest
+    versions:
+    - 26.4.4
+    - 26.5.0
+    - 26.5.1
+    - 26.5.2
+    - 26.5.3
+  - dependency-name: "@testing-library/jest-native"
+    versions:
+    - 3.4.3
+    - 4.0.0
+    - 4.0.1
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.19.0
+    - 7.20.0
+    - 7.21.0
+  - dependency-name: "@react-navigation/native"
+    versions:
+    - 5.9.2
+    - 5.9.3
+  - dependency-name: "@react-navigation/bottom-tabs"
+    versions:
+    - 5.11.7
+    - 5.11.8
+  - dependency-name: "@react-navigation/stack"
+    versions:
+    - 5.14.2
+    - 5.14.3
+  - dependency-name: node-notifier
+    versions:
+    - 8.0.1
+  - dependency-name: react-native
+    versions:
+    - 0.63.4
