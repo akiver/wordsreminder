@@ -57,7 +57,7 @@
     "@arkweid/lefthook": "0.7.2",
     "@babel/core": "7.13.10",
     "@babel/runtime": "7.13.10",
-    "@google-cloud/firestore": "4.9.7",
+    "@google-cloud/firestore": "4.12.2",
     "@testing-library/jest-native": "^4.0.1",
     "@types/detox": "17.14.0",
     "@types/jest": "26.0.20",
