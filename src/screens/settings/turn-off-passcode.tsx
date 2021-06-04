@@ -19,9 +19,8 @@ type State = {
 };
 
 export const TurnOffPasscodeScreen = () => {
-  const navigation = useNavigation<
-    StackNavigationProp<SettingsStackParamList, typeof SETTINGS_TURN_OFF_PASSCODE_SCREEN>
-  >();
+  const navigation =
+    useNavigation<StackNavigationProp<SettingsStackParamList, typeof SETTINGS_TURN_OFF_PASSCODE_SCREEN>>();
   const [state, setState] = useState<State>({
     attemptCount: 0,
     currentPasscode: '',

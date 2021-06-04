@@ -17,9 +17,8 @@ type State = {
 };
 
 export const TurnOnPasscodeScreen = () => {
-  const navigation = useNavigation<
-    StackNavigationProp<SettingsStackParamList, typeof SETTINGS_TURN_ON_PASSCODE_SCREEN>
-  >();
+  const navigation =
+    useNavigation<StackNavigationProp<SettingsStackParamList, typeof SETTINGS_TURN_ON_PASSCODE_SCREEN>>();
   const [state, setState] = useState<State>({
     error: undefined,
     isPasscodeConfirmation: false,

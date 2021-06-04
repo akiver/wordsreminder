@@ -2,4 +2,5 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-jest.useFakeTimers();
+// TODO test It's slow with 'modern' introduced in Jest 27
+jest.useFakeTimers('legacy');
