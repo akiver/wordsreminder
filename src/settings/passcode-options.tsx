@@ -5,9 +5,11 @@ import { PASSCODE_KEY } from '@constants/async-storage';
 import { SETTINGS_TURN_ON_PASSCODE_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens';
 import { Spacer } from '@components/spacer';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { SettingsStackParamList } from '@stacks/settings-stack';
 
 export const SettingsPasscodeOptions = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<SettingsStackParamList>>();
   const [isPasscodeStatusDetected, setIsPasscodeStatusDetected] = useState(false);
   const [isPasscodeEnabled, setIsPasscodeEnabled] = useState(false);
 
