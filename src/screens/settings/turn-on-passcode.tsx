@@ -3,10 +3,9 @@ import RNSecureStorage, { ACCESSIBLE } from 'rn-secure-storage';
 import { Vibration } from 'react-native';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { SETTINGS_SCREEN, SETTINGS_TURN_ON_PASSCODE_SCREEN } from '@constants/screens';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { CommonActions } from '@react-navigation/native';
 import { SettingsStackParamList } from '@stacks/settings-stack';
 
 type State = {

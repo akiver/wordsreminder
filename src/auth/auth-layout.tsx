@@ -4,7 +4,7 @@ import { STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses';
 import { ErrorMessage } from '@components/error-message';
 import { Spacer } from '@components/spacer';
 import { ActivityIndicator } from '@components/activity-indicator';
-import { useHeaderHeight } from '@react-navigation/stack';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useTheme } from '@hooks/use-theme';
 
 type Props = {

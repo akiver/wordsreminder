@@ -3,7 +3,7 @@ import { render } from 'react-native-testing-library';
 import { STATUS_IDLE, STATUS_ERROR, STATUS, STATUS_LOADING } from '@constants/statuses';
 import { AuthLayout } from '../auth-layout';
 
-jest.mock('@react-navigation/stack', () => {
+jest.mock('@react-navigation/elements', () => {
   return {
     useHeaderHeight: () => {
       return 40;

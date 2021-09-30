@@ -29,7 +29,8 @@ export const SettingsStack = () => {
         headerStyle: {
           backgroundColor: theme.primary100,
         },
-        headerTintColor: theme.white,
+        headerTintColor: theme.primary025,
+        headerTitleAlign: 'center',
       }}
     >
       <Stack.Screen

@@ -13,12 +13,13 @@ export const TabsStack = () => {
   const theme = useTheme();
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
-        activeTintColor: theme.primary025,
-        style: {
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: theme.primary025,
+        tabBarStyle: {
           backgroundColor: theme.primary100,
         },
+        headerShown: false,
       }}
     >
       <Tab.Screen

@@ -14,9 +14,9 @@ const Stack = createStackNavigator<PasscodeStackParamList>();
 export const PasscodeStack = () => {
   return (
     <Stack.Navigator
-      mode="modal"
       initialRouteName={APP_LOCKER_SCREEN}
       screenOptions={{
+        presentation: 'modal',
         headerShown: false,
         animationEnabled: false,
       }}
