@@ -32,7 +32,7 @@ const initialState = Object.freeze({
   status: STATUS_IDLE as STATUS,
   email: '',
   password: '',
-  error: undefined,
+  error: undefined as string | undefined,
 });
 
 export class SignUpScreen extends React.Component<Props, State> {
@@ -64,7 +64,7 @@ export class SignUpScreen extends React.Component<Props, State> {
         } catch (error) {
           this.setState({
             status: STATUS_ERROR,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'An error occurred',
           });
         }
       }

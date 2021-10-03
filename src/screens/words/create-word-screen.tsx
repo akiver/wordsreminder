@@ -77,11 +77,14 @@ export class CreateWordScreen extends React.Component<Props, State> {
         await createWord(dictionaryId, value, signification, description);
         navigation.goBack();
       } catch (error) {
-        this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          this.setState({
-            status: STATUS_ERROR,
-          });
-        });
+        this.setState(
+          { status: STATUS_ERROR, error: error instanceof Error ? error.message : 'An error occurred' },
+          () => {
+            this.setState({
+              status: STATUS_ERROR,
+            });
+          }
+        );
       }
     });
   };

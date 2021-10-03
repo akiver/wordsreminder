@@ -74,7 +74,13 @@ export class DictionaryRow extends React.Component<Props> {
             try {
               await deleteDictionary(this.props.dictionary);
             } catch (error) {
-              Alert.alert('Error', error.message);
+              let errorMessage: string;
+              if (error instanceof Error) {
+                errorMessage = error.message;
+              } else {
+                errorMessage = 'An error occurred while deleting the dictionary';
+              }
+              Alert.alert('Error', errorMessage);
             }
           },
           style: 'destructive',

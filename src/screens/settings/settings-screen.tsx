@@ -56,7 +56,7 @@ export class SettingsScreen extends React.Component<Props, State> {
         } catch (error) {
           this.setState({
             status: STATUS_ERROR,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'An error occurred',
           });
         }
       }
@@ -74,7 +74,7 @@ export class SettingsScreen extends React.Component<Props, State> {
         } catch (error) {
           this.setState({
             status: STATUS_ERROR,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'An error occurred',
           });
         }
       }

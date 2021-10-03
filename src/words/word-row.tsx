@@ -65,7 +65,13 @@ export class WordRow extends React.Component<Props> {
             try {
               await deleteWord(this.props.word);
             } catch (error) {
-              Alert.alert('Error', error.message);
+              let errorMessage: string;
+              if (error instanceof Error) {
+                errorMessage = error.message;
+              } else {
+                errorMessage = 'An error occurred while deleting the word.';
+              }
+              Alert.alert('Error', errorMessage);
             }
           },
           style: 'destructive',

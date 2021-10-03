@@ -64,9 +64,12 @@ export class EditDictionaryScreen extends React.Component<Props, State> {
         await updateDictionary(this.state.dictionary);
         navigation.goBack();
       } catch (error) {
-        this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          this.updateSaveButton();
-        });
+        this.setState(
+          { status: STATUS_ERROR, error: error instanceof Error ? error.message : 'An error occurred' },
+          () => {
+            this.updateSaveButton();
+          }
+        );
       }
     });
   };

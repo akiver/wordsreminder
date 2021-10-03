@@ -73,9 +73,12 @@ export class EditWordScreen extends React.Component<Props, State> {
         await updateWord(this.state.word);
         navigation.goBack();
       } catch (error) {
-        this.setState({ status: STATUS_ERROR, error: error.message }, () => {
-          this.updateSaveButton();
-        });
+        this.setState(
+          { status: STATUS_ERROR, error: error instanceof Error ? error.message : 'An error occurred' },
+          () => {
+            this.updateSaveButton();
+          }
+        );
       }
     });
   };

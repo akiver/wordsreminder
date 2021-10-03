@@ -7,6 +7,7 @@ import { Spacer } from '@components/spacer';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingsStackParamList } from '@stacks/settings-stack';
+import { isSecureStorageError } from '@utils/is-secure-storage-error';
 
 export const SettingsPasscodeOptions = () => {
   const navigation = useNavigation<StackNavigationProp<SettingsStackParamList>>();
@@ -21,7 +22,7 @@ export const SettingsPasscodeOptions = () => {
         setIsPasscodeEnabled(isPasscodeEnabled);
         setIsPasscodeStatusDetected(true);
       } catch (error) {
-        if (error.code === '404' || error.code === 'EUNSPECIFIED') {
+        if (isSecureStorageError(error) && (error.code === '404' || error.code === 'EUNSPECIFIED')) {
           setIsPasscodeEnabled(false);
           setIsPasscodeStatusDetected(true);
         }

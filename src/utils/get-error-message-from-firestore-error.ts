@@ -1,75 +1,65 @@
-export const getErrorMessageFromFirestoreError = (error: Error & { code?: string }) => {
-  let errorMessage = error.message;
-  switch (error.code) {
-    case 'firestore/permission-denied':
-      errorMessage = 'Permission denied, check your database rules from the firebase console.';
-      break;
-    case 'firestore/cancelled':
-      errorMessage = 'Operation cancelled.';
-      break;
-    case 'firestore/unknown':
-      errorMessage = 'Unknown error.';
-      break;
-    case 'firestore/invalid-argument':
-      errorMessage = 'Invalid arguments provided.';
-      break;
-    case 'firestore/deadline-exceeded':
-      errorMessage = 'Deadline expired, please try again.';
-      break;
-    case 'firestore/not-found':
-      errorMessage = 'Document not found.';
-      break;
-    case 'firestore/already-exists':
-      errorMessage = 'Document already exists.';
-      break;
-    case 'firestore/resource-exhausted':
-      errorMessage = 'Resource exhausted, check your quota FS free space.';
-      break;
-    case 'firestore/failed-precondition':
-      errorMessage = `Operation was rejected because the system is not in a state required for the operation's execution.`;
-      break;
-    case 'firestore/aborted':
-      errorMessage = 'Operation aborted.';
-      break;
-    case 'firestore/out-of-range':
-      errorMessage = 'Operation was attempted past the valid range.';
-      break;
-    case 'firestore/unimplemented':
-      errorMessage = 'Operation is not implemented or not supported/enabled.';
-      break;
-    case 'firestore/internal':
-      errorMessage = 'Internal error.';
-      break;
-    case 'firestore/unavailable':
-      errorMessage = 'The service is currently unavailable.';
-      break;
-    case 'firestore/data-loss':
-      errorMessage = 'Unrecoverable data loss or corruption.';
-      break;
-    case 'firestore/unauthenticated':
-      errorMessage = 'The request does not have valid authentication credentials for the operation.';
-      break;
-    case 'auth/invalid-email':
-      errorMessage = 'Invalid email.';
-      break;
-    case 'auth/user-not-found':
-    case 'auth/wrong-password':
-      errorMessage = 'Invalid credentials.';
-      break;
-    case 'auth/user-disabled':
-      errorMessage = 'User disabled.';
-      break;
-    case 'auth/weak-password':
-      errorMessage = 'Password is too weak.';
-      break;
-    case 'auth/operation-not-allowed':
-      errorMessage = 'User account not enabled.';
-      break;
-    case 'auth/email-already-in-use':
-      errorMessage = 'Email already in use.';
-      break;
-    default:
+type FirestoreError = {
+  code: string;
+};
+
+const isFirestoreError = (error: unknown): error is FirestoreError => {
+  return (error as FirestoreError).code !== undefined;
+};
+
+export const getErrorMessageFromFirestoreError = (error: unknown) => {
+  if (!isFirestoreError(error)) {
+    return 'An error occurred';
   }
 
-  return errorMessage;
+  switch (error.code) {
+    case 'firestore/permission-denied':
+      return 'Permission denied, check your database rules from the firebase console.';
+    case 'firestore/cancelled':
+      return 'Operation cancelled.';
+    case 'firestore/unknown':
+      return 'Unknown error.';
+    case 'firestore/invalid-argument':
+      return 'Invalid arguments provided.';
+    case 'firestore/deadline-exceeded':
+      return 'Deadline expired, please try again.';
+    case 'firestore/not-found':
+      return 'Document not found.';
+    case 'firestore/already-exists':
+      return 'Document already exists.';
+    case 'firestore/resource-exhausted':
+      return 'Resource exhausted, check your quota FS free space.';
+    case 'firestore/failed-precondition':
+      return `Operation was rejected because the system is not in a state required for the operation's execution.`;
+    case 'firestore/aborted':
+      return 'Operation aborted.';
+    case 'firestore/out-of-range':
+      return 'Operation was attempted past the valid range.';
+    case 'firestore/unimplemented':
+      return 'Operation is not implemented or not supported/enabled.';
+    case 'firestore/internal':
+      return 'Internal error.';
+    case 'firestore/unavailable':
+      return 'The service is currently unavailable.';
+    case 'firestore/data-loss':
+      return 'Unrecoverable data loss or corruption.';
+    case 'firestore/unauthenticated':
+      return 'The request does not have valid authentication credentials for the operation.';
+    case 'auth/invalid-email':
+      return 'Invalid email.';
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+      return 'Invalid credentials.';
+    case 'auth/user-disabled':
+      return 'User disabled.';
+    case 'auth/weak-password':
+      return 'Password is too weak.';
+    case 'auth/operation-not-allowed':
+      return 'User account not enabled.';
+    case 'auth/email-already-in-use':
+      return 'Email already in use.';
+    case 'auth/network-request-failed':
+      return 'A network error occurred.';
+    default:
+      return 'An error occurred';
+  }
 };
