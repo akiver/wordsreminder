@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { WORDS, DICTIONARIES } from '@constants/database';
 import { isStringEmpty } from '@utils/is-string-empty';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
+import { handleError } from '@services/handle-error';
 
 export const createWord = async (
   dictionaryId: string,
@@ -44,6 +44,6 @@ export const createWord = async (
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

@@ -1,6 +1,5 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { ErrorMessage } from '../error-message';
 
 describe('ErrorMessage', () => {
@@ -14,7 +13,7 @@ describe('ErrorMessage', () => {
   });
 
   it('should match snapshot', () => {
-    const tree = renderer.create(createComponent()).toJSON();
+    const tree = render(createComponent()).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

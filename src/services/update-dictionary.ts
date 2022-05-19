@@ -1,7 +1,7 @@
 import { isStringEmpty } from '@utils/is-string-empty';
 import firestore from '@react-native-firebase/firestore';
 import { DICTIONARIES } from '@constants/database';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
+import { handleError } from '@services/handle-error';
 import { Dictionary } from '@models/dictionary';
 
 export const updateDictionary = async (dictionary: Dictionary) => {
@@ -17,6 +17,6 @@ export const updateDictionary = async (dictionary: Dictionary) => {
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

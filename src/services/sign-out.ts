@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
+import { handleError } from './handle-error';
 
 export const signOut = async () => {
   try {
@@ -7,6 +7,6 @@ export const signOut = async () => {
       await auth().signOut();
     }
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

@@ -5,13 +5,13 @@ module.exports = {
     simulator: {
       type: 'ios.simulator',
       device: {
-        type: 'iPhone 12',
+        type: 'iPhone 13',
       },
     },
     emulator: {
       type: 'android.emulator',
       device: {
-        avdName: 'Pixel_2_API_29',
+        avdName: 'Pixel_2_API_30',
       },
     },
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import RNSecureStorage from 'rn-secure-storage';
+import SecureStore from 'react-native-secure-key-store';
 import { Button } from '@components/button';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { SETTINGS_TURN_ON_PASSCODE_SCREEN, SETTINGS_TURN_OFF_PASSCODE_SCREEN } from '@constants/screens';
@@ -17,7 +17,7 @@ export const SettingsPasscodeOptions = () => {
   useEffect(() => {
     const detectPasscodeEnabled = async () => {
       try {
-        const storedPasscodeAsString = await RNSecureStorage.get(PASSCODE_KEY);
+        const storedPasscodeAsString = await SecureStore.get(PASSCODE_KEY);
         const isPasscodeEnabled = storedPasscodeAsString !== null;
         setIsPasscodeEnabled(isPasscodeEnabled);
         setIsPasscodeStatusDetected(true);

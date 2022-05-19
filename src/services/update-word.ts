@@ -1,7 +1,7 @@
 import { isStringEmpty } from '@utils/is-string-empty';
 import { WORDS } from '@constants/database';
 import firestore from '@react-native-firebase/firestore';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
+import { handleError } from '@services/handle-error';
 import { Word } from '@models/word';
 
 export const updateWord = async (word: Word) => {
@@ -24,6 +24,6 @@ export const updateWord = async (word: Word) => {
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

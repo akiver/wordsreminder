@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RNSecureStorage, { ACCESSIBLE } from 'rn-secure-storage';
+import SecureStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import { Vibration } from 'react-native';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
@@ -38,7 +38,7 @@ export const TurnOnPasscodeScreen = () => {
           const passcodesMatch = passcodeAsString === state.passcode.map(Number).join('');
           if (passcodesMatch) {
             try {
-              await RNSecureStorage.set(PASSCODE_KEY, passcodeAsString, {
+              await SecureStore.set(PASSCODE_KEY, passcodeAsString, {
                 accessible: ACCESSIBLE.WHEN_UNLOCKED,
               });
               navigation.dispatch(
@@ -60,7 +60,7 @@ export const TurnOnPasscodeScreen = () => {
               });
             }
           } else {
-            Vibration.vibrate(0, false);
+            Vibration.vibrate();
             setState({
               error: 'Passcodes mismatch, try again.',
               isPasscodeConfirmation: false,

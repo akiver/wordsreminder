@@ -1,5 +1,5 @@
 const { defaults: tsjPreset } = require('ts-jest/presets');
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { pathsToModuleNameMapper } = require('ts-jest');
 const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
@@ -8,8 +8,9 @@ module.exports = {
   transform: tsjPreset.transform,
   testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/', '<rootDir>/e2e/', '<rootDir>/migrations/'],
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!((jest-)?@react-native-community|@react-native|react-native|@react-navigation|react-native-gesture-handler|rn-secure-storage.*))',
+    '<rootDir>/node_modules/(?!((jest-)?@react-native-community|@react-native|react-native|@react-navigation|react-native-gesture-handler.*))',
   ],
+  forceExit: true,
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',
     './node_modules/react-native-gesture-handler/jestSetup.js',

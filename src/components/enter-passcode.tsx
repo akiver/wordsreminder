@@ -1,6 +1,6 @@
 import React from 'react';
 import { Vibration, Alert } from 'react-native';
-import RNSecureStorage from 'rn-secure-storage';
+import SecureStore from 'react-native-secure-key-store';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
 import { AUTH_LOADING_SCREEN } from '@constants/screens';
@@ -33,7 +33,7 @@ export class EnterPasscode extends React.PureComponent<Props, State> {
       return;
     }
 
-    Vibration.vibrate(0, false);
+    Vibration.vibrate();
     this.setState(
       ({ attemptCount }) => ({
         attemptCount: attemptCount + 1,
@@ -43,7 +43,7 @@ export class EnterPasscode extends React.PureComponent<Props, State> {
         if (this.state.attemptCount === 5) {
           try {
             await signOut();
-            await RNSecureStorage.remove(PASSCODE_KEY);
+            await SecureStore.remove(PASSCODE_KEY);
             this.props.navigation.navigate(AUTH_LOADING_SCREEN);
           } catch (error) {
             Alert.alert('Error', 'An error occured.');

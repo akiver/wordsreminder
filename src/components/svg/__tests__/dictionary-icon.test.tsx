@@ -1,11 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { DictionaryIcon } from '../dictionary-icon';
 import { WHITE } from '@constants/colors';
 
 describe('DictionaryIcon', () => {
   it('should match snapshot', () => {
-    const tree = renderer.create(<DictionaryIcon focused={true} color={WHITE} />).toJSON();
+    const tree = render(<DictionaryIcon focused={true} color={WHITE} />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

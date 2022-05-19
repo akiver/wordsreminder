@@ -1,10 +1,10 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { ActivityIndicator } from '../activity-indicator';
 
 describe('ActivityIndicator', () => {
   it('should match snapshot', () => {
-    const tree = renderer.create(<ActivityIndicator />).toJSON();
+    const tree = render(<ActivityIndicator />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

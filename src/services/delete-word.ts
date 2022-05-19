@@ -1,6 +1,6 @@
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { DICTIONARIES, WORDS } from '@constants/database';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
+import { handleError } from '@services/handle-error';
 import { Word } from '@models/word';
 
 export const deleteWord = async (word: Word) => {
@@ -23,6 +23,6 @@ export const deleteWord = async (word: Word) => {
 
     await firestore().collection(WORDS).doc(word.id).delete();
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

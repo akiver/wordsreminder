@@ -1,5 +1,5 @@
 import React from 'react';
-import RNSecureStorage from 'rn-secure-storage';
+import SecureStore from 'react-native-secure-key-store';
 import { Alert, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import TouchID from 'react-native-touch-id';
@@ -34,7 +34,7 @@ export class LockerScreen extends React.Component<Props, State> {
 
   async componentDidMount() {
     try {
-      const passcode = await RNSecureStorage.get(PASSCODE_KEY);
+      const passcode = await SecureStore.get(PASSCODE_KEY);
       // Passcode integrity invalid, logout and remove the passcode.
       if (passcode === null) {
         await this.invalidatePasscode();
@@ -105,7 +105,7 @@ export class LockerScreen extends React.Component<Props, State> {
 
   async invalidatePasscode() {
     await signOut();
-    await RNSecureStorage.remove(PASSCODE_KEY);
+    await SecureStore.remove(PASSCODE_KEY);
   }
 
   navigateToAuthScreen = () => {

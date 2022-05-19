@@ -12,3 +12,6 @@ LICENSE
 .buckconfig
 .watchmanconfig
 .git*
+.*-version
+.bundle
+Gemfile

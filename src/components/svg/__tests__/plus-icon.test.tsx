@@ -1,10 +1,10 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { PlusIcon } from '../plus-icon';
 
 describe('PlusIcon', () => {
   it('should match snapshot', () => {
-    const tree = renderer.create(<PlusIcon />).toJSON();
+    const tree = render(<PlusIcon />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

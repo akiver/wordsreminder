@@ -1,16 +1,6 @@
-type FirestoreError = {
-  code: string;
-};
+import { FirestoreError } from '@services/firestore-error';
 
-const isFirestoreError = (error: unknown): error is FirestoreError => {
-  return (error as FirestoreError).code !== undefined;
-};
-
-export const getErrorMessageFromFirestoreError = (error: unknown) => {
-  if (!isFirestoreError(error)) {
-    return 'An error occurred';
-  }
-
+export function getErrorMessageFromFirestoreError(error: FirestoreError) {
   switch (error.code) {
     case 'firestore/permission-denied':
       return 'Permission denied, check your database rules from the firebase console.';
@@ -62,4 +52,4 @@ export const getErrorMessageFromFirestoreError = (error: unknown) => {
     default:
       return 'An error occurred';
   }
-};
+}

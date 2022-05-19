@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Vibration } from 'react-native';
-import RNSecureStorage from 'rn-secure-storage';
+import SecureStore from 'react-native-secure-key-store';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { STATUS_IDLE, STATUS_ERROR, STATUS } from '@constants/statuses';
@@ -32,7 +32,7 @@ export const TurnOffPasscodeScreen = () => {
   useEffect(() => {
     const loadPasscode = async () => {
       try {
-        const currentPasscode = await RNSecureStorage.get(PASSCODE_KEY);
+        const currentPasscode = await SecureStore.get(PASSCODE_KEY);
         if (currentPasscode !== null) {
           setState({
             ...state,
@@ -56,7 +56,7 @@ export const TurnOffPasscodeScreen = () => {
         const { currentPasscode } = state;
         if (currentPasscode === passcode.map(Number).join('')) {
           try {
-            await RNSecureStorage.remove(PASSCODE_KEY);
+            await SecureStore.remove(PASSCODE_KEY);
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
@@ -80,7 +80,7 @@ export const TurnOffPasscodeScreen = () => {
           return;
         }
 
-        Vibration.vibrate(0, false);
+        Vibration.vibrate();
         if (state.attemptCount === 4) {
           await signOut();
           navigation.navigate(AUTH_LOADING_SCREEN);

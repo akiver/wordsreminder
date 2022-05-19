@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render, fireEvent } from '@testing-library/react-native';
 import { ThemeContext, themes } from '@contexts/theme-context';
 import { THEME_LIGHT_VALUE, THEME_DARK_VALUE } from '@constants/async-storage';
 import { Button } from '../button';

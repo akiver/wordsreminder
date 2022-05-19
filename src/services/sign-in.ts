@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
+import { handleError } from '@services/handle-error';
 import { isStringEmpty } from '@utils/is-string-empty';
-import { getErrorMessageFromFirestoreError } from '@utils/get-error-message-from-firestore-error';
 
 export const signIn = async (email?: string, password?: string) => {
   try {
@@ -14,6 +14,6 @@ export const signIn = async (email?: string, password?: string) => {
 
     await auth().signInWithEmailAndPassword(email as string, password as string);
   } catch (error) {
-    throw new Error(getErrorMessageFromFirestoreError(error));
+    handleError(error);
   }
 };

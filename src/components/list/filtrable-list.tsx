@@ -15,6 +15,7 @@ import { FilterBar } from './filter-bar';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { Entity } from '@models/entity';
 import { useTheme } from '@hooks/use-theme';
+import { isFirestoreError } from '@services/firestore-error';
 
 type Props = {
   query: FirebaseFirestoreTypes.Query;
@@ -77,7 +78,7 @@ export const FiltrableList = ({
     };
 
     const onCollectionError = (error: Error) => {
-      const errorMessage = getErrorMessageFromFirestoreError(error);
+      const errorMessage = isFirestoreError(error) ? getErrorMessageFromFirestoreError(error) : error.message;
       setState({
         ...state,
         status: STATUS_ERROR,
@@ -111,10 +112,18 @@ export const FiltrableList = ({
         entities: getEntitiesFromQuerySnapshot(querySnapShot),
       });
     } catch (error) {
+      let errorMessage: string;
+      if (isFirestoreError(error)) {
+        errorMessage = getErrorMessageFromFirestoreError(error);
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = 'An error occurred';
+      }
       setState({
         ...state,
         status: STATUS_ERROR,
-        error: getErrorMessageFromFirestoreError(error),
+        error: errorMessage,
       });
     }
   };

@@ -114,6 +114,7 @@ export class SignUpScreen extends React.Component<Props, State> {
                 onChangeText={this.handlePasswordChange}
                 value={this.state.password}
                 secureTextEntry={true}
+                autoCapitalize="none"
                 returnKeyType="send"
                 onSubmitEditing={this.submitSignUp}
                 testID={SIGNUP_INPUT_PASSWORD}
