@@ -6,7 +6,7 @@ import TouchID from 'react-native-touch-id';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { signOut } from '@services/sign-out';
 import { EnterPasscode } from '@components/enter-passcode';
-import { AUTH_LOADING_SCREEN } from '@constants/screens';
+import { AUTH_LOADING_SCREEN, PASS_CODE_STACK } from '@constants/screens';
 import { ThemeContext } from '@contexts/theme-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@stacks/root-stack';
@@ -19,8 +19,8 @@ const initialState = Object.freeze({
   passcode: '',
 });
 
-type LockerScreenNavigationProps = StackNavigationProp<RootStackParamList, 'app-locker-screen'>;
-type LockerScreenRouteProps = RouteProp<RootStackParamList, 'app-locker-screen'>;
+type LockerScreenNavigationProps = StackNavigationProp<RootStackParamList, typeof PASS_CODE_STACK>;
+type LockerScreenRouteProps = RouteProp<RootStackParamList, typeof PASS_CODE_STACK>;
 
 type Props = {
   navigation: LockerScreenNavigationProps;

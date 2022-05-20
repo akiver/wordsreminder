@@ -1,6 +1,9 @@
 // App stacks
 export const AUTH_STACK = 'auth.stack';
 export const APP_STACK = 'app.stack';
+export const PASS_CODE_STACK = 'passCode.stack';
+export const DICTIONARIES_STACK = 'dictionaries.stack';
+export const SETTINGS_STACK = 'settings.stack';
 
 export const APP_LOCKER_SCREEN = 'app-locker-screen';
 
