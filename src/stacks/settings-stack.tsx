@@ -9,7 +9,7 @@ import { SettingsScreen } from '@screens/settings/settings-screen';
 import { TurnOffPasscodeScreen } from '@screens/settings/turn-off-passcode';
 import { TurnOnPasscodeScreen } from '@screens/settings/turn-on-passcode';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 export type SettingsStackParamList = {
   [SETTINGS_SCREEN]: undefined;
@@ -20,8 +20,9 @@ export type SettingsStackParamList = {
 
 const Stack = createStackNavigator<SettingsStackParamList>();
 
-export const SettingsStack = () => {
+export function SettingsStack() {
   const theme = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={SETTINGS_SCREEN}
@@ -56,4 +57,4 @@ export const SettingsStack = () => {
       />
     </Stack.Navigator>
   );
-};
+}

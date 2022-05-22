@@ -1,69 +1,58 @@
-import React from 'react';
-import { Vibration, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import SecureStore from 'react-native-secure-key-store';
 import { PASSCODE_KEY } from '@constants/async-storage';
 import { PasscodeKeyboard } from '@components/passcode/passcode-keyboard';
-import { AUTH_LOADING_SCREEN, PASS_CODE_STACK } from '@constants/screens';
+import { AUTH_LOADING_SCREEN, PASSCODE_STACK } from '@constants/screens';
 import { signOut } from '@services/sign-out';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@stacks/root-stack';
+import { useNavigation } from '@react-navigation/native';
 
-const initialState = Object.freeze({
-  attemptCount: 0,
-  shouldAnimateError: false,
-});
-
-type NavigationProps = StackNavigationProp<RootStackParamList, typeof PASS_CODE_STACK>;
+type NavigationProps = StackNavigationProp<RootStackParamList, typeof PASSCODE_STACK>;
 
 type Props = {
-  navigation: NavigationProps;
   currentPasscode: string;
-  onPasscodeCorrect: () => void;
 };
-type State = typeof initialState;
 
-export class EnterPasscode extends React.PureComponent<Props, State> {
-  readonly state = initialState;
+export function EnterPasscode({ currentPasscode }: Props) {
+  const navigation = useNavigation<NavigationProps>();
+  const [attemptCount, setAttemptCount] = useState(0);
+  const [shouldAnimateError, setShouldAnimateError] = useState(false);
 
-  handlePasscodeEntered = (passcode: number[]) => {
-    const { currentPasscode } = this.props;
+  const onPassCodeEntered = async (passcode: number[]) => {
     const isPasscodeCorrect = currentPasscode === passcode.map(Number).join('');
     if (isPasscodeCorrect) {
-      this.props.navigation.navigate(AUTH_LOADING_SCREEN);
+      navigation.replace(AUTH_LOADING_SCREEN);
       return;
     }
 
-    Vibration.vibrate();
-    this.setState(
-      ({ attemptCount }) => ({
-        attemptCount: attemptCount + 1,
-        shouldAnimateError: true,
-      }),
-      async () => {
-        if (this.state.attemptCount === 5) {
-          try {
-            await signOut();
-            await SecureStore.remove(PASSCODE_KEY);
-            this.props.navigation.navigate(AUTH_LOADING_SCREEN);
-          } catch (error) {
-            Alert.alert('Error', 'An error occured.');
-            this.setState({ shouldAnimateError: false });
-            return;
-          }
-        } else {
-          this.setState({ shouldAnimateError: false });
-        }
+    setShouldAnimateError(true);
+    const newAttemptCount = attemptCount + 1;
+    setAttemptCount(newAttemptCount);
+
+    const maxAttempts = 4;
+    if (newAttemptCount === maxAttempts) {
+      try {
+        await signOut();
+        await SecureStore.remove(PASSCODE_KEY);
+        navigation.replace(AUTH_LOADING_SCREEN);
+      } catch (error) {
+        Alert.alert('Error', 'An error occurred.');
       }
-    );
+    }
   };
 
-  render() {
-    return (
-      <PasscodeKeyboard
-        shouldAnimateError={this.state.shouldAnimateError}
-        onPasscodeEntered={this.handlePasscodeEntered}
-        message="Enter passcode"
-      />
-    );
-  }
+  const onAnimationEnd = () => {
+    setShouldAnimateError(false);
+  };
+
+  return (
+    <PasscodeKeyboard
+      shouldAnimateError={shouldAnimateError}
+      onPasscodeEntered={onPassCodeEntered}
+      onAnimationEnd={onAnimationEnd}
+      message="Enter passcode"
+    />
+  );
 }

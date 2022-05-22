@@ -8,7 +8,7 @@ export interface Word extends Entity {
   dictionary: string;
 }
 
-export const documentSnapshotToWord = (snap: FirebaseFirestoreTypes.DocumentSnapshot) => {
+export function documentSnapshotToWord(snap: FirebaseFirestoreTypes.DocumentSnapshot) {
   const word = snap.data() as Word;
   if (snap.id === null) {
     throw new Error('word snapshot document id not found');
@@ -16,4 +16,4 @@ export const documentSnapshotToWord = (snap: FirebaseFirestoreTypes.DocumentSnap
   word.id = snap.id;
 
   return word;
-};
+}

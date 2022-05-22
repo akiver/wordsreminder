@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import { handleError } from './handle-error';
 
-export const signOut = async () => {
+export async function signOut() {
   try {
     if (auth().currentUser !== null) {
       await auth().signOut();
@@ -9,4 +9,4 @@ export const signOut = async () => {
   } catch (error) {
     handleError(error);
   }
-};
+}

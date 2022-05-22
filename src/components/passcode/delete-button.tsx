@@ -1,14 +1,13 @@
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
 import React from 'react';
 import { Text } from '@components/text';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = TouchableOpacityProps & {
-  children?: never;
-};
+type Props = TouchableOpacityProps;
 
-export const DeleteButton = ({ onPress, ...props }: Props) => {
+export function DeleteButton({ onPress, ...props }: Props) {
   const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -24,7 +23,7 @@ export const DeleteButton = ({ onPress, ...props }: Props) => {
       </Text>
     </TouchableOpacity>
   );
-};
+}
 
 type Style = {
   container: ViewStyle;

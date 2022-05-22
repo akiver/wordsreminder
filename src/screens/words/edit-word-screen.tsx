@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { InputText } from '@components/input-text';
 import { SaveButton } from '@components/save-button';
@@ -15,163 +15,109 @@ import {
 } from '@e2e/ids';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { WORDS_EDIT_SCREEN } from '@constants/screens';
+import { Word } from '@models/word';
 
-type EditWordScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>;
-type EditWordScreenRouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>;
+type NavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>;
+type RouteProps = RouteProp<DictionariesStackParamList, typeof WORDS_EDIT_SCREEN>;
 
-type Props = {
-  navigation: EditWordScreenNavigationProps;
-  route: EditWordScreenRouteProps;
-};
+export function EditWordScreen() {
+  const navigation = useNavigation<NavigationProps>();
+  const route = useRoute<RouteProps>();
+  const significationRef = useRef<TextInput>(null);
+  const descriptionRef = useRef<TextInput>(null);
+  const [status, setStatus] = useState<STATUS>(STATUS_IDLE);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [word, setWord] = useState<Word>(route.params.word);
 
-type State = ReturnType<typeof getInitialState>;
-
-const getInitialState = (props: Props) => {
-  return Object.freeze({
-    word: props.route.params.word,
-    status: STATUS_IDLE as STATUS,
-    error: undefined as string | undefined,
-  });
-};
-
-export class EditWordScreen extends React.Component<Props, State> {
-  significationRef: React.RefObject<TextInput> = React.createRef();
-
-  descriptionRef: React.RefObject<TextInput> = React.createRef();
-
-  INPUT_MARGIN_TOP = 10;
-
-  readonly state = getInitialState(this.props);
-
-  componentDidMount() {
-    this.updateSaveButton();
-  }
-
-  private updateSaveButton = () => {
-    this.props.navigation.setOptions({
-      headerRight: () => {
-        const { status, word } = this.state;
-        const { value, signification } = word;
-        return (
-          <SaveButton
-            disabled={status === STATUS_LOADING || isStringEmpty(value) || isStringEmpty(signification)}
-            onPress={this.handleSavePress}
-            status={status}
-          />
-        );
-      },
-    });
-  };
-
-  handleSavePress = () => {
-    this.setState({ status: STATUS_LOADING }, async () => {
-      const { navigation } = this.props;
+  useEffect(() => {
+    const onSavePress = async () => {
       try {
-        this.updateSaveButton();
-        await updateWord(this.state.word);
+        setStatus(STATUS_LOADING);
+        await updateWord(word);
         navigation.goBack();
       } catch (error) {
-        this.setState(
-          { status: STATUS_ERROR, error: error instanceof Error ? error.message : 'An error occurred' },
-          () => {
-            this.updateSaveButton();
-          }
-        );
+        setStatus(STATUS_ERROR);
+        setError(error instanceof Error ? error.message : 'An error occurred');
       }
+    };
+
+    navigation.setOptions({
+      headerRight: () => {
+        const isDisabled = status === STATUS_LOADING || isStringEmpty(word.value) || isStringEmpty(word.signification);
+
+        return <SaveButton disabled={isDisabled} onPress={onSavePress} status={status} />;
+      },
+    });
+  });
+
+  const onWordChange = (wordValue: string) => {
+    setWord({
+      ...word,
+      value: wordValue,
     });
   };
 
-  handleWordChange = (word: string) => {
-    this.setState(
-      (prevState) => ({
-        word: {
-          ...prevState.word,
-          value: word,
-        },
-      }),
-      () => {
-        this.updateSaveButton();
-      }
-    );
+  const onSignificationChange = (signification: string) => {
+    setWord({
+      ...word,
+      signification,
+    });
   };
 
-  handleSignificationChange = (signification: string) => {
-    this.setState(
-      (prevState) => ({
-        word: {
-          ...prevState.word,
-          signification,
-        },
-      }),
-      () => {
-        this.updateSaveButton();
-      }
-    );
+  const onDescriptionChange = (description: string): void => {
+    setWord({
+      ...word,
+      description,
+    });
   };
 
-  handleDescriptionChange = (description: string): void => {
-    this.setState((prevState) => ({
-      word: {
-        ...prevState.word,
-        description,
-      },
-    }));
+  const onWordSubmitEditing = () => {
+    significationRef.current?.focus();
   };
 
-  handleWordSubmitEditing = () => {
-    if (this.significationRef.current !== null) {
-      this.significationRef.current.focus();
-    }
+  const onSignificationSubmitEditing = () => {
+    descriptionRef.current?.focus();
   };
 
-  handleSignificationSubmitEditing = () => {
-    if (this.descriptionRef.current !== null) {
-      this.descriptionRef.current.focus();
-    }
-  };
-
-  render() {
-    const { value, signification, description } = this.state.word;
-    return (
-      <FormLayout status={this.state.status} error={this.state.error}>
-        <View testID={WORD_EDIT_SCREEN}>
+  return (
+    <FormLayout status={status} error={error}>
+      <View testID={WORD_EDIT_SCREEN}>
+        <InputText
+          label="Word"
+          placeholder="Word"
+          onChangeText={onWordChange}
+          autoFocus={true}
+          onSubmitEditing={onWordSubmitEditing}
+          returnKeyType="next"
+          value={word.value}
+          testID={WORD_EDIT_INPUT_VALUE}
+        />
+        <Spacer marginTop={10}>
           <InputText
-            label="Word"
-            placeholder="Word"
-            onChangeText={this.handleWordChange}
-            autoFocus={true}
-            onSubmitEditing={this.handleWordSubmitEditing}
+            label="Signification"
+            placeholder="Word's signification"
+            onChangeText={onSignificationChange}
+            ref={significationRef}
             returnKeyType="next"
-            value={value}
-            testID={WORD_EDIT_INPUT_VALUE}
+            onSubmitEditing={onSignificationSubmitEditing}
+            value={word.signification}
+            testID={WORD_EDIT_INPUT_SIGNIFICATION}
           />
-          <Spacer marginTop={this.INPUT_MARGIN_TOP}>
-            <InputText
-              label="Signification"
-              placeholder="Word's signification"
-              onChangeText={this.handleSignificationChange}
-              ref={this.significationRef}
-              returnKeyType="next"
-              onSubmitEditing={this.handleSignificationSubmitEditing}
-              value={signification}
-              testID={WORD_EDIT_INPUT_SIGNIFICATION}
-            />
-          </Spacer>
-          <Spacer marginTop={this.INPUT_MARGIN_TOP}>
-            <InputText
-              label="Description"
-              placeholder="Write an optional word's description"
-              onChangeText={this.handleDescriptionChange}
-              multiline={true}
-              ref={this.descriptionRef}
-              value={description}
-              testID={WORD_EDIT_INPUT_DESCRIPTION}
-            />
-          </Spacer>
-        </View>
-      </FormLayout>
-    );
-  }
+        </Spacer>
+        <Spacer marginTop={10}>
+          <InputText
+            label="Description"
+            placeholder="Write an optional word's description"
+            onChangeText={onDescriptionChange}
+            multiline={true}
+            ref={descriptionRef}
+            value={word.description}
+            testID={WORD_EDIT_INPUT_DESCRIPTION}
+          />
+        </Spacer>
+      </View>
+    </FormLayout>
+  );
 }

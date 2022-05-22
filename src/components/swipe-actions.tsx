@@ -6,9 +6,9 @@ type Props = {
   children: ReactNode;
 };
 
-export const SwipeActions = ({ width, children }: Props) => {
+export function SwipeActions({ width, children }: Props) {
   return <View style={[styles.actions, { width }]}>{children}</View>;
-};
+}
 
 type Style = {
   actions: ViewStyle;

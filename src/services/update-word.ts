@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import { handleError } from '@services/handle-error';
 import { Word } from '@models/word';
 
-export const updateWord = async (word: Word) => {
+export async function updateWord(word: Word) {
   try {
     const { value } = word;
     if (isStringEmpty(value)) {
@@ -26,4 +26,4 @@ export const updateWord = async (word: Word) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

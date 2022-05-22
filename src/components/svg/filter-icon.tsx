@@ -1,13 +1,10 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = {
-  children?: never;
-};
-
-export const FilterIcon = ({}: Props) => {
+export function FilterIcon() {
   const theme = useTheme();
+
   return (
     <Svg viewBox="0 0 56.966 56.966" width={25} height={25}>
       <Path
@@ -16,4 +13,4 @@ export const FilterIcon = ({}: Props) => {
       />
     </Svg>
   );
-};
+}

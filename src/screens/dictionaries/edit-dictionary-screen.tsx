@@ -1,108 +1,78 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { TextInput, View } from 'react-native';
 import { InputText } from '@components/input-text';
 import { SaveButton } from '@components/save-button';
 import { STATUS_IDLE, STATUS_LOADING, STATUS_ERROR, STATUS } from '@constants/statuses';
 import { updateDictionary } from '@services/update-dictionary';
-import { isStringEmpty } from '@utils/is-string-empty';
 import { FormLayout } from '@components/form-layout';
 import { DICTIONARY_EDIT_SCREEN_ID, DICTIONARY_EDIT_INPUT_NAME } from '@e2e/ids';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { DICTIONARIES_EDIT_SCREEN } from '@constants/screens';
+import { Dictionary } from '@models/dictionary';
+import { isStringEmpty } from '@utils/is-string-empty';
 
-type EditDictionaryScreenNavigationProps = StackNavigationProp<
-  DictionariesStackParamList,
-  typeof DICTIONARIES_EDIT_SCREEN
->;
-type EditDictionaryScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_EDIT_SCREEN>;
+type NavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_EDIT_SCREEN>;
+type RouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_EDIT_SCREEN>;
 
-type Props = {
-  navigation: EditDictionaryScreenNavigationProps;
-  route: EditDictionaryScreenRouteProps;
-};
+export function EditDictionaryScreen() {
+  const navigation = useNavigation<NavigationProps>();
+  const inputRef = useRef<TextInput>(null);
+  const route = useRoute<RouteProps>();
+  const [status, setStatus] = useState<STATUS>(STATUS_IDLE);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [dictionary, setDictionary] = useState<Dictionary>(route.params.dictionary);
 
-type State = ReturnType<typeof getInitialState>;
+  const submit = async () => {
+    if (dictionary.name === route.params.dictionary.name) {
+      navigation.goBack();
+      return;
+    }
 
-const getInitialState = (props: Props) => {
-  return Object.freeze({
-    status: STATUS_IDLE as STATUS,
-    dictionary: props.route.params.dictionary,
-    error: undefined as string | undefined,
-  });
-};
+    try {
+      setStatus(STATUS_LOADING);
+      await updateDictionary(dictionary);
+      navigation.goBack();
+    } catch (error) {
+      setStatus(STATUS_ERROR);
+      setError(error instanceof Error ? error.message : 'An error occurred');
+      inputRef.current?.focus();
+    }
+  };
 
-export class EditDictionaryScreen extends React.Component<Props, State> {
-  readonly state = getInitialState(this.props);
-
-  public componentDidMount() {
-    this.updateSaveButton();
-  }
-
-  private updateSaveButton = () => {
-    this.props.navigation.setOptions({
+  useEffect(() => {
+    navigation.setOptions({
       headerRight: () => {
-        const { status, dictionary } = this.state;
-        const { name } = dictionary;
-        return (
-          <SaveButton
-            disabled={status === STATUS_LOADING || isStringEmpty(name)}
-            onPress={this.handleSavePress}
-            status={status}
-          />
-        );
+        const isDisabled =
+          status === STATUS_LOADING ||
+          isStringEmpty(dictionary.name) ||
+          dictionary.name === route.params.dictionary.name;
+
+        return <SaveButton disabled={isDisabled} onPress={submit} status={status} />;
       },
     });
+  });
+
+  const onNameChange = (name: string) => {
+    setDictionary({ ...dictionary, name });
   };
 
-  private handleSavePress = () => {
-    this.setState({ status: STATUS_LOADING }, async () => {
-      const { navigation } = this.props;
-      try {
-        this.updateSaveButton();
-        await updateDictionary(this.state.dictionary);
-        navigation.goBack();
-      } catch (error) {
-        this.setState(
-          { status: STATUS_ERROR, error: error instanceof Error ? error.message : 'An error occurred' },
-          () => {
-            this.updateSaveButton();
-          }
-        );
-      }
-    });
-  };
-
-  private handleNameChange = (name: string) => {
-    this.setState(
-      (prevState) => ({
-        dictionary: {
-          ...prevState.dictionary,
-          name,
-        },
-      }),
-      () => {
-        this.updateSaveButton();
-      }
-    );
-  };
-
-  public render() {
-    return (
-      <FormLayout status={this.state.status} error={this.state.error}>
-        <View testID={DICTIONARY_EDIT_SCREEN_ID}>
-          <InputText
-            label="Name"
-            placeholder="Dictionary's name"
-            onChangeText={this.handleNameChange}
-            autoFocus={true}
-            returnKeyType="done"
-            value={this.state.dictionary.name}
-            testID={DICTIONARY_EDIT_INPUT_NAME}
-          />
-        </View>
-      </FormLayout>
-    );
-  }
+  return (
+    <FormLayout status={status} error={error}>
+      <View testID={DICTIONARY_EDIT_SCREEN_ID}>
+        <InputText
+          ref={inputRef}
+          label="Name"
+          placeholder="Dictionary's name"
+          onChangeText={onNameChange}
+          autoFocus={true}
+          returnKeyType="send"
+          onSubmitEditing={submit}
+          value={dictionary.name}
+          testID={DICTIONARY_EDIT_INPUT_NAME}
+        />
+      </View>
+    </FormLayout>
+  );
 }

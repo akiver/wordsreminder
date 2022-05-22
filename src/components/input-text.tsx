@@ -2,14 +2,15 @@ import React from 'react';
 import { StyleSheet, TextInput, TextInputProps, TextStyle } from 'react-native';
 import { Spacer } from '@components/spacer';
 import { Text } from '@components/text';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = TextInputProps & {
   label: string;
 };
 
-export const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) => {
+export const InputText = React.forwardRef<TextInput, Props>(function InputText(props: Props, ref) {
   const theme = useTheme();
+
   return (
     <>
       <Spacer marginBottom={5}>
@@ -26,8 +27,6 @@ export const InputText = React.forwardRef<TextInput, Props>((props: Props, ref) 
     </>
   );
 });
-
-InputText.displayName = 'InputText';
 
 type Style = {
   inputText: TextStyle;

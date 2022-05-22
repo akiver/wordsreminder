@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingsStackParamList } from '@stacks/settings-stack';
 import { isSecureStorageError } from '@utils/is-secure-storage-error';
 
-export const SettingsPasscodeOptions = () => {
+export function SettingsPasscodeOptions() {
   const navigation = useNavigation<StackNavigationProp<SettingsStackParamList>>();
   const [isPasscodeStatusDetected, setIsPasscodeStatusDetected] = useState(false);
   const [isPasscodeEnabled, setIsPasscodeEnabled] = useState(false);
@@ -20,14 +20,14 @@ export const SettingsPasscodeOptions = () => {
         const storedPasscodeAsString = await SecureStore.get(PASSCODE_KEY);
         const isPasscodeEnabled = storedPasscodeAsString !== null;
         setIsPasscodeEnabled(isPasscodeEnabled);
-        setIsPasscodeStatusDetected(true);
       } catch (error) {
         if (isSecureStorageError(error) && (error.code === '404' || error.code === 'EUNSPECIFIED')) {
           setIsPasscodeEnabled(false);
-          setIsPasscodeStatusDetected(true);
         }
 
         // Error reading secured storage, don't show passcode options.
+      } finally {
+        setIsPasscodeStatusDetected(true);
       }
     };
 
@@ -60,4 +60,4 @@ export const SettingsPasscodeOptions = () => {
   }
 
   return <Spacer marginBottom={20}>{options}</Spacer>;
-};
+}

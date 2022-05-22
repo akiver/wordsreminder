@@ -1,21 +1,22 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AUTH_LOADING_SCREEN, PASS_CODE_STACK } from '@constants/screens';
-import { useTheme } from '@hooks/use-theme';
-import { PasscodeStack } from './passcode-stack';
+import { AUTH_LOADING_SCREEN, PASSCODE_STACK } from '@constants/screens';
+import { useTheme } from '@theme/use-theme';
+import { PasscodeStack } from '@stacks/passcode-stack';
 
 export type RootStackParamList = {
-  [PASS_CODE_STACK]: undefined;
+  [PASSCODE_STACK]: undefined;
   [AUTH_LOADING_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-export const RootStack = () => {
+export function RootStack() {
   const theme = useTheme();
+
   return (
     <Stack.Navigator
-      initialRouteName={PASS_CODE_STACK}
+      initialRouteName={PASSCODE_STACK}
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.primary100,
@@ -25,7 +26,7 @@ export const RootStack = () => {
         gestureEnabled: false,
       }}
     >
-      <Stack.Screen name={PASS_CODE_STACK} component={PasscodeStack} />
+      <Stack.Screen name={PASSCODE_STACK} component={PasscodeStack} />
     </Stack.Navigator>
   );
-};
+}

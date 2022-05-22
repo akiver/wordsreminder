@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { DICTIONARIES } from '@constants/database';
 import { DICTIONARIES_CREATE_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens';
@@ -9,77 +9,59 @@ import { DICTIONARIES_SCREEN_ID, DICTIONARIES_ROW } from '@e2e/ids';
 import { FilterOpenButton } from '@components/filter-open-button';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
-import { RouteProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
-type DictionariesScreenRouteProps = RouteProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
+type NavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
 
-type Props = {
-  navigation: DictionariesScreenNavigationProps;
-  route: DictionariesScreenRouteProps;
-};
+function filterDictionaries(filter: string, dictionary: Dictionary) {
+  return dictionary.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+}
 
-type State = {
-  hasFilterEnabled: boolean;
-};
+function renderDictionary({ item }: { item: Dictionary }) {
+  return <DictionaryRow dictionary={item} testID={DICTIONARIES_ROW(item.id)} />;
+}
 
-export class DictionariesScreen extends React.Component<Props, State> {
-  state: State = {
-    hasFilterEnabled: false,
-  };
+export function DictionariesScreen() {
+  const navigation = useNavigation<NavigationProps>();
+  const [hasFilterEnabled, setHasFilterEnabled] = useState(false);
+  const query = useRef<FirebaseFirestoreTypes.Query>(firestore().collection(DICTIONARIES).orderBy('updatedAt', 'desc'));
 
-  public componentDidMount() {
-    this.props.navigation.setOptions({
+  useEffect(() => {
+    const onOpenFilterPress = () => {
+      setHasFilterEnabled(true);
+      navigation.setOptions({
+        headerShown: false,
+      });
+    };
+
+    navigation.setOptions({
       title: 'Dictionaries',
-      headerRight: () => <FilterOpenButton onPress={this.onOpenFilterPress} />,
+      headerRight: () => <FilterOpenButton onPress={onOpenFilterPress} />,
     });
-  }
+  }, [navigation]);
 
-  private onOpenFilterPress = () => {
-    this.setState({
-      hasFilterEnabled: true,
-    });
-    this.props.navigation.setOptions({
-      headerShown: false,
-    });
+  const onAddDictionaryPress = () => {
+    navigation.push(DICTIONARIES_CREATE_SCREEN);
   };
 
-  query: FirebaseFirestoreTypes.Query = firestore().collection(DICTIONARIES).orderBy('updatedAt', 'desc');
-
-  filterDictionaries(filter: string, dictionary: Dictionary) {
-    return dictionary.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-  }
-
-  handleAddDictionaryPress = () => {
-    this.props.navigation.push(DICTIONARIES_CREATE_SCREEN);
-  };
-
-  renderDictionary = ({ item }: { item: Dictionary }) => {
-    return <DictionaryRow dictionary={item} navigation={this.props.navigation} testID={DICTIONARIES_ROW(item.id)} />;
-  };
-
-  onCloseFilter = () => {
-    this.setState({
-      hasFilterEnabled: false,
-    });
-    this.props.navigation.setOptions({
+  const onCloseFilter = () => {
+    setHasFilterEnabled(false);
+    navigation.setOptions({
       headerShown: true,
     });
   };
 
-  render() {
-    return (
-      <FiltrableList
-        query={this.query}
-        renderItem={this.renderDictionary}
-        documentSnapshotToEntity={documentSnapshotToDictionary}
-        onAddPress={this.handleAddDictionaryPress}
-        emptyListMessage="Press the add button to add a new dictionary."
-        testID={DICTIONARIES_SCREEN_ID}
-        filterEntities={this.filterDictionaries}
-        onCloseFilter={this.onCloseFilter}
-        hasFilterEnabled={this.state.hasFilterEnabled}
-      />
-    );
-  }
+  return (
+    <FiltrableList<Dictionary>
+      query={query.current}
+      renderItem={renderDictionary}
+      documentSnapshotToEntity={documentSnapshotToDictionary}
+      onAddPress={onAddDictionaryPress}
+      emptyListMessage="Press the add button to add a new dictionary."
+      testID={DICTIONARIES_SCREEN_ID}
+      filterEntities={filterDictionaries}
+      onCloseFilter={onCloseFilter}
+      hasFilterEnabled={hasFilterEnabled}
+    />
+  );
 }

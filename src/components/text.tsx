@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text as RNText, TextProps } from 'react-native';
-import { Theme } from '@contexts/theme-context';
-import { useTheme } from '@hooks/use-theme';
+import { Theme } from '@theme/theme-context';
+import { useTheme } from '@theme/use-theme';
 
 type Props = TextProps & {
   color?: keyof Theme;
@@ -10,16 +10,9 @@ type Props = TextProps & {
   children: string;
 };
 
-export const Text = ({
-  onPress,
-  color = 'primary025',
-  fontSize = 16,
-  fontWeight,
-  children,
-  style,
-  ...props
-}: Props) => {
+export function Text({ onPress, color = 'primary025', fontSize = 16, fontWeight, children, style, ...props }: Props) {
   const theme = useTheme();
+
   return (
     <RNText
       style={Object.assign(
@@ -36,4 +29,4 @@ export const Text = ({
       {children}
     </RNText>
   );
-};
+}

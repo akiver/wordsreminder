@@ -9,6 +9,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
@@ -34,9 +35,4 @@ module.exports = {
     '*.yml',
     '*.ai',
   ],
-  rules: {
-    'react-hooks/rules-of-hooks': 'error',
-    'no-empty-pattern': 0,
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-  },
 };

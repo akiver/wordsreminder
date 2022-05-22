@@ -5,13 +5,13 @@ import { Text } from 'react-native';
 
 jest.mock('@stacks/tabs-stack', () => {
   return {
-    TabsStack: () => <Text>Tabs stack</Text>, // eslint-disable-line
+    TabsStack: () => <Text>Tabs stack</Text>,
   };
 });
 
 jest.mock('@stacks/auth-stack', () => {
   return {
-    AuthStack: () => <Text>Auth stack</Text>, // eslint-disable-line
+    AuthStack: () => <Text>Auth stack</Text>,
   };
 });
 

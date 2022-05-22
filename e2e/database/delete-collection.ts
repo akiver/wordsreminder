@@ -36,7 +36,7 @@ function deleteQueryBatch(
     .catch(reject);
 }
 
-export const deleteCollection = (db: Firestore, collectionPath: string) => {
+export function deleteCollection(db: Firestore, collectionPath: string) {
   const batchSize = 100;
   const collectionRef = db.collection(collectionPath);
   const query = collectionRef.orderBy('__name__').limit(batchSize);
@@ -44,4 +44,4 @@ export const deleteCollection = (db: Firestore, collectionPath: string) => {
   return new Promise((resolve, reject) => {
     deleteQueryBatch(db, query, batchSize, resolve, reject);
   });
-};
+}

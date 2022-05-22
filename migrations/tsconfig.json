@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "lib": ["es2015"],
+    "lib": ["ES2020"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Alert, Animated } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { WORDS_EDIT_SCREEN, WORDS_SCREEN } from '@constants/screens';
@@ -21,74 +21,67 @@ import { PARAM_WORD } from '@constants/navigation-parameters';
 import { Word } from '@models/word';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
+import { useNavigation } from '@react-navigation/native';
 
-type WordsScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_SCREEN>;
+type NavigationProps = StackNavigationProp<DictionariesStackParamList, typeof WORDS_SCREEN>;
 
 type Props = {
   word: Word;
-  navigation: WordsScreenNavigationProps;
   testID: string;
-  children?: never;
 };
 
-export class WordRow extends React.Component<Props> {
-  swipeableRef = React.createRef<Swipeable>();
+export function WordRow({ word, testID }: Props) {
+  const navigation = useNavigation<NavigationProps>();
+  const swipeableRef = useRef<Swipeable>(null);
 
-  closeSwipeable = () => {
-    const { current } = this.swipeableRef;
-    if (current != null) {
-      current.close();
-    }
+  const closeSwipeable = () => {
+    swipeableRef.current?.close();
   };
 
-  handleEditPress = () => {
-    this.closeSwipeable();
-    const { navigation, word } = this.props;
-    navigation.push(WORDS_EDIT_SCREEN, { [PARAM_WORD]: word });
-  };
+  const renderRightActions = (progress: Animated.AnimatedInterpolation) => {
+    const onEditPress = () => {
+      closeSwipeable();
+      navigation.push(WORDS_EDIT_SCREEN, { [PARAM_WORD]: word });
+    };
 
-  handleDeletePress = () => {
-    Alert.alert(
-      'Delete word',
-      'Do you want to delete this word?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-          onPress: () => {
-            this.closeSwipeable();
+    const handleDeletePress = () => {
+      Alert.alert(
+        'Delete word',
+        'Do you want to delete this word?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: closeSwipeable,
           },
-        },
-        {
-          text: 'Delete',
-          onPress: async () => {
-            try {
-              await deleteWord(this.props.word);
-            } catch (error) {
-              let errorMessage: string;
-              if (error instanceof Error) {
-                errorMessage = error.message;
-              } else {
-                errorMessage = 'An error occurred while deleting the word.';
+          {
+            text: 'Delete',
+            onPress: async () => {
+              try {
+                await deleteWord(word);
+              } catch (error) {
+                let errorMessage: string;
+                if (error instanceof Error) {
+                  errorMessage = error.message;
+                } else {
+                  errorMessage = 'An error occurred while deleting the word.';
+                }
+                Alert.alert('Error', errorMessage);
               }
-              Alert.alert('Error', errorMessage);
-            }
+            },
+            style: 'destructive',
           },
-          style: 'destructive',
-        },
-      ],
-      { cancelable: false }
-    );
-  };
+        ],
+        { cancelable: false }
+      );
+    };
 
-  renderRightActions = (progress: Animated.AnimatedInterpolation) => {
-    const { word } = this.props;
     return (
       <SwipeActions width={192}>
         <SwipeAction
           progress={progress}
           dragX={128}
-          onPress={this.handleEditPress}
+          onPress={onEditPress}
           text="Edit"
           backgroundColor={INFO}
           testID={WORDS_ROW_EDIT(word.id)}
@@ -96,7 +89,7 @@ export class WordRow extends React.Component<Props> {
         <SwipeAction
           progress={progress}
           dragX={64}
-          onPress={this.handleDeletePress}
+          onPress={handleDeletePress}
           text="Delete"
           backgroundColor={DANGER}
           testID={WORDS_ROW_DELETE(word.id)}
@@ -105,32 +98,29 @@ export class WordRow extends React.Component<Props> {
     );
   };
 
-  render() {
-    const { word, testID } = this.props;
-    return (
-      <Swipeable renderRightActions={this.renderRightActions} ref={this.swipeableRef}>
-        <ListRow testID={testID}>
-          <>
-            <Text fontSize={20} testID={WORDS_ROW_VALUE(word.id)}>
-              {word.value}
+  return (
+    <Swipeable renderRightActions={renderRightActions} ref={swipeableRef}>
+      <ListRow testID={testID}>
+        <>
+          <Text fontSize={20} testID={WORDS_ROW_VALUE(word.id)}>
+            {word.value}
+          </Text>
+          <Spacer marginTop={5}>
+            <Text fontSize={18} color="primary050" testID={WORDS_ROW_SIGNIFICATION}>
+              {word.signification}
             </Text>
+          </Spacer>
+          {!isStringEmpty(word.description) && (
             <Spacer marginTop={5}>
-              <Text fontSize={18} color="primary050" testID={WORDS_ROW_SIGNIFICATION}>
-                {word.signification}
-              </Text>
+              {word.description !== undefined && (
+                <Text color="primary075" testID={WORDS_ROW_DESCRIPTION}>
+                  {word.description}
+                </Text>
+              )}
             </Spacer>
-            {!isStringEmpty(word.description) && (
-              <Spacer marginTop={5}>
-                {word.description !== undefined && (
-                  <Text color="primary075" testID={WORDS_ROW_DESCRIPTION}>
-                    {word.description}
-                  </Text>
-                )}
-              </Spacer>
-            )}
-          </>
-        </ListRow>
-      </Swipeable>
-    );
-  }
+          )}
+        </>
+      </ListRow>
+    </Swipeable>
+  );
 }

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 import { Button } from '@components/button';
 import { InputText } from '@components/input-text';
 import { STATUS_ERROR, STATUS_IDLE, STATUS_LOADING, STATUS } from '@constants/statuses';
 import { signUp } from '@services/sign-up';
-import { isStringEmpty } from '@utils/is-string-empty';
 import { Spacer } from '@components/spacer';
 import { AuthLayout } from '@auth/auth-layout';
 import { Text } from '@components/text';
@@ -16,126 +15,91 @@ import {
   SIGNUP_SUBMIT_BUTTON,
 } from '@e2e/ids';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { AuthStackParamList } from '@stacks/auth-stack';
+import { isStringEmpty } from '@utils/is-string-empty';
 
-type SignUpScreenNavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signup'>;
-type SignUpScreenRouteProps = RouteProp<AuthStackParamList, 'auth.signup'>;
+type NavigationProps = StackNavigationProp<AuthStackParamList, 'auth.signup'>;
 
-type Props = {
-  navigation: SignUpScreenNavigationProps;
-  route: SignUpScreenRouteProps;
-};
-type State = typeof initialState;
+export function SignUpScreen() {
+  const navigation = useNavigation<NavigationProps>();
+  const passwordRef = useRef<TextInput>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [status, setStatus] = useState<STATUS>(STATUS_IDLE);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-const initialState = Object.freeze({
-  status: STATUS_IDLE as STATUS,
-  email: '',
-  password: '',
-  error: undefined as string | undefined,
-});
-
-export class SignUpScreen extends React.Component<Props, State> {
-  readonly state = initialState;
-
-  passwordRef: React.RefObject<TextInput> = React.createRef();
-
-  handleEmailChange = (email: string) => {
-    this.setState({
-      email,
-    });
+  const focusOnPasswordInput = () => {
+    passwordRef.current?.focus();
   };
 
-  handlePasswordChange = (password: string) => {
-    this.setState({
-      password,
-    });
-  };
-
-  submitSignUp = () => {
-    this.setState(
-      {
-        status: STATUS_LOADING,
-      },
-      async () => {
-        try {
-          const { email, password } = this.state;
-          await signUp(email, password);
-        } catch (error) {
-          this.setState({
-            status: STATUS_ERROR,
-            error: error instanceof Error ? error.message : 'An error occurred',
-          });
-        }
-      }
-    );
-  };
-
-  handleSignInPress = () => {
-    this.props.navigation.goBack();
-  };
-
-  handleEmailSubmitEditing = () => {
-    if (this.passwordRef.current !== null) {
-      this.passwordRef.current.focus();
+  const submit = async () => {
+    try {
+      setStatus(STATUS_LOADING);
+      await signUp(email, password);
+    } catch (error) {
+      setStatus(STATUS_ERROR);
+      setError(error instanceof Error ? error.message : 'An error occurred');
+      focusOnPasswordInput();
     }
   };
 
-  isCreateButtonDisabled() {
-    const { email, password } = this.state;
-    return isStringEmpty(email) || isStringEmpty(password);
-  }
+  const onSignInPress = () => {
+    navigation.goBack();
+  };
 
-  render() {
-    return (
-      <AuthLayout
-        status={this.state.status}
-        error={this.state.error}
-        testID={SIGNUP_SCREEN}
-        inputs={
-          <>
-            <InputText
-              label="Email"
-              placeholder="Email"
-              onChangeText={this.handleEmailChange}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              value={this.state.email}
-              autoFocus={true}
-              returnKeyType="next"
-              onSubmitEditing={this.handleEmailSubmitEditing}
-              testID={SIGNUP_INPUT_EMAIL}
-            />
-            <Spacer marginTop={10}>
-              <InputText
-                label="Password"
-                ref={this.passwordRef}
-                placeholder="Password"
-                onChangeText={this.handlePasswordChange}
-                value={this.state.password}
-                secureTextEntry={true}
-                autoCapitalize="none"
-                returnKeyType="send"
-                onSubmitEditing={this.submitSignUp}
-                testID={SIGNUP_INPUT_PASSWORD}
-              />
-            </Spacer>
-          </>
-        }
-        link={
-          <Text fontSize={16} onPress={this.handleSignInPress} testID={SIGNUP_LINK_SIGNIN}>
-            Sign in
-          </Text>
-        }
-        submitButton={
-          <Button
-            onPress={this.submitSignUp}
-            text="Create user"
-            disabled={this.isCreateButtonDisabled()}
-            testID={SIGNUP_SUBMIT_BUTTON}
+  const onEmailChange = (email: string) => {
+    setEmail(email);
+  };
+
+  const onPasswordChange = (password: string) => {
+    setPassword(password);
+  };
+  const isCreateButtonDisabled = isStringEmpty(email) || isStringEmpty(password);
+
+  return (
+    <AuthLayout
+      status={status}
+      error={error}
+      testID={SIGNUP_SCREEN}
+      inputs={
+        <>
+          <InputText
+            label="Email"
+            placeholder="Email"
+            onChangeText={onEmailChange}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            autoFocus={true}
+            returnKeyType="next"
+            onSubmitEditing={focusOnPasswordInput}
+            testID={SIGNUP_INPUT_EMAIL}
           />
-        }
-      />
-    );
-  }
+          <Spacer marginTop={10}>
+            <InputText
+              label="Password"
+              ref={passwordRef}
+              placeholder="Password"
+              onChangeText={onPasswordChange}
+              value={password}
+              secureTextEntry={true}
+              autoCapitalize="none"
+              returnKeyType="send"
+              onSubmitEditing={submit}
+              testID={SIGNUP_INPUT_PASSWORD}
+            />
+          </Spacer>
+        </>
+      }
+      link={
+        <Text fontSize={16} onPress={onSignInPress} testID={SIGNUP_LINK_SIGNIN}>
+          Sign in
+        </Text>
+      }
+      submitButton={
+        <Button onPress={submit} text="Create user" disabled={isCreateButtonDisabled} testID={SIGNUP_SUBMIT_BUTTON} />
+      }
+    />
+  );
 }

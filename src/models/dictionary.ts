@@ -6,7 +6,7 @@ export interface Dictionary extends Entity {
   words: string[];
 }
 
-export const documentSnapshotToDictionary = (snap: FirebaseFirestoreTypes.DocumentSnapshot) => {
+export function documentSnapshotToDictionary(snap: FirebaseFirestoreTypes.DocumentSnapshot) {
   const dictionary = snap.data() as Dictionary;
   if (snap.id === null) {
     throw new Error('dictionary snapshot document id not found');
@@ -14,4 +14,4 @@ export const documentSnapshotToDictionary = (snap: FirebaseFirestoreTypes.Docume
   dictionary.id = snap.id;
 
   return dictionary;
-};
+}

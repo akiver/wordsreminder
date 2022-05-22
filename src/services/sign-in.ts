@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth';
 import { handleError } from '@services/handle-error';
 import { isStringEmpty } from '@utils/is-string-empty';
 
-export const signIn = async (email?: string, password?: string) => {
+export async function signIn(email?: string, password?: string) {
   try {
     if (isStringEmpty(email)) {
       throw new Error('Email is required.');
@@ -16,4 +16,4 @@ export const signIn = async (email?: string, password?: string) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

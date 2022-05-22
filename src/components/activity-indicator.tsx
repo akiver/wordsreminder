@@ -1,13 +1,12 @@
 import React from 'react';
 import { ActivityIndicator as RNActivityIndicator, StyleSheet, ActivityIndicatorProps, ViewStyle } from 'react-native';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = ActivityIndicatorProps & {
-  children?: never;
-};
+type Props = ActivityIndicatorProps;
 
-export const ActivityIndicator = ({ size = 'small' }: Props) => {
+export function ActivityIndicator({ size = 'small' }: Props) {
   const theme = useTheme();
+
   return (
     <RNActivityIndicator
       color={theme.primary025}
@@ -16,7 +15,7 @@ export const ActivityIndicator = ({ size = 'small' }: Props) => {
       accessibilityHint="Loading"
     />
   );
-};
+}
 
 type Style = {
   activityIndicator: ViewStyle;

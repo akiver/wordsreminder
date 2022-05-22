@@ -3,7 +3,7 @@ import { DICTIONARIES } from '@constants/database';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { handleError } from '@services/handle-error';
 
-export const createDictionary = async (name: string) => {
+export async function createDictionary(name: string) {
   try {
     if (isStringEmpty(name)) {
       throw new Error('A name is required.');
@@ -24,4 +24,4 @@ export const createDictionary = async (name: string) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

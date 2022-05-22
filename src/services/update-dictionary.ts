@@ -4,7 +4,7 @@ import { DICTIONARIES } from '@constants/database';
 import { handleError } from '@services/handle-error';
 import { Dictionary } from '@models/dictionary';
 
-export const updateDictionary = async (dictionary: Dictionary) => {
+export async function updateDictionary(dictionary: Dictionary) {
   try {
     const { name } = dictionary;
     if (isStringEmpty(name)) {
@@ -12,6 +12,11 @@ export const updateDictionary = async (dictionary: Dictionary) => {
     }
 
     const dictionaries = firestore().collection(DICTIONARIES);
+    const snap = await dictionaries.where('name', '==', name).get();
+    if (!snap.empty) {
+      throw new Error('This dictionary already exists.');
+    }
+
     await dictionaries.doc(dictionary.id).update({
       name,
       updatedAt: firestore.FieldValue.serverTimestamp(),
@@ -19,4 +24,4 @@ export const updateDictionary = async (dictionary: Dictionary) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

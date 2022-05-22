@@ -1,13 +1,10 @@
 import React from 'react';
 import Svg, { G, Path } from 'react-native-svg';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = {
-  children?: never;
-};
-
-export const ClockIcon = ({}: Props) => {
+export function ClockIcon() {
   const theme = useTheme();
+
   return (
     <Svg width={16} height={16} viewBox="0 0 97.16 97.16" testID="clock-icon">
       <G fill={theme.primary050}>
@@ -16,4 +13,4 @@ export const ClockIcon = ({}: Props) => {
       </G>
     </Svg>
   );
-};
+}

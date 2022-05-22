@@ -6,7 +6,7 @@ import { MainView } from '@components/main-view';
 import { AuthStack } from '@stacks/auth-stack';
 import { TabsStack } from '@stacks/tabs-stack';
 
-export const AuthLoadingScreen = () => {
+export function AuthLoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
@@ -32,7 +32,7 @@ export const AuthLoadingScreen = () => {
   }
 
   return <TabsStack />;
-};
+}
 
 type Style = {
   container: ViewStyle;

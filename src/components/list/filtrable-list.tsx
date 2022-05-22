@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import memoize from 'memoize-one';
@@ -14,37 +14,30 @@ import { ADD_BUTTON, EMPTY_LIST_MESSAGE } from '@e2e/ids';
 import { FilterBar } from './filter-bar';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { Entity } from '@models/entity';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 import { isFirestoreError } from '@services/firestore-error';
 
-type Props = {
+function compareUpdatedAt(entityA: Entity, entityB: Entity) {
+  if (entityB.updatedAt == null || entityA.updatedAt == null) {
+    return 0;
+  }
+
+  return entityB.updatedAt.toMillis() - entityA.updatedAt.toMillis();
+}
+
+type Props<EntityType extends Entity> = {
   query: FirebaseFirestoreTypes.Query;
   onAddPress: () => void;
-  documentSnapshotToEntity: (doc: FirebaseFirestoreTypes.DocumentSnapshot) => Entity;
-  renderItem: ListRenderItem<any>;
+  documentSnapshotToEntity: (doc: FirebaseFirestoreTypes.DocumentSnapshot) => EntityType;
+  renderItem: ListRenderItem<EntityType>;
   emptyListMessage: string;
-  filterEntities: (filter: string, entity: any) => boolean;
+  filterEntities: (filter: string, entity: EntityType) => boolean;
   testID: string;
   onCloseFilter: () => void;
   hasFilterEnabled: boolean;
 };
 
-type State = {
-  entities: Entity[];
-  filter: string | undefined;
-  isRefreshing: boolean;
-  status: STATUS;
-  error: string | undefined;
-};
-
-const compareUpdatedAt = (e1: Entity, e2: Entity) => {
-  if (e2.updatedAt == null || e1.updatedAt == null) {
-    return 0;
-  }
-  return e2.updatedAt.toMillis() - e1.updatedAt.toMillis();
-};
-
-export const FiltrableList = ({
+export function FiltrableList<EntityType extends Entity>({
   hasFilterEnabled,
   emptyListMessage,
   renderItem,
@@ -54,36 +47,35 @@ export const FiltrableList = ({
   onAddPress,
   onCloseFilter,
   filterEntities,
-}: Props) => {
-  const [state, setState] = useState<State>({
-    entities: [],
-    error: undefined,
-    filter: undefined,
-    isRefreshing: false,
-    status: STATUS_LOADING,
-  });
+}: Props<EntityType>) {
+  const [status, setStatus] = useState<STATUS>(STATUS_LOADING);
+  const [error, setError] = useState<string>('');
+  const [filter, setFilter] = useState<string | undefined>(undefined);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [entities, setEntities] = useState<EntityType[]>([]);
   const theme = useTheme();
 
-  const getEntitiesFromQuerySnapshot = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
-    return querySnapshot.docs.map((doc) => documentSnapshotToEntity(doc)).sort(compareUpdatedAt);
-  };
+  const getEntitiesFromQuerySnapshot = useCallback(
+    (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
+      return querySnapshot.docs
+        .map((doc) => {
+          return documentSnapshotToEntity(doc);
+        })
+        .sort(compareUpdatedAt) as EntityType[];
+    },
+    [documentSnapshotToEntity]
+  );
 
   useEffect(() => {
     const onCollectionUpdate = (querySnapshot: FirebaseFirestoreTypes.QuerySnapshot) => {
-      setState({
-        ...state,
-        status: STATUS_SUCCESS,
-        entities: getEntitiesFromQuerySnapshot(querySnapshot),
-      });
+      setStatus(STATUS_SUCCESS);
+      setEntities(getEntitiesFromQuerySnapshot(querySnapshot));
     };
 
     const onCollectionError = (error: Error) => {
       const errorMessage = isFirestoreError(error) ? getErrorMessageFromFirestoreError(error) : error.message;
-      setState({
-        ...state,
-        status: STATUS_ERROR,
-        error: errorMessage,
-      });
+      setStatus(STATUS_ERROR);
+      setError(errorMessage);
     };
 
     const unsubscribe = query.onSnapshot(onCollectionUpdate, onCollectionError);
@@ -91,54 +83,38 @@ export const FiltrableList = ({
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [getEntitiesFromQuerySnapshot, query]);
 
-  const filterCurrentEntities = memoize((entities: Entity[], filter?: string) => {
+  const filterCurrentEntities = memoize((entities: EntityType[], filter?: string) => {
     let filteredEntities = entities;
     if (!isStringEmpty(filter)) {
-      filteredEntities = entities.filter((entity) => filterEntities(filter as string, entity));
+      filteredEntities = entities.filter((entity) => {
+        return filterEntities(filter as string, entity);
+      });
     }
 
     return filteredEntities.sort(compareUpdatedAt);
   });
 
-  const refreshEntities = async () => {
-    try {
-      const querySnapShot = await query.get();
+  const onCloseFilterPress = () => {
+    setFilter(undefined);
+    onCloseFilter();
+  };
 
-      setState({
-        ...state,
-        status: STATUS_SUCCESS,
-        entities: getEntitiesFromQuerySnapshot(querySnapShot),
-      });
-    } catch (error) {
-      let errorMessage: string;
-      if (isFirestoreError(error)) {
-        errorMessage = getErrorMessageFromFirestoreError(error);
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
-      } else {
-        errorMessage = 'An error occurred';
-      }
-      setState({
-        ...state,
-        status: STATUS_ERROR,
-        error: errorMessage,
-      });
-    }
+  const onFilterChange = (filter: string) => {
+    setFilter(filter);
   };
 
   const renderContent = () => {
-    const { status } = state;
     if (status === STATUS_LOADING) {
       return <ActivityIndicator />;
     }
 
     if (status === STATUS_ERROR) {
-      return <ErrorMessage message={state.error as string} />;
+      return <ErrorMessage message={error} />;
     }
 
-    const filteredEntities = filterCurrentEntities(state.entities, state.filter);
+    const filteredEntities = filterCurrentEntities(entities, filter);
     if (filteredEntities.length === 0) {
       return (
         <Spacer marginTop={10} marginLeft={10} marginRight={10}>
@@ -149,50 +125,46 @@ export const FiltrableList = ({
       );
     }
 
+    const onRefresh = async () => {
+      try {
+        setIsRefreshing(true);
+        const querySnapShot = await query.get();
+        setStatus(STATUS_SUCCESS);
+        setEntities(getEntitiesFromQuerySnapshot(querySnapShot));
+      } catch (error) {
+        setStatus(STATUS_ERROR);
+        let errorMessage: string;
+        if (isFirestoreError(error)) {
+          errorMessage = getErrorMessageFromFirestoreError(error);
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        } else {
+          errorMessage = 'An error occurred';
+        }
+        setError(errorMessage);
+      } finally {
+        setIsRefreshing(false);
+      }
+    };
+
     return (
       <FlatList
         data={filteredEntities}
         renderItem={renderItem}
-        keyExtractor={(entity: Entity): string => entity.id}
-        refreshing={state.isRefreshing}
-        onRefresh={async () => {
-          setState({
-            ...state,
-            isRefreshing: true,
-          });
-          await refreshEntities();
-          setState({
-            ...state,
-            isRefreshing: false,
-          });
-        }}
+        keyExtractor={(entity: EntityType) => entity.id}
+        refreshing={isRefreshing}
+        onRefresh={onRefresh}
         keyboardShouldPersistTaps="handled"
-        refreshControl={<RefreshControl refreshing={state.isRefreshing} tintColor={theme.primary025} />}
+        refreshControl={<RefreshControl refreshing={isRefreshing} tintColor={theme.primary025} />}
       />
     );
   };
 
   return (
     <MainView testID={testID}>
-      {hasFilterEnabled && (
-        <FilterBar
-          onCloseFilterPress={() => {
-            onCloseFilter();
-            setState({
-              ...state,
-              filter: undefined,
-            });
-          }}
-          onFilterChange={(filter: string) => {
-            setState({
-              ...state,
-              filter,
-            });
-          }}
-        />
-      )}
+      {hasFilterEnabled && <FilterBar onCloseFilterPress={onCloseFilterPress} onFilterChange={onFilterChange} />}
       {renderContent()}
       <AddButton onPress={onAddPress} testID={ADD_BUTTON(testID)} />
     </MainView>
   );
-};
+}

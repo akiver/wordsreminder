@@ -3,7 +3,7 @@ import { WORDS, DICTIONARIES } from '@constants/database';
 import { handleError } from '@services/handle-error';
 import { Dictionary } from '@models/dictionary';
 
-export const deleteDictionary = async (dictionary: Dictionary) => {
+export async function deleteDictionary(dictionary: Dictionary) {
   try {
     const words = firestore().collection(WORDS);
     for (const wordId of dictionary.words) {
@@ -13,4 +13,4 @@ export const deleteDictionary = async (dictionary: Dictionary) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

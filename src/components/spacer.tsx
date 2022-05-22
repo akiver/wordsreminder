@@ -9,6 +9,6 @@ type Props = {
   children: ReactNode;
 };
 
-export const Spacer = ({ marginBottom = 0, marginLeft = 0, marginRight = 0, marginTop = 0, children }: Props) => (
-  <View style={{ marginBottom, marginLeft, marginRight, marginTop }}>{children}</View>
-);
+export function Spacer({ marginBottom = 0, marginLeft = 0, marginRight = 0, marginTop = 0, children }: Props) {
+  return <View style={{ marginBottom, marginLeft, marginRight, marginTop }}>{children}</View>;
+}

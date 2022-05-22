@@ -9,7 +9,7 @@ import {
   DICTIONARIES_SCREEN_ID,
 } from '@e2e/ids';
 
-export const signInUser = async () => {
+export async function signInUser() {
   await createUser(E2E_EMAIL, E2E_PASSWORD);
   await waitFor(element(by.id(SIGNIN_SCREEN))).toBeVisible();
 
@@ -22,4 +22,4 @@ export const signInUser = async () => {
   await waitFor(element(by.id(DICTIONARIES_SCREEN_ID)))
     .toBeVisible()
     .withTimeout(4000);
-};
+}

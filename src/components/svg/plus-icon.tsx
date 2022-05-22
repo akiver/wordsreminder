@@ -1,13 +1,10 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = {
-  children?: never;
-};
-
-export const PlusIcon = ({}: Props) => {
+export function PlusIcon() {
   const theme = useTheme();
+
   return (
     <Svg width={56} height={56} viewBox="0 0 510 510" testID="plus-icon">
       <Path
@@ -16,4 +13,4 @@ export const PlusIcon = ({}: Props) => {
       />
     </Svg>
   );
-};
+}

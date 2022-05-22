@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AUTH_SIGN_IN_SCREEN, AUTH_SIGN_UP_SCREEN } from '@constants/screens';
 import { SignUpScreen } from '@screens/auth/sign-up-screen';
 import { SignInScreen } from '@screens/auth/sign-in-screen';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 export type AuthStackParamList = {
   [AUTH_SIGN_IN_SCREEN]: undefined;
@@ -12,8 +12,9 @@ export type AuthStackParamList = {
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-export const AuthStack = () => {
+export function AuthStack() {
   const theme = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={AUTH_SIGN_IN_SCREEN}
@@ -41,4 +42,4 @@ export const AuthStack = () => {
       />
     </Stack.Navigator>
   );
-};
+}

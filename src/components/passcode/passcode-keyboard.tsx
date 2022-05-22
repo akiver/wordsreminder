@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Animated, ViewStyle } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet, Animated, ViewStyle, Vibration } from 'react-native';
 import { MainView } from '@components/main-view';
 import { Spacer } from '@components/spacer';
 import { NumberButton } from '@components/passcode/number-button';
 import { Indicator } from '@components/passcode/indicator';
 import { DeleteButton } from '@components/passcode/delete-button';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = {
   message: string;
   shouldAnimateError: boolean;
   onPasscodeEntered: (passcode: number[]) => void | Promise<void>;
+  onAnimationEnd: () => void;
 };
 
-export const PasscodeKeyboard = ({ message, onPasscodeEntered, shouldAnimateError }: Props) => {
-  const [animatedColor] = useState(new Animated.Value(0));
+export function PasscodeKeyboard({ message, onPasscodeEntered, shouldAnimateError, onAnimationEnd }: Props) {
+  const animatedColor = useRef(new Animated.Value(0));
   const [passcode, setPasscode] = useState<number[]>([]);
   const theme = useTheme();
 
   useEffect(() => {
-    if (!shouldAnimateError) return;
-    Animated.timing(animatedColor, {
+    if (!shouldAnimateError) {
+      return;
+    }
+
+    Vibration.vibrate();
+    Animated.timing(animatedColor.current, {
       toValue: 1,
       duration: 500,
       useNativeDriver: false,
     }).start(() => {
-      animatedColor.setValue(0);
+      animatedColor.current.setValue(0);
+      onAnimationEnd();
     });
-  }, [shouldAnimateError]);
+  }, [shouldAnimateError, onAnimationEnd]);
 
   const onDeletePress = () => {
     if (passcode.length === 0) {
@@ -37,7 +43,7 @@ export const PasscodeKeyboard = ({ message, onPasscodeEntered, shouldAnimateErro
     setPasscode(passcode.slice(0, -1));
   };
 
-  const color = animatedColor.interpolate({
+  const color = animatedColor.current.interpolate({
     inputRange: [0, 1],
     outputRange: [theme.primary025, theme.danger],
   });
@@ -111,7 +117,7 @@ export const PasscodeKeyboard = ({ message, onPasscodeEntered, shouldAnimateErro
       </View>
     </MainView>
   );
-};
+}
 
 type Style = {
   container: ViewStyle;

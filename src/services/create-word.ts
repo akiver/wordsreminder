@@ -3,12 +3,7 @@ import { WORDS, DICTIONARIES } from '@constants/database';
 import { isStringEmpty } from '@utils/is-string-empty';
 import { handleError } from '@services/handle-error';
 
-export const createWord = async (
-  dictionaryId: string,
-  value?: string,
-  signification?: string,
-  description?: string
-) => {
+export async function createWord(dictionaryId: string, value: string, signification: string, description: string) {
   try {
     if (isStringEmpty(dictionaryId)) {
       throw new Error('A dictionary ID is required.');
@@ -46,4 +41,4 @@ export const createWord = async (
   } catch (error) {
     handleError(error);
   }
-};
+}

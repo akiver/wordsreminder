@@ -2,12 +2,12 @@ import { firestore } from 'firebase-admin';
 import { db, admin } from '@e2e/database/db';
 import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants';
 
-export const createWord = async (
+export async function createWord(
   dictionaryId: string,
   value: string,
   signification: string,
   description: string | null = null
-) => {
+) {
   const dictionary = firestore().collection(E2E_COLLECTION_DICTIONARIES).doc(dictionaryId);
 
   const word = await db.collection(E2E_COLLECTION_WORDS).add({
@@ -25,4 +25,4 @@ export const createWord = async (
   });
 
   return word;
-};
+}

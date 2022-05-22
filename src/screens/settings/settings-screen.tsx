@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, ViewStyle, TextStyle } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import { STATUS_IDLE, STATUS_ERROR, STATUS_LOADING, STATUS } from '@constants/statuses';
 import { MainView } from '@components/main-view';
@@ -9,133 +8,83 @@ import { ErrorMessage } from '@components/error-message';
 import { signOut } from '@services/sign-out';
 import { Spacer } from '@components/spacer';
 import { Text } from '@components/text';
-import { ThemeContext, themes, Theme } from '@contexts/theme-context';
-import { THEME_KEY, THEME_LIGHT_VALUE, THEME_DARK_VALUE } from '@constants/async-storage';
+import { themes } from '@theme/theme-context';
 import { ActivityIndicator } from '@components/activity-indicator';
 import { SETTINGS_THEME_BUTTON, SETTINGS_SIGNOUT_BUTTON, SETTINGS_SCREEN_ID } from '@e2e/ids';
 import { SettingsPasscodeOptions } from '@settings/passcode-options';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { SettingsStackParamList } from '@stacks/settings-stack';
-import { SETTINGS_SCREEN } from '@constants/screens';
+import { useToggleTheme } from '@theme/use-toggle-theme';
+import { useTheme } from '@theme/use-theme';
 
-type SettingsScreenNavigationProps = StackNavigationProp<SettingsStackParamList, typeof SETTINGS_SCREEN>;
-type SettingsScreenRouteProps = RouteProp<SettingsStackParamList, typeof SETTINGS_SCREEN>;
+export function SettingsScreen() {
+  const [status, setStatus] = useState<STATUS>(STATUS_IDLE);
+  const [error, setError] = useState('');
+  const toggleTheme = useToggleTheme();
+  const theme = useTheme();
 
-type Props = {
-  navigation: SettingsScreenNavigationProps;
-  route: SettingsScreenRouteProps;
-};
-type State = typeof initialState;
-
-const initialState = Object.freeze({
-  status: STATUS_IDLE as STATUS,
-  error: undefined as string | undefined,
-});
-
-export class SettingsScreen extends React.Component<Props, State> {
-  readonly state = initialState;
-
-  handleThemePress = (toggleTheme: () => void, theme: Theme) => async () => {
-    this.setState(
-      {
-        status: STATUS_LOADING,
-      },
-      async () => {
-        try {
-          await AsyncStorage.setItem(
-            THEME_KEY,
-            theme === themes[THEME_DARK_VALUE] ? THEME_LIGHT_VALUE : THEME_DARK_VALUE
-          );
-
-          toggleTheme();
-
-          this.setState({
-            status: STATUS_IDLE,
-          });
-        } catch (error) {
-          this.setState({
-            status: STATUS_ERROR,
-            error: error instanceof Error ? error.message : 'An error occurred',
-          });
-        }
-      }
-    );
+  const onToggleThemePress = async () => {
+    try {
+      setStatus(STATUS_LOADING);
+      await toggleTheme();
+      setStatus(STATUS_IDLE);
+    } catch (error) {
+      setStatus(STATUS_ERROR);
+      setError(error instanceof Error ? error.message : 'An error occurred');
+    }
   };
 
-  handleSignOutPress = () => {
-    this.setState(
-      {
-        status: STATUS_LOADING,
-      },
-      async () => {
-        try {
-          await signOut();
-        } catch (error) {
-          this.setState({
-            status: STATUS_ERROR,
-            error: error instanceof Error ? error.message : 'An error occurred',
-          });
-        }
-      }
-    );
+  const onSignOutPress = async () => {
+    try {
+      setStatus(STATUS_LOADING);
+      await signOut();
+    } catch (error) {
+      setStatus(STATUS_ERROR);
+      setError(error instanceof Error ? error.message : 'An error occurred');
+    }
   };
 
-  renderLoading() {
-    if (this.state.status === STATUS_LOADING) {
-      return <ActivityIndicator size="large" />;
-    }
-
-    return null;
-  }
-
-  renderError() {
-    if (this.state.status === STATUS_ERROR && this.state.error !== undefined) {
-      return (
-        <Spacer marginTop={20}>
-          <ErrorMessage message={this.state.error} />
-        </Spacer>
-      );
-    }
-
-    return null;
-  }
-
-  render() {
+  const renderUser = () => {
     const user = auth().currentUser;
+    if (user === null || user.email === null) {
+      return null;
+    }
 
     return (
-      <MainView testID={SETTINGS_SCREEN_ID}>
-        <View style={styles.view}>
-          {this.renderLoading()}
-          <SettingsPasscodeOptions />
-          <ThemeContext.Consumer>
-            {({ theme, toggleTheme }) => {
-              const themeValue = theme === themes.dark ? 'light' : 'dark';
-              return (
-                <Button
-                  onPress={this.handleThemePress(toggleTheme, theme)}
-                  text={`Use ${themeValue} theme`}
-                  testID={SETTINGS_THEME_BUTTON}
-                />
-              );
-            }}
-          </ThemeContext.Consumer>
-          <Spacer marginTop={30}>
-            {user !== null && user.email !== null && (
-              <Spacer marginBottom={10}>
-                <Text style={styles.email} fontSize={20}>
-                  {user.email}
-                </Text>
-              </Spacer>
-            )}
-            <Button onPress={this.handleSignOutPress} text="Sign out" testID={SETTINGS_SIGNOUT_BUTTON} />
-          </Spacer>
-          {this.renderError()}
-        </View>
-      </MainView>
+      <Spacer marginBottom={10}>
+        <Text style={styles.email} fontSize={20}>
+          {user.email}
+        </Text>
+      </Spacer>
     );
-  }
+  };
+
+  const renderError = () => {
+    if (status !== STATUS_ERROR) {
+      null;
+    }
+
+    return (
+      <Spacer marginTop={20}>
+        <ErrorMessage message={error} />
+      </Spacer>
+    );
+  };
+
+  const themeName = theme === themes.dark ? 'light' : 'dark';
+
+  return (
+    <MainView testID={SETTINGS_SCREEN_ID}>
+      <View style={styles.view}>
+        {status === STATUS_LOADING && <ActivityIndicator size="large" />}
+        <SettingsPasscodeOptions />
+        <Button onPress={onToggleThemePress} text={`Use ${themeName} theme`} testID={SETTINGS_THEME_BUTTON} />
+        <Spacer marginTop={30}>
+          {renderUser()}
+          <Button onPress={onSignOutPress} text="Sign out" testID={SETTINGS_SIGNOUT_BUTTON} />
+        </Spacer>
+        {renderError()}
+      </View>
+    </MainView>
+  );
 }
 
 type Style = {

@@ -11,7 +11,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const FormLayout = ({ status, error, children }: Props) => {
+export function FormLayout({ status, error, children }: Props) {
   return (
     <MainView>
       <ScrollView style={styles.scrollView}>
@@ -24,7 +24,7 @@ export const FormLayout = ({ status, error, children }: Props) => {
       </ScrollView>
     </MainView>
   );
-};
+}
 
 type Style = {
   scrollView: ViewStyle;

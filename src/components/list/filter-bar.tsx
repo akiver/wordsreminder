@@ -2,15 +2,16 @@ import React from 'react';
 import { StyleSheet, View, TextInput, ViewStyle, TextStyle } from 'react-native';
 import { Spacer } from '@components/spacer';
 import { FilterCloseButton } from '@components/filter-close-button';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = {
   onCloseFilterPress: () => void;
   onFilterChange: (filter: string) => void;
 };
 
-export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
+export function FilterBar({ onCloseFilterPress, onFilterChange }: Props) {
   const theme = useTheme();
+
   return (
     <View
       style={{
@@ -42,7 +43,7 @@ export const FilterBar = ({ onCloseFilterPress, onFilterChange }: Props) => {
       </Spacer>
     </View>
   );
-};
+}
 
 type Style = {
   filterBar: ViewStyle;

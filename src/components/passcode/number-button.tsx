@@ -1,16 +1,16 @@
 import { StyleSheet, TouchableOpacity, Animated, TouchableOpacityProps, ViewStyle } from 'react-native';
 import React from 'react';
 import { Text } from '@components/text';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = TouchableOpacityProps & {
   value: string;
   animatedBorderColor: Animated.AnimatedInterpolation;
-  children?: never;
 };
 
-export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: Props) => {
+export function NumberButton({ onPress, value, animatedBorderColor, ...props }: Props) {
   const theme = useTheme();
+
   return (
     <Animated.View
       style={{
@@ -26,7 +26,7 @@ export const NumberButton = ({ onPress, value, animatedBorderColor, ...props }: 
       </TouchableOpacity>
     </Animated.View>
   );
-};
+}
 
 type Style = {
   view: ViewStyle;

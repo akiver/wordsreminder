@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/error-message';
 import { Spacer } from '@components/spacer';
 import { ActivityIndicator } from '@components/activity-indicator';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = {
   status: STATUS;
@@ -17,9 +17,10 @@ type Props = {
   children?: never;
 };
 
-export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }: Props) => {
+export function AuthLayout({ status, error, submitButton, inputs, link, testID }: Props) {
   const headerHeight = useHeaderHeight();
   const theme = useTheme();
+
   return (
     <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: theme.primary100 }]}
@@ -43,7 +44,7 @@ export const AuthLayout = ({ status, error, submitButton, inputs, link, testID }
       </View>
     </KeyboardAvoidingView>
   );
-};
+}
 
 type Style = {
   container: ViewStyle;

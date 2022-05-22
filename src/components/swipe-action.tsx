@@ -10,11 +10,10 @@ type Props = {
   text: string;
   backgroundColor: typeof DANGER | typeof INFO;
   onPress: () => void;
-  children?: never;
   testID: string;
 };
 
-export const SwipeAction = ({ progress, dragX, text, backgroundColor, onPress, testID }: Props) => {
+export function SwipeAction({ progress, dragX, text, backgroundColor, onPress, testID }: Props) {
   const translateX = progress.interpolate({
     inputRange: [0, 1],
     outputRange: [dragX, 0],
@@ -29,7 +28,7 @@ export const SwipeAction = ({ progress, dragX, text, backgroundColor, onPress, t
       </RectButton>
     </Animated.View>
   );
-};
+}
 
 type Style = {
   action: ViewStyle;

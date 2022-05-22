@@ -1,13 +1,10 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
-type Props = {
-  children?: never;
-};
-
-export const CorrectIcon = ({}: Props) => {
+export function CorrectIcon() {
   const theme = useTheme();
+
   return (
     <Svg width={25} height={25} viewBox="0 0 442.533 442.533">
       <Path
@@ -16,4 +13,4 @@ export const CorrectIcon = ({}: Props) => {
       />
     </Svg>
   );
-};
+}

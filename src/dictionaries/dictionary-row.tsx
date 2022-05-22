@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Alert, StyleSheet, View, ViewStyle, Animated } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { WORDS_SCREEN, DICTIONARIES_EDIT_SCREEN, DICTIONARIES_SCREEN } from '@constants/screens';
@@ -21,42 +21,32 @@ import { PARAM_DICTIONARY, PARAM_SCREEN_TITLE } from '@constants/navigation-para
 import { Dictionary } from '@models/dictionary';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DictionariesStackParamList } from '@stacks/dictionaries-stack';
+import { useNavigation } from '@react-navigation/native';
 
-type DictionariesScreenNavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
+type NavigationProps = StackNavigationProp<DictionariesStackParamList, typeof DICTIONARIES_SCREEN>;
 
 type Props = {
-  navigation: DictionariesScreenNavigationProps;
   dictionary: Dictionary;
   testID: string;
 };
 
-export class DictionaryRow extends React.Component<Props> {
-  swipeableRef = React.createRef<Swipeable>();
+export function DictionaryRow({ dictionary, testID }: Props) {
+  const navigation = useNavigation<NavigationProps>();
+  const swipeableRef = useRef<Swipeable>(null);
 
-  closeSwipeable = () => {
-    if (this.swipeableRef.current != null) {
-      this.swipeableRef.current.close();
-    }
+  const closeSwipeable = () => {
+    swipeableRef.current?.close();
   };
 
-  handleEntryPress = () => {
-    this.closeSwipeable();
-    const { navigation, dictionary } = this.props;
+  const onRowPress = () => {
+    closeSwipeable();
     navigation.push(WORDS_SCREEN, {
       [PARAM_DICTIONARY]: dictionary,
       [PARAM_SCREEN_TITLE]: dictionary.name,
     });
   };
 
-  handleEditPress = () => {
-    this.closeSwipeable();
-    const { navigation, dictionary } = this.props;
-    navigation.push(DICTIONARIES_EDIT_SCREEN, {
-      [PARAM_DICTIONARY]: dictionary,
-    });
-  };
-
-  handleDeletePress = () => {
+  const handleDeletePress = () => {
     Alert.alert(
       'Delete dictionary',
       'Do you want to delete this dictionary?',
@@ -64,15 +54,13 @@ export class DictionaryRow extends React.Component<Props> {
         {
           text: 'Cancel',
           style: 'cancel',
-          onPress: () => {
-            this.closeSwipeable();
-          },
+          onPress: closeSwipeable,
         },
         {
           text: 'Delete',
           onPress: async () => {
             try {
-              await deleteDictionary(this.props.dictionary);
+              await deleteDictionary(dictionary);
             } catch (error) {
               let errorMessage: string;
               if (error instanceof Error) {
@@ -90,14 +78,20 @@ export class DictionaryRow extends React.Component<Props> {
     );
   };
 
-  renderRightActions = (progress: Animated.AnimatedInterpolation) => {
-    const { dictionary } = this.props;
+  const renderRightActions = (progress: Animated.AnimatedInterpolation) => {
+    const onEditPress = () => {
+      closeSwipeable();
+      navigation.push(DICTIONARIES_EDIT_SCREEN, {
+        [PARAM_DICTIONARY]: dictionary,
+      });
+    };
+
     return (
       <SwipeActions width={192}>
         <SwipeAction
           progress={progress}
           dragX={128}
-          onPress={this.handleEditPress}
+          onPress={onEditPress}
           text="Edit"
           backgroundColor={INFO}
           testID={DICTIONARIES_ROW_EDIT(dictionary.id)}
@@ -105,7 +99,7 @@ export class DictionaryRow extends React.Component<Props> {
         <SwipeAction
           progress={progress}
           dragX={64}
-          onPress={this.handleDeletePress}
+          onPress={handleDeletePress}
           text="Delete"
           backgroundColor={DANGER}
           testID={DICTIONARIES_ROW_DELETE(dictionary.id)}
@@ -114,35 +108,32 @@ export class DictionaryRow extends React.Component<Props> {
     );
   };
 
-  render() {
-    const { dictionary } = this.props;
-    return (
-      <Swipeable renderRightActions={this.renderRightActions} ref={this.swipeableRef}>
-        <ListRow onPress={this.handleEntryPress} testID={this.props.testID}>
-          <>
-            <Text fontSize={20} testID={DICTIONARIES_ROW_NAME(dictionary.id)}>
-              {dictionary.name}
+  return (
+    <Swipeable renderRightActions={renderRightActions} ref={swipeableRef}>
+      <ListRow onPress={onRowPress} testID={testID}>
+        <>
+          <Text fontSize={20} testID={DICTIONARIES_ROW_NAME(dictionary.id)}>
+            {dictionary.name}
+          </Text>
+          <View style={styles.details}>
+            <Text fontSize={18} color="primary050" testID={DICTIONARIES_ROW_WORDS_COUNT}>
+              {`${dictionary.words.length} word(s)`}
             </Text>
-            <View style={styles.details}>
-              <Text fontSize={18} color="primary050" testID={DICTIONARIES_ROW_WORDS_COUNT}>
-                {`${dictionary.words.length} word(s)`}
-              </Text>
-              {dictionary.updatedAt !== null && (
-                <View style={styles.updatedAt} testID={DICTIONARIES_ROW_UPDATED_AT}>
-                  <ClockIcon />
-                  <Spacer marginLeft={5}>
-                    <Text fontSize={16} color="primary050">
-                      {dictionary.updatedAt.toDate().toLocaleDateString()}
-                    </Text>
-                  </Spacer>
-                </View>
-              )}
-            </View>
-          </>
-        </ListRow>
-      </Swipeable>
-    );
-  }
+            {dictionary.updatedAt !== null && (
+              <View style={styles.updatedAt} testID={DICTIONARIES_ROW_UPDATED_AT}>
+                <ClockIcon />
+                <Spacer marginLeft={5}>
+                  <Text fontSize={16} color="primary050">
+                    {dictionary.updatedAt.toDate().toLocaleDateString()}
+                  </Text>
+                </Spacer>
+              </View>
+            )}
+          </View>
+        </>
+      </ListRow>
+    </Swipeable>
+  );
 }
 
 type Style = {

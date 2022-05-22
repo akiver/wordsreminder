@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, TouchableHighlight, ViewStyle } from 'react-native';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = {
   onPress?: () => void;
@@ -8,8 +8,9 @@ type Props = {
   children: ReactNode;
 };
 
-export const ListRow = ({ onPress, testID, children }: Props) => {
+export function ListRow({ onPress, testID, children }: Props) {
   const theme = useTheme();
+
   return (
     <TouchableHighlight
       underlayColor={theme.primary075}
@@ -26,7 +27,7 @@ export const ListRow = ({ onPress, testID, children }: Props) => {
       {children}
     </TouchableHighlight>
   );
-};
+}
 
 type Style = {
   container: ViewStyle;

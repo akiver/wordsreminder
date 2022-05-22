@@ -5,10 +5,9 @@ import { PlusIcon } from '@components/svg/plus-icon';
 type Props = {
   onPress: () => void;
   testID?: string;
-  children?: never;
 };
 
-export const AddButton = ({ onPress, testID }: Props) => {
+export function AddButton({ onPress, testID }: Props) {
   return (
     <TouchableHighlight
       style={styles.addButton}
@@ -20,7 +19,7 @@ export const AddButton = ({ onPress, testID }: Props) => {
       <PlusIcon />
     </TouchableHighlight>
   );
-};
+}
 
 type Style = {
   addButton: ViewStyle;

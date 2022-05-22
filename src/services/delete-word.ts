@@ -3,7 +3,7 @@ import { DICTIONARIES, WORDS } from '@constants/database';
 import { handleError } from '@services/handle-error';
 import { Word } from '@models/word';
 
-export const deleteWord = async (word: Word) => {
+export async function deleteWord(word: Word) {
   try {
     const snapshot: FirebaseFirestoreTypes.QuerySnapshot = await firestore()
       .collection(DICTIONARIES)
@@ -25,4 +25,4 @@ export const deleteWord = async (word: Word) => {
   } catch (error) {
     handleError(error);
   }
-};
+}

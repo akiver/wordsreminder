@@ -1,15 +1,15 @@
 import { StyleSheet, Animated, ViewStyle } from 'react-native';
 import React from 'react';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 
 type Props = {
   isFilled: boolean;
   borderInterpolation?: Animated.AnimatedInterpolation;
-  children?: never;
 };
 
-export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) => {
+export function Indicator({ isFilled, borderInterpolation, ...props }: Props) {
   const theme = useTheme();
+
   return (
     <Animated.View
       style={{
@@ -21,7 +21,7 @@ export const Indicator = ({ isFilled, borderInterpolation, ...props }: Props) =>
       {...props}
     />
   );
-};
+}
 
 type Style = {
   container: ViewStyle;

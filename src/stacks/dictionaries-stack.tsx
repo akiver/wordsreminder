@@ -14,7 +14,7 @@ import {
   WORDS_EDIT_SCREEN,
 } from '@constants/screens';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from '@hooks/use-theme';
+import { useTheme } from '@theme/use-theme';
 import {
   PARAM_SCREEN_TITLE,
   PARAM_DICTIONARY,
@@ -35,8 +35,9 @@ export type DictionariesStackParamList = {
 
 const Stack = createStackNavigator<DictionariesStackParamList>();
 
-export const DictionariesStack = () => {
+export function DictionariesStack() {
   const theme = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={DICTIONARIES_SCREEN}
@@ -75,4 +76,4 @@ export const DictionariesStack = () => {
       />
     </Stack.Navigator>
   );
-};
+}

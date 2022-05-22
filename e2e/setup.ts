@@ -1,5 +1,4 @@
-require('dotenv').config(); // eslint-disable-line
-
+import 'dotenv/config';
 import { E2E_COLLECTION_DICTIONARIES, E2E_COLLECTION_WORDS } from '@e2e/constants';
 import { db, admin } from '@e2e/database/db';
 import { deleteCollection } from '@e2e/database/delete-collection';

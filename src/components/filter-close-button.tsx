@@ -7,10 +7,10 @@ type Props = {
   onPress: () => void;
 };
 
-export const FilterCloseButton = ({ onPress }: Props) => {
+export function FilterCloseButton({ onPress }: Props) {
   return (
     <TouchableHighlight onPress={onPress} testID={FILTER_CLOSE_BUTTON}>
       <LeftArrowIcon />
     </TouchableHighlight>
   );
-};
+}
